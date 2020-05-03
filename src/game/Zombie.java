@@ -6,6 +6,8 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.IntrinsicWeapon;
+import edu.monash.fit2099.engine.Item;
+import edu.monash.fit2099.engine.Weapon;
 
 /**
  * A Zombie.
@@ -26,9 +28,20 @@ public class Zombie extends ZombieActor {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
 	}
 	
+	@Override
+	public Weapon getWeapon() {
+		// 50% chance of "normal" attack, which could be using weapon (if holding a weapon) or punching
+		for (Item item : inventory) {
+			if (item.asWeapon() != null)
+				return item.asWeapon();
+		}
+		return getIntrinsicWeapon();
+		// Implement 'bite' here as it should happen if normal attack did not
+	}
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
+		// Bite attack should be implemented in Zombie.getWeapon()
 		return new IntrinsicWeapon(10, "punches");
 	}
 
@@ -50,4 +63,10 @@ public class Zombie extends ZombieActor {
 		}
 		return new DoNothingAction();	
 	}
+	
+//	@Override
+//	TODO Implement Custom hurt method for zombies
+//	public void hurt(int points) {
+//		hitPoints -= points;
+//	}
 }

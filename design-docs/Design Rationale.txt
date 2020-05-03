@@ -1,0 +1,4 @@
+Beating Up Zombies:
+ZombieActor class will be given a new attribute "Limbs" which will contain instances of the new "Arm" & "Leg" classes, which will extend WeaponItem. These limbs can not however, be used as weapons until dropped, as they will be in the list "Limbs" and not "Inventory". The Zombie class will overide the Actor class's hurt() method. The new hurt() will take the damage and have a 25% chance of calling the new method "knockOffLimb()" which will be a private method in the Zombie class, and will check if there are still limbs on the zombie and if there is, will knock one off at random and drop it on the ground at the location of the zombie. As they are WeaponItem objects, the dropped limbs can then be picked up and used as weapons.
+
+Whenever a zombie's getWeapon() is called, it will check how many arms are left in the Limbs array and multiply 12.5% by (the number of arms left + 1). This will result in a 50%
