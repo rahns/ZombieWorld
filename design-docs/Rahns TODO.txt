@@ -1,4 +1,0 @@
-Explain decisions in the design rationales
-Explain roles and responsibilities of new classes, and their interactions
-Explain how the new and modified classes ties in with the existing system
-Make sure design meets OOP principles like: Don't repeat yourself, fail fast & reduce dependencies
