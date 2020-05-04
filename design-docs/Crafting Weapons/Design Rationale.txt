@@ -5,7 +5,7 @@ I chose to create a new class and to make it extend Action to accomplish the cra
 
 Doing it this way also makes it easy to add further crafting functionality and to add new craftable items to the game.
 
-To add this new CraftAction option to an actor's allowable actions, all craftable items will implement a new interface called Craftable. Craftable will have an interface method called addCraftableAction, which will be implemented in all objects that implement it, to create the item's CraftAction and add it to the item's allowableActions attribute (as Limb is a subclass of Item, it has this attribute). This attribute is scanned on every turn and so will automatically appear in the menu for the player to choose if they are holding a craftable item. 
+To add this new CraftAction option to an actor's allowable actions, all craftable items will implement a new interface called Craftable. Craftable will have an interface method called addCraftAction, which will be implemented in all objects that implement it, to create the item's CraftAction and add it to the item's allowableActions attribute (as Limb is a subclass of Item, it has this attribute). This attribute is scanned on every turn and so will automatically appear in the menu for the player to choose if they are holding a craftable item. 
 
 In the case of limbs, upon executing the CraftAction, the limb will be removed from the actor's inventory and a new ZombieMace or ZombieClub object will be added, which will be two new subclasses of WeaponItem.
 
