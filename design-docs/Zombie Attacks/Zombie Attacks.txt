@@ -1,8 +1,8 @@
 Zombie Attacks
 
-We will create an attribute for player and zombie called hitProbability, this will be a float between 0 and 1 and it will be the probability of the actor’s AttackAction hitting.
-When getIntrinsicWeapon is called on a Zombie, it’s probability will change depending on whether it bites or punches. The getIntrinsicWeapon method will use the random number generator to choose whether to create a Bite or Punch object, then will change the hit probability.
-If Bite is chosen, 5 points are added to the zombie’s health, this will be inside the bites implementation.
+We will create an attribute for player and zombie called hitProbability, this will be a float between 0 and 1 and it will be the probability of the actor's AttackAction hitting.
+When getIntrinsicWeapon is called on a Zombie, it's probability will change depending on whether it bites or punches. The getIntrinsicWeapon method will use the random number generator to choose whether to create a Bite or Punch object, then will change the hit probability.
+If Bite is chosen, 5 points are added to the zombie's health, this will be inside the bites implementation.
 
 Bite and Punch will inherit off IntrinsicWeapon.
 
@@ -10,5 +10,5 @@ This allows for future tuning of hit probabilities based on different weapons ch
 
 AttackAction object will need to get this probability and use it to replace the Rand.getnextbool() method it currently uses to determine a hit or miss. It will check if a random float is above or below the probabilty. If it is below it will hit.
 
-The reason I made it the probability an attribute of zombie instead of weapon was to avoid the weapon depending on the zombie. I couldn’t find any case where the particular style of weapon changed the probability of an attack hitting, therefore the probability will always depend on the number the zombie choses to bite or punch (which will have a random choice based on the number of limbs). In other words, it is ultimately the zombie’s fault for the probability of the hit as the weapon chosen depends on him.
+The reason I made it the probability an attribute of zombie instead of weapon was to avoid the weapon depending on the zombie. I couldn't find any case where the particular style of weapon changed the probability of an attack hitting, therefore the probability will always depend on the number the zombie choses to bite or punch (which will have a random choice based on the number of limbs). In other words, it is ultimately the zombie's fault for the probability of the hit as the weapon chosen depends on him.
 
