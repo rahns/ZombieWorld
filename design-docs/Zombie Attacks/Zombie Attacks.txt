@@ -12,9 +12,10 @@ AttackAction object will need to get this probability and use it to replace the 
 
 The reason I made it the probability an attribute of zombie instead of weapon was to avoid the weapon depending on the zombie. I couldn't find any case where the particular style of weapon changed the probability of an attack hitting, therefore the probability will always depend on the number the zombie choses to bite or punch (which will have a random choice based on the number of limbs). In other words, it is ultimately the zombie's fault for the probability of the hit as the weapon chosen depends on him.
 
-Player now associates with attack behaviour as they can attack zombies.
+Player now associates with AttackBehaviour as they will now have the option of attacking zombies.
 
-If a zombie has a pickup weapon action available (added through world) then the zombie will be able to pickup this weapon and then perform another action all in the same turn. This could easily be changed to just allow pickup in one turn.
+If a zombie has a pickup weapon action available (added through world) then the zombie will be able to pickup this weapon and then perform another action all in the same turn. This could easily be changed to just allow pickup in one turn. 
+This will be done by modifying its playTurn() method to execute one of the pickUpItemActions passed to it if there are any, before generating its other actions.
 This does not change the UML, as the zombie already has a list of possible actions due to its inheritance from actor. It just doesn't use them yet.
 
 
