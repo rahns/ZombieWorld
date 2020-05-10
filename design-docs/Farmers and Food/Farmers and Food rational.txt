@@ -13,7 +13,6 @@ The Crop class will follow a similar implementation to trees, where each round i
 I decided to make an EatBehaviour, all humans will be able to eat based on the inventory of the Actor object passed during construction. The behaviour will return an EatAction object which of course will replenish the health of the human and also destroy the food object. This action a multiplicity of 0..1 because I only want the player to eat one food item at a time, and they may not have any food.
 Even though the spec said only players can harvest a crop, I wanted humans to as well, so that it adds a ‘survival of the fittest’ element to the game. This is because if a human can harvest, then there could be races to the ripe crops where every human is fighting for himself. Otherwise players will have an advantage over humans which doesn’t make a lot of sense, as players are human.
 
-Zombies will have a speak method that runs during playturn. This will have a 10% chance of running and will print a string saying “brainsssssss”.
 
 
 
