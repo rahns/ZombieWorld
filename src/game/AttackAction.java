@@ -34,7 +34,7 @@ public class AttackAction extends Action {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-
+		//Add a probability parameter for likliness of hitting
 		Weapon weapon = actor.getWeapon();
 
 		if (rand.nextBoolean()) {
