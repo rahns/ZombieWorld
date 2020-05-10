@@ -5,7 +5,7 @@ I chose to create the new class "Limb" to represent any type of limb, and to imp
 
 As arms and legs are different (and have different consequences to the actor when lost), I chose to create the two new classes Arm and Leg, which both extend Limb. This way the two types of limb can be unique but also share some common functionality.
 
-A WorldMap attribute will also be added to ZombieActor to allow actors to drop Arms, Legs and Weapons on the map. 
+A GameMap attribute will also be added to ZombieActor to allow actors to drop Arms, Legs and Weapons on the map. 
 
 The Zombie class will overide the Actor class's hurt() method. This is to allow the Zombie class to act uniquely when attacked. The new hurt() will do the same as the original (resuce the zombie's health) and have a 25% chance of calling the new method "knockOffLimb()" which will be a private method in the Zombie class.
 
@@ -15,7 +15,7 @@ Whenever a zombie's getWeapon() is called, it will check how many arms are left 
 
 A new private boolean attribute will be added to the zombie class called "canMoveThisTurn". Getters and setters will be made for this attribute. I will use this attribute to determine if the zombie should be able to move on a given turn.
 
-A getter will also be made for getting the number of legs on the zombie. Both the hunt and wander behaviour classes (the two classes that create MoveActorActions for zombies) will be modified to check the number of legs on the zombie before moving it. 
+A getter will also be made for getting the number of legs on the zombie so that the hunt and wander behaviour classes (the two classes that create MoveActorActions for zombies) can check the number of legs on its actor parameter before moving it. 
 
 If the number of legs is 1 and the canMoveThisTurn attribute is true, the zombie can move and canMoveThisTurn will be set to false. On the other hand, if canMoveThisTurn is false at the start of the turn, the zombie will not move that turn and will set canMoveThisTurn to true. 
 
