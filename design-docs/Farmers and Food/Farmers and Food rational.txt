@@ -2,13 +2,17 @@ Farmers and Food.
 
 I have created a new Farmer class, one that inherits off of human. This is due to farmer having the same functionality as a human.
 
-The farmer adds to its collection of behaviours a 'FarmBehaviour' object. This object will take as parameters the Actor who is farming, and a GameMap. I want to implement this such that a farmer, if next to dirt, has a 33% chance of sowing a crop, and a 50% chance of fertalising a crop (fertalising is easier than sowing). These will be added to an acitions array and one action will be chosen randomly. 
+The farmer adds to its collection of behaviours a 'FarmBehaviour' object. This object will take as parameters the Actor who is farming, and a GameMap. I want to implement this such that a farmer, if next to dirt, has a 33% chance of sowing a crop, and a 50% chance of fertalising a crop (fertalising is easier than sowing). These will be added to an actions array and one action will be chosen randomly. 
 
-The farmer will add to a collection of actions either SowAction's or FertaliseAction's that will fertilise or sow the location passed to them during construction. These actions of course inherit off of action.
+The farmer randomly picks a SowAction or FertaliseAction from the array that will fertilise or sow the location passed to them during construction. These actions of course inherit off of action.
 
-Humans will be able to harvest a crop, and the harvest behaviour will check whether the passed actor is a farmer or human and add to inventory or place the food item on ground accordingly. I decided to make the food an item, as it could therefore be stored for later use and could be portable. This also reduce the amount of dependencies on Actor, as this dependency runs through the parent class.
+Humans will be able to harvest a crop, and the HarvestBehaviour will check whether the passed actor is a farmer or human and add to inventory or place the food item on ground accordingly. I decided to make the food an item, as it could therefore be stored for later use and could be portable. This also reduce the amount of dependencies on Actor, as this dependency runs through the parent class.
+
+As crop inherits off ground, all of these behaviours only need to depend on location, as they can see whether a location holds dirt or crop.
 
 The Crop class will follow a similar implementation to trees, where each round it will tick and grow older. I did not inherit off of tree as it will have a different character. The location will of course be associated with a crop through its inheritance of the Ground class. As location associates with Item, the food item will be able to be created when the crop object is destroyed. The location will then be reverted to dirt.
+
+
 
 I decided to make an EatBehaviour, all humans will be able to eat based on the inventory of the Actor object passed during construction. The behaviour will return an EatAction object which of course will replenish the health of the human and also destroy the food object. The player will only be able to eat one food item at a time, and they may not have any food.
 Even though the spec said only players can harvest a crop, I wanted humans to as well, so that it adds a 'survival of the fittest' element to the game. This is because if a human can harvest, then there could be races to the ripe crops where every human is fighting for himself. Otherwise players will have an advantage over humans which doesn't make a lot of sense, as players are human.
