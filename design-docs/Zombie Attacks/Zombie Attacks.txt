@@ -10,5 +10,10 @@ This allows for future tuning of hit probabilities based on different weapons ch
 
 AttackAction object will need to get this probability and use it to replace the Rand.getnextbool() method it currently uses to determine a hit or miss. It will check if a random float is above or below the probabilty. If it is below it will hit.
 
-The reason I made it the probability an attribute of zombie instead of weapon was to avoid the weapon depending on the zombie. I couldn't find any case where the particular style of weapon changed the probability of an attack hitting, therefore the probability will always depend on the number the zombie choses to bite or punch (which will have a random choice based on the number of limbs). In other words, it is ultimately the zombie's fault for the probability of the hit as the weapon chosen depends on him.
+The reason I made it the probability an attribute of zombie instead of weapon was to avoid the weapon depending on the zombie. I couldn�t find any case where the particular style of weapon changed the probability of an attack hitting, therefore the probability will always depend on the number the zombie choses to bite or punch (which will have a random choice based on the number of limbs). In other words, it is ultimately the zombie�s fault for the probability of the hit as the weapon chosen depends on him.
+
+Player now associates with attack behaviour as they can attack zombies.
+
+Zombies will have a speak method that runs during playturn. This will have a 10% chance of running and will print a string saying �brainsssssss�.
+
 

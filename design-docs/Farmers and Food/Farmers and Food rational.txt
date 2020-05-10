@@ -11,9 +11,8 @@ Humans will be able to harvest a crop, and the harvest behaviour will check whet
 The Crop class will follow a similar implementation to trees, where each round it will tick and grow older. I did not inherit off of tree as it will have a different character. The location will of course be associated with a crop through its inheritance of the Ground class. As location associates with Item, the food item will be able to be created when the crop object is destroyed. The location will then be reverted to dirt.
 
 I decided to make an EatBehaviour, all humans will be able to eat based on the inventory of the Actor object passed during construction. The behaviour will return an EatAction object which of course will replenish the health of the human and also destroy the food object. The player will only be able to eat one food item at a time, and they may not have any food.
-Even though the spec said only players can harvest a crop, I wanted humans to as well, so that it adds a 'survival of the fittest' element to the game. This is because if a human can harvest, then there could be races to the ripe crops where every human is fighting for himself. Otherwise players will have an advantage over humans which doesnÕt make a lot of sense, as players are human.
+Even though the spec said only players can harvest a crop, I wanted humans to as well, so that it adds a 'survival of the fittest' element to the game. This is because if a human can harvest, then there could be races to the ripe crops where every human is fighting for himself. Otherwise players will have an advantage over humans which doesnï¿½t make a lot of sense, as players are human.
 
-Zombies will have a speak method that runs during playturn. This will have a 10% chance of running and will print a string saying 'brainsssssss'.
 
 
 
