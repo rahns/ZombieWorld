@@ -14,6 +14,9 @@ The reason I made it the probability an attribute of zombie instead of weapon wa
 
 Player now associates with attack behaviour as they can attack zombies.
 
+If a zombie has a pickup weapon action available (added through world) then the zombie will be able to pickup this weapon and then perform another action all in the same turn. This could easily be changed to just allow pickup in one turn.
+This does not change the UML, as the zombie already has a list of possible actions due to its inheritance from actor. It just doesn't use them yet.
+
 Zombies will have a speak method that runs during playturn. This will have a 10% chance of running and will print a string saying “brainsssssss”.
 
 

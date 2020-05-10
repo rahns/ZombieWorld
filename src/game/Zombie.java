@@ -59,6 +59,8 @@ public class Zombie extends ZombieActor {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
+			//TODO Zombies need to be able to pick up weopons as an action.
+			// This will be in the actions collection
 			if (action != null)
 				return action;
 		}
