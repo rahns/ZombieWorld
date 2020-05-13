@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Random;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Display;
@@ -9,6 +11,7 @@ import edu.monash.fit2099.engine.IntrinsicWeapon;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.PickUpItemAction;
 import edu.monash.fit2099.engine.Weapon;
+import edu.monash.fit2099.engine.Location;
 
 /**
  * A Zombie.
@@ -25,6 +28,7 @@ public class Zombie extends ZombieActor {
 			new WanderBehaviour()
 	};
 	protected GameMap map;
+	protected Random rand = new Random();
 	// private boolean canMoveThisTurn = true;
 
 	public Zombie(String name, GameMap gameMap) {
@@ -34,18 +38,15 @@ public class Zombie extends ZombieActor {
 	
 	@Override
 	public Weapon getWeapon() {
-		// 50% chance of "normal" attack, which could be using weapon (if holding a weapon) or punching
 		for (Item item : inventory) {
 			if (item.asWeapon() != null)
 				return item.asWeapon();
 		}
 		return getIntrinsicWeapon();
-		// Implement 'bite' here as it should happen if normal attack did not
 	}
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		// Bite attack should be implemented in Zombie.getWeapon()
 		return new IntrinsicWeapon(10, "punches");
 	}
 
@@ -65,7 +66,7 @@ public class Zombie extends ZombieActor {
 		// Then:
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
-			//TODO Zombies need to be able to pick up weopons as an action.
+			//TODO Zombies need to be able to pick up weapons as an action.
 			// This will be in the actions collection
 			if (action != null)
 				return action;
@@ -73,9 +74,23 @@ public class Zombie extends ZombieActor {
 		return new DoNothingAction();	
 	}
 	
-//	@Override
-//	TODO Implement Custom hurt method for zombies
-//	public void hurt(int points) {
-//		hitPoints -= points;
-//	}
+	@Override
+	public void hurt(int points) {
+		hitPoints -= points;
+		// 25% chance of dropping a limb:
+		if (rand.nextInt(100) < 25) {
+			knockOffLimb();
+		}
+	}
+	
+	private void knockOffLimb() {
+		if (limbs.size() != 0){
+			int selected = rand.nextInt(limbs.size()-1);
+			System.out.println("A zombie " + limbs.get(selected).toString() + " flung off.");
+			Location dropLocation = map.locationOf(this);
+			int selectedExit = rand.nextInt(dropLocation.getExits().size()-1);
+			dropLocation.getExits().get(selectedExit).getDestination().addItem(limbs.get(selected));
+			limbs.remove(selected);
+		}
+	}
 }

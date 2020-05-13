@@ -1,6 +1,6 @@
 package game;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.monash.fit2099.engine.Actions;
@@ -20,8 +20,11 @@ public abstract class ZombieActor extends Actor {
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team) {
 		super(name, displayChar, hitPoints);
 		
-		limbs = Arrays.asList(new Arm(), new Arm(), new Leg(), new Leg());
-		
+		limbs = new ArrayList<>();
+		limbs.add(new Arm());
+		limbs.add(new Arm());
+		limbs.add(new Leg());
+		limbs.add(new Leg());
 		
 		addCapability(team);
 	}
