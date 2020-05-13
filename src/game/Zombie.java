@@ -40,9 +40,12 @@ public class Zombie extends ZombieActor {
 	public Weapon getWeapon() {
 		for (Item item : inventory) {
 			if (item.asWeapon() != null)
+				// May drop the weapon when using it (depending on arm count). If dropped, just use intrinsic weapon:
 				if (getArmCount() == 0 || (getArmCount() == 1 && rand.nextBoolean())) {
 					removeItemFromInventory(item);
 					dropItem(item);
+					System.out.println(this.name + " dropped its weapon: " + item.toString());
+					break;
 				}
 				return item.asWeapon();
 		}
@@ -115,7 +118,7 @@ public class Zombie extends ZombieActor {
 			else {
 				selected = 0;
 			}
-			System.out.println("A zombie " + limbs.get(selected).toString() + " flung off.");
+			System.out.println("One of " + this.name + "'s " + limbs.get(selected).toString() + "s flung off.");
 			dropItem(limbs.get(selected));
 			limbs.remove(selected);
 		}
