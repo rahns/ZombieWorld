@@ -5,7 +5,7 @@ I chose to create the new class "Limb" to represent any type of limb, and to imp
 
 As arms and legs are different (and have different consequences to the actor when lost), I chose to create the two new classes Arm and Leg, which both extend Limb. This way the two types of limb can be unique but also share some common functionality.
 
-A GameMap attribute will also be added to ZombieActor to allow actors to drop Arms, Legs and Weapons on the map. 
+A GameMap attribute will also be added to Zombie to allow them to drop Arms, Legs and Weapons on the map. 
 
 The Zombie class will overide the Actor class's hurt() method. This is to allow the Zombie class to act uniquely when attacked. The new hurt() will do the same as the original (resuce the zombie's health) and have a 25% chance of calling the new method "knockOffLimb()" which will be a private method in the Zombie class.
 

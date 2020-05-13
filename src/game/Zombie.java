@@ -24,10 +24,12 @@ public class Zombie extends ZombieActor {
 			new HuntBehaviour(Human.class, 10),
 			new WanderBehaviour()
 	};
+	protected GameMap map;
 	// private boolean canMoveThisTurn = true;
 
-	public Zombie(String name) {
+	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
+		map = gameMap;
 	}
 	
 	@Override
