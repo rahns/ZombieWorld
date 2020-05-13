@@ -40,6 +40,10 @@ public class Zombie extends ZombieActor {
 	public Weapon getWeapon() {
 		for (Item item : inventory) {
 			if (item.asWeapon() != null)
+				if (getArmCount() == 0 || (getArmCount() == 1 && rand.nextBoolean())) {
+					removeItemFromInventory(item);
+					dropItem(item);
+				}
 				return item.asWeapon();
 		}
 		return getIntrinsicWeapon();
@@ -47,7 +51,25 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		return new IntrinsicWeapon(10, "punches");
+		
+		int punchChance = 25 * getArmCount(); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
+		if (rand.nextInt(100) < punchChance) {
+			return new IntrinsicWeapon(10, "punches");
+		}
+		else {
+			// return bite attack here
+			return new IntrinsicWeapon(10, "punches"); // this is only here to make the program work until bite is added.
+		}
+	}
+	
+	private int getArmCount() {
+		int armTally = 0;
+		for (Limb aLimb: limbs) {
+			if (aLimb.toString() == "arm") {
+				armTally += 1;
+			}
+		}
+		return armTally;
 	}
 
 	/**
@@ -85,12 +107,23 @@ public class Zombie extends ZombieActor {
 	
 	private void knockOffLimb() {
 		if (limbs.size() != 0){
-			int selected = rand.nextInt(limbs.size()-1);
+			int selected;
+			// nextInt doesn't work with an input of 0, so when limbs.size() is 1, the selection is hard-coded to equal 0
+			if (limbs.size() != 1) {
+				selected = rand.nextInt(limbs.size()-1);
+			}
+			else {
+				selected = 0;
+			}
 			System.out.println("A zombie " + limbs.get(selected).toString() + " flung off.");
-			Location dropLocation = map.locationOf(this);
-			int selectedExit = rand.nextInt(dropLocation.getExits().size()-1);
-			dropLocation.getExits().get(selectedExit).getDestination().addItem(limbs.get(selected));
+			dropItem(limbs.get(selected));
 			limbs.remove(selected);
 		}
+	}
+	
+	private void dropItem(Item item) {
+		Location dropLocation = map.locationOf(this);
+		int selectedExit = rand.nextInt(dropLocation.getExits().size()-1);
+		dropLocation.getExits().get(selectedExit).getDestination().addItem(item);
 	}
 }

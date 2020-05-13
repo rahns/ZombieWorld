@@ -29,6 +29,7 @@ public class Player extends Human {
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
+		System.out.println("Current player health: " + hitPoints + "/" + maxHitPoints);
 		return menu.showMenu(this, actions, display);
 	}
 }
