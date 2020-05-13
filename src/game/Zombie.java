@@ -116,21 +116,14 @@ public class Zombie extends ZombieActor {
 	public void hurt(int points) {
 		hitPoints -= points;
 		// 25% chance of dropping a limb:
-		if (rand.nextInt(100) < 100) { //############################################################### DEBUG
+		if (rand.nextInt(100) < 25) {
 			knockOffLimb();
 		}
 	}
 	
 	private void knockOffLimb() {
 		if (limbs.size() != 0){
-			int selected;
-			// nextInt doesn't work with an input of 0, so when limbs.size() is 1, the selection is hard-coded to equal 0
-			if (limbs.size() != 1) {
-				selected = rand.nextInt(limbs.size()-1);
-			}
-			else {
-				selected = 0;
-			}
+			int selected = rand.nextInt(limbs.size());
 			System.out.println("One of " + this.name + "'s " + limbs.get(selected).toString() + "s flung off.");
 			dropItem(limbs.get(selected));
 			limbs.remove(selected);
@@ -139,7 +132,7 @@ public class Zombie extends ZombieActor {
 	
 	private void dropItem(Item item) {
 		Location dropLocation = map.locationOf(this);
-		int selectedExit = rand.nextInt(dropLocation.getExits().size()-1);
+		int selectedExit = rand.nextInt(dropLocation.getExits().size());
 		dropLocation.getExits().get(selectedExit).getDestination().addItem(item);
 	}
 	

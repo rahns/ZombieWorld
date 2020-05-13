@@ -34,7 +34,7 @@ public class AttackAction extends Action {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		//Add a probability parameter for likliness of hitting
+		//Add a probability parameter for likeliness of hitting
 		Weapon weapon = actor.getWeapon();
 
 		if (rand.nextBoolean()) {
@@ -46,7 +46,7 @@ public class AttackAction extends Action {
 
 		target.hurt(damage);
 		if (!target.isConscious()) {
-			Item corpse = new PortableItem("dead " + target, '%');
+			Corpse corpse = new Corpse("dead " + target, target.hasCapability(ZombieCapability.ALIVE), map, target.toString());
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
