@@ -1,12 +1,15 @@
 Crafting Weapons:
-A new class called CraftAction (which extends Action) will be created, which, given an craftable weapon and a reference to an actor, stores an action to craft it into a new item and put it in the actor's inventory, and remove the old item. It is responsible for holding all the crafting recipies (i.e. it knows ZombieArm should be turned into a ZombieClub)
+A new class called CraftAction (which extends Action) will be created, which, given an craftable weapon, stores an action to craft it into a new item and put it in the actor's inventory, and remove the old item.
 
 I chose to create a new class and to make it extend Action to accomplish the crafting mechanics, because the game already has an existing system for respresenting actions (things that can happen in the game) and already allows the player to choose these actions. As "crafting" is something that can happen (an action), and the player needs to be able to select this action, it makes sense to create a new Action subclass.
 
 Doing it this way also makes it easy to add further crafting functionality and to add new craftable items to the game.
 
-To add this new CraftAction option to an actor's allowable actions, all craftable items will implement a new interface called Craftable. Craftable will have an interface method called addCraftAction, which will be implemented in all objects that implement it, to create the item's CraftAction and add it to the item's allowableActions attribute (as Limb is a subclass of Item, it has this attribute). This attribute is scanned on every turn and so will automatically appear in the menu for the player to choose if they are holding a craftable item. 
+A new abstract class will be created called "CraftableWeapon" which all weapons that can be crafted into something else will implement. There will be an abstract method called craftsInto() which all CraftableWeapons will need to have. This method returns an instance of the crafted object. I chose to create this class as it forces all weapons that may be crafted (including any added in the future) to implement the required functionality for CraftAction to work.
 
-In the case of limbs, upon executing the CraftAction, the limb will be removed from the actor's inventory and a new ZombieMace or ZombieClub object will be added, which will be two new subclasses of WeaponItem.
+To add this new CraftAction option to an actor's allowable actions, all CraftableWeapon instances will create the item's CraftAction and add it to the item's allowableActions attribute (as Limb is a subclass of Item, it has this attribute) during its constructor. This attribute is scanned on every turn and so will automatically appear in the menu for the player to choose if they are holding, or standing on, a craftable weapon. 
+However, we don't want the player to be able to craft it if they are not holding the weapon, so in CraftableWeapon the tick() methods will be used to check if it is on the ground or in an inventory and add or remove the CraftAction from allowableActions accordingly. 
+
+In the case of limbs, upon executing the CraftAction, the limb will be removed from the actor's inventory or the ground and a new ZombieMace or ZombieClub object will be added to the inventory, which will be two new subclasses of WeaponItem.
 
 By making these new weapons (ZombieMace and ZombieClub) into new classes that extend WeaponItem, they will get the game's weapon functionality and will be able to be used as weapons by an actor.
