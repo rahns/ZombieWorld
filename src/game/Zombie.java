@@ -79,22 +79,36 @@ public class Zombie extends ZombieActor {
 		
 		// Then:
 		for (Behaviour behaviour : behaviours) {
+			int legCount = getLimbCount("leg");
+			boolean hasPreviouslyLostLeg = false; // Used so that on the turn a zombie looses its leg, 
+												  // it doesn't change canMoveThisTurn and move straight away
 			Action action = behaviour.getAction(this, map);
-			if (action.getClass().getSimpleName() == "MoveActorAction") {
-				int legCount = getLimbCount("leg");
+			if (action != null && action.getClass().getSimpleName().equals("MoveActorAction")) {
 				
 				if (legCount == 2 || (legCount == 1 && canMoveThisTurn)) {
 					canMoveThisTurn = false;
 				}
 				else {
-					action = null;
-					// Let it move next turn:
-					canMoveThisTurn = true;
+					// Move to the next iteration and skip this action, as it is a move action and the Zombie shouldn't move
+					continue;
 				}
 			}
-			if (action != null)
+			if (action != null) {
+				// If this action isn't a move action, the zombie can move next turn:
+				if ((!action.getClass().getSimpleName().equals("MoveActorAction")) && legCount != 2) {
+					if (!hasPreviouslyLostLeg) {
+						// This is still the turn where the zombie lost its first leg so don't change canMoveThisTurn
+						hasPreviouslyLostLeg = true;
+					}
+					else {
+						canMoveThisTurn = true;
+					}
+				}
 				return action;
+			}
 		}
+		// Zombie is about to do nothing, so can move next turn:
+		canMoveThisTurn = true;
 		return new DoNothingAction();	
 	}
 	
@@ -102,7 +116,7 @@ public class Zombie extends ZombieActor {
 	public void hurt(int points) {
 		hitPoints -= points;
 		// 25% chance of dropping a limb:
-		if (rand.nextInt(100) < 25) {
+		if (rand.nextInt(100) < 100) { //############################################################### DEBUG
 			knockOffLimb();
 		}
 	}
