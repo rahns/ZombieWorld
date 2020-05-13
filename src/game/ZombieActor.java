@@ -36,4 +36,14 @@ public abstract class ZombieActor extends Actor {
 			list.add(new AttackAction(this));
 		return list;
 	}
+	
+	protected int getLimbCount(String nameOfLimb) {
+		int tally = 0;
+		for (Limb aLimb: limbs) {
+			if (aLimb.toString() == nameOfLimb) {
+				tally += 1;
+			}
+		}
+		return tally;
+	}
 }

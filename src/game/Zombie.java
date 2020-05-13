@@ -9,7 +9,6 @@ import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.IntrinsicWeapon;
 import edu.monash.fit2099.engine.Item;
-import edu.monash.fit2099.engine.PickUpItemAction;
 import edu.monash.fit2099.engine.Weapon;
 import edu.monash.fit2099.engine.Location;
 
@@ -27,9 +26,9 @@ public class Zombie extends ZombieActor {
 			new HuntBehaviour(Human.class, 10),
 			new WanderBehaviour()
 	};
-	protected GameMap map;
-	protected Random rand = new Random();
-	// private boolean canMoveThisTurn = true;
+	private GameMap map;
+	private Random rand = new Random();
+	private boolean canMoveThisTurn = false;
 
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
@@ -41,7 +40,7 @@ public class Zombie extends ZombieActor {
 		for (Item item : inventory) {
 			if (item.asWeapon() != null)
 				// May drop the weapon when using it (depending on arm count). If dropped, just use intrinsic weapon:
-				if (getArmCount() == 0 || (getArmCount() == 1 && rand.nextBoolean())) {
+				if (getLimbCount("arm") == 0 || (getLimbCount("arm") == 1 && rand.nextBoolean())) {
 					removeItemFromInventory(item);
 					dropItem(item);
 					System.out.println(this.name + " dropped its weapon: " + item.toString());
@@ -55,7 +54,7 @@ public class Zombie extends ZombieActor {
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
 		
-		int punchChance = 25 * getArmCount(); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
+		int punchChance = 25 * getLimbCount("arm"); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
 		if (rand.nextInt(100) < punchChance) {
 			return new IntrinsicWeapon(10, "punches");
 		}
@@ -63,16 +62,6 @@ public class Zombie extends ZombieActor {
 			// return bite attack here
 			return new IntrinsicWeapon(10, "punches"); // this is only here to make the program work until bite is added.
 		}
-	}
-	
-	private int getArmCount() {
-		int armTally = 0;
-		for (Limb aLimb: limbs) {
-			if (aLimb.toString() == "arm") {
-				armTally += 1;
-			}
-		}
-		return armTally;
 	}
 
 	/**
@@ -91,8 +80,18 @@ public class Zombie extends ZombieActor {
 		// Then:
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
-			//TODO Zombies need to be able to pick up weapons as an action.
-			// This will be in the actions collection
+			if (action.getClass().getSimpleName() == "MoveActorAction") {
+				int legCount = getLimbCount("leg");
+				
+				if (legCount == 2 || (legCount == 1 && canMoveThisTurn)) {
+					canMoveThisTurn = false;
+				}
+				else {
+					action = null;
+					// Let it move next turn:
+					canMoveThisTurn = true;
+				}
+			}
 			if (action != null)
 				return action;
 		}
@@ -129,4 +128,5 @@ public class Zombie extends ZombieActor {
 		int selectedExit = rand.nextInt(dropLocation.getExits().size()-1);
 		dropLocation.getExits().get(selectedExit).getDestination().addItem(item);
 	}
+	
 }
