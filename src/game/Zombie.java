@@ -11,6 +11,7 @@ import edu.monash.fit2099.engine.IntrinsicWeapon;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.MoveActorAction;
 
 /**
  * A Zombie.
@@ -76,6 +77,7 @@ public class Zombie extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// Execute any PickUpItemActions here
+		// Zombie picking up a weapon doesn't count as its turn
 		
 		// Then:
 		for (Behaviour behaviour : behaviours) {
@@ -83,19 +85,18 @@ public class Zombie extends ZombieActor {
 			boolean hasPreviouslyLostLeg = false; // Used so that on the turn a zombie looses its leg, 
 												  // it doesn't change canMoveThisTurn and move straight away
 			Action action = behaviour.getAction(this, map);
-			if (action != null && action.getClass().getSimpleName().equals("MoveActorAction")) {
-				
-				if (legCount == 2 || (legCount == 1 && canMoveThisTurn)) {
-					canMoveThisTurn = false;
-				}
-				else {
-					// Move to the next iteration and skip this action, as it is a move action and the Zombie shouldn't move
-					continue;
-				}
-			}
 			if (action != null) {
+				if (action instanceof MoveActorAction) {
+					if (legCount == 2 || (legCount == 1 && canMoveThisTurn)) {
+						canMoveThisTurn = false;
+					}
+					else {
+						// Move to the next iteration and skip this action, as it is a move action and the Zombie shouldn't move
+						continue;
+					}
+				}
 				// If this action isn't a move action, the zombie can move next turn:
-				if ((!action.getClass().getSimpleName().equals("MoveActorAction")) && legCount != 2) {
+				if (!(action instanceof MoveActorAction) && legCount != 2) {
 					if (!hasPreviouslyLostLeg) {
 						// This is still the turn where the zombie lost its first leg so don't change canMoveThisTurn
 						hasPreviouslyLostLeg = true;

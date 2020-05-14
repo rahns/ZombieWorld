@@ -7,11 +7,15 @@ import edu.monash.fit2099.engine.Item;
 
 public class CraftAction extends Action{
 	
-	private CraftableWeapon item; 
+	private Item item; 
 	private Item newItem;
 	
-	public CraftAction(CraftableWeapon item) {
-		this.item = item;
+	public CraftAction(CraftableItem item) {
+		// item must be an instance of Item as well as implement CraftableItem
+		if (!(item instanceof Item)) {
+			throw new IllegalStateException("CraftableItems must also be an instance of Item.");
+		}
+		this.item = (Item) item;
 		this.newItem = item.craftsInto();
 	}
 
