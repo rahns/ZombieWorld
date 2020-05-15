@@ -1,5 +1,5 @@
 Rising from the Dead:
-A new class will be created called "Corpse" which will extend PortableItem and in addition to a name, its construtor will also take a boolean value, so it knows if it is a dead human or zombie (true for human), a GameMap, so actors and locations can be accessed, and a string representing the name of the actor before it died.
+A new class will be created called "Corpse" which will extend PortableItem. Its construtor will take a boolean value, so it knows if it was a human killed by a zombie (and so should rise), a GameMap, so actors and locations can be accessed, and a string representing the name of the actor before it died.
 
 I chose to create this new class as a subclass of PortableItem so corpses could still be a PortableItem but also add extra functionality for changing into a Zombie.
 
@@ -7,7 +7,7 @@ AttackAction will be modified to drop dead actors as Corpse objects instead of P
 
 The Corpse class will override the Item class's tick() methods and will have an integer attribute called riseIn. riseIn will be set to a random integer between 5-10 in the Corpse constructor. The tick() method gets run on every turn by the GameMap class, and so riseIn will be used to count the number of turns passed since the actor died.
 
-Each time tick() is called by GameMap (after every turn), it will check if the corpse is a human corpse. This is because other corpses (such as zombie corpes) shouldn't rise. If it is human it will check if riseIn = 0. If it doesn't it will subtract 1 from riseIn. If it does, it will call another method in Corpse called riseFromTheDead().
+Each time tick() is called by GameMap (after every turn), it will check if the corpse should eventually rise (by checking the shouldRise attribute). This is because other corpses (such as zombie corpes or humans killed by something that isn't a zombie) shouldn't rise. If it should eventually rise, it will check if riseIn = 0. If it doesn't it will subtract 1 from riseIn. If it does, it will call another method in Corpse called riseFromTheDead().
 
 riseFromTheDead() will create a new zombie object, place it in the location of the Corpse object and remove itself from the ground, if it is still on the ground. To find it's position, it uses the location parameter of the tick() methods. However, as corpses inherit from PortableItem, they can be picked up and so may be in an actor's inventory.
 

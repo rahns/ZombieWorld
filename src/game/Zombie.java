@@ -32,7 +32,7 @@ public class Zombie extends ZombieActor {
 	private GameMap map;
 	private Random rand = new Random();
 	private boolean canMoveThisTurn = false;
-	protected List<Limb> limbs;
+	private List<Limb> limbs;
 
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
@@ -52,7 +52,7 @@ public class Zombie extends ZombieActor {
 		for (Item item : inventory) {
 			if (item.asWeapon() != null)
 				// May drop the weapon when using it (depending on arm count). If dropped, just use intrinsic weapon:
-				if (getLimbCount("arm") == 0 || (getLimbCount("arm") == 1 && rand.nextBoolean())) {
+				if (getLimbCount(Arm.class) == 0 || (getLimbCount(Arm.class) == 1 && rand.nextBoolean())) {
 					removeItemFromInventory(item);
 					dropItem(item);
 					System.out.println(this.name + " dropped its weapon: " + item.toString());
@@ -66,7 +66,7 @@ public class Zombie extends ZombieActor {
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
 		
-		int punchChance = 25 * getLimbCount("arm"); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
+		int punchChance = 25 * getLimbCount(Arm.class); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
 		if (rand.nextInt(100) < punchChance) {
 			return new IntrinsicWeapon(10, "punches");
 		}
@@ -92,7 +92,7 @@ public class Zombie extends ZombieActor {
 		
 		// Then:
 		for (Behaviour behaviour : behaviours) {
-			int legCount = getLimbCount("leg");
+			int legCount = getLimbCount(Leg.class);
 			boolean hasPreviouslyLostLeg = false; // Used so that on the turn a zombie looses its leg, 
 												  // it doesn't change canMoveThisTurn and move straight away
 			Action action = behaviour.getAction(this, map);
@@ -124,6 +124,13 @@ public class Zombie extends ZombieActor {
 		return new DoNothingAction();	
 	}
 	
+	/**
+	 * Do some damage to the current Zombie. 
+	 * 
+	 * Has a 25% chance of knocking off one of the Zombie's arms or legs.
+	 *
+	 * @param points number of hitpoints to deduct.
+	 */
 	@Override
 	public void hurt(int points) {
 		hitPoints -= points;
@@ -142,16 +149,19 @@ public class Zombie extends ZombieActor {
 		}
 	}
 	
+	// Custom dropItem method used instead of DropItemAction as zombies need 
+	// to drop limbs in adjacent locations, not where they're standing
 	private void dropItem(Item item) {
 		Location dropLocation = map.locationOf(this);
 		int selectedExit = rand.nextInt(dropLocation.getExits().size());
 		dropLocation.getExits().get(selectedExit).getDestination().addItem(item);
 	}
 	
-	private int getLimbCount(String nameOfLimb) {
+	private int getLimbCount(Class<?> limbType) {
 		int tally = 0;
 		for (Limb aLimb: limbs) {
-			if (aLimb.toString() == nameOfLimb) {
+			// Check if the selected limb is an instance of the parameter limbType:
+			if (limbType.isInstance(aLimb)) {
 				tally += 1;
 			}
 		}

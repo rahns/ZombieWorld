@@ -1,11 +1,11 @@
 Beating Up Zombies:
-The Zombie class will be given a new attribute of type ArrayList<Limb>, which will contain instances of new "Arm" & "Leg" classes, which will extend a new abstract class called Limbs. The new Limbs class will extend WeaponItem. 
+The Zombie class will be given a new private attribute of type ArrayList<Limb>, which will contain instances of new "Arm" & "Leg" classes, which will extend a new abstract class called Limbs. The new Limbs class will extend WeaponItem. 
 
 I chose to create the new class "Limb" to represent any type of limb, and to implement any shared functionality of all limbs, to reduce repetition in the code. As limbs should be able to be used as weapons once dropped, the Limb class extends the existing class WeaponItem, to allow the limbs to work with the existing weapon system. These limbs can not however, be used as weapons until dropped, as they will be in the zombie's list "Limbs" and not "Inventory". 
 
 As arms and legs are different (and have different consequences to the actor when lost), I chose to create the two new classes Arm and Leg, which both extend Limb. This way the two types of limb can be unique but also share some common functionality.
 
-A GameMap attribute will also be added to Zombie to allow them to drop Arms, Legs and Weapons on the map in adjacent locations. Also a custom drop method will be added to Zombie, as if we were to use Item's getDropAction, they would drop where the zombie is standing and it would pick it up straight away.
+A GameMap attribute will also be added to Zombie to allow them to drop Arms, Legs and Weapons on the map in adjacent locations. Also a custom private drop method will be added to Zombie, as if we were to use Item's getDropAction, they would drop where the zombie is standing and it would pick it up straight away.
 
 The Zombie class will overide the Actor class's hurt() method. This is to allow the Zombie class to act uniquely when attacked. The new hurt() will do the same as the original (resuce the zombie's health) and have a 25% chance of calling the new method "knockOffLimb()" which will be a private method in the Zombie class.
 

@@ -5,10 +5,10 @@ I chose to create a new class and to make it extend Action to accomplish the cra
 
 Doing it this way also makes it easy to add further crafting functionality and to add new craftable items to the game.
 
-A new interface will be created called "CraftableInterface" which all items that can be crafted into something else will implement. There will be an interface method called craftsInto() which all classes that implement CraftableInterface will need to have. This method returns an instance of the crafted object. I chose to create this interface as it forces all items that may be crafted (including any added in the future) to implement the required functionality for CraftAction to work.
+A new interface will be created called "CraftableItem" which all items that can be crafted into something else will implement. There will be an interface method called craftsInto() which all classes that implement CraftableItem will need to have. This method returns an instance of the crafted object. I chose to create this interface as it forces all items that may be crafted (including any added in the future) to implement the required functionality for CraftAction to work.
 
 To add this new CraftAction option to an actor's allowable actions, all classes that implement CraftableInterface will create the item's CraftAction and add it to the item's allowableActions attribute (as Limb is a subclass of Item, it has this attribute) during its constructor. This attribute is scanned on every turn and so will automatically appear in the menu for the player to choose if they are holding, or standing on, a craftable weapon. 
-However, we don't want the player to be able to craft it if they are not holding the weapon, so in CraftableWeapon the tick() methods will be used to check if it is on the ground or in an inventory and add or remove the CraftAction from allowableActions accordingly. 
+However, we don't want the player to be able to craft it if they are not holding the weapon, so in craftable items, the tick() methods will be used to check if it is on the ground or in an inventory and add or remove the CraftAction from allowableActions accordingly. 
 
 In the case of limbs, upon executing the CraftAction, the limb will be removed from the actor's inventory or the ground and a new ZombieMace or ZombieClub object will be added to the inventory, which will be two new subclasses of WeaponItem.
 

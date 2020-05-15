@@ -46,7 +46,12 @@ public class AttackAction extends Action {
 
 		target.hurt(damage);
 		if (!target.isConscious()) {
-			Corpse corpse = new Corpse("dead " + target, target.hasCapability(ZombieCapability.ALIVE), map, target.toString());
+			boolean shouldRise = false;
+			// Check if target was human and killed by a zombie:
+			if (target.hasCapability(ZombieCapability.ALIVE) && actor.hasCapability(ZombieCapability.UNDEAD)) {
+				shouldRise = true;
+			}
+			Corpse corpse = new Corpse(target.toString(), shouldRise, map);
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
