@@ -49,7 +49,7 @@ public class Application {
 		GameMap gameMap = new GameMap(groundFactory, map );
 		world.addGameMap(gameMap);
 		
-		Actor player = new Player("Player", '@', 1000000000);
+		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));
 		
 	    // Place some random humans

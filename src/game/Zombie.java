@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.Action;
@@ -30,9 +32,18 @@ public class Zombie extends ZombieActor {
 	private GameMap map;
 	private Random rand = new Random();
 	private boolean canMoveThisTurn = false;
+	protected List<Limb> limbs;
 
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
+		
+		limbs = new ArrayList<>();
+		// All actors start with 2 arms and 2 legs
+		limbs.add(new Arm());
+		limbs.add(new Arm());
+		limbs.add(new Leg());
+		limbs.add(new Leg());
+		
 		map = gameMap;
 	}
 	
@@ -135,6 +146,16 @@ public class Zombie extends ZombieActor {
 		Location dropLocation = map.locationOf(this);
 		int selectedExit = rand.nextInt(dropLocation.getExits().size());
 		dropLocation.getExits().get(selectedExit).getDestination().addItem(item);
+	}
+	
+	private int getLimbCount(String nameOfLimb) {
+		int tally = 0;
+		for (Limb aLimb: limbs) {
+			if (aLimb.toString() == nameOfLimb) {
+				tally += 1;
+			}
+		}
+		return tally;
 	}
 	
 }
