@@ -33,6 +33,7 @@ public class Zombie extends ZombieActor {
 	private Random rand = new Random();
 	private boolean canMoveThisTurn = false;
 	private List<Limb> limbs;
+	private static final int PUNCH_PROBABILITTY_CONSTANT = 25;
 
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
@@ -68,7 +69,7 @@ public class Zombie extends ZombieActor {
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
 		
-		int punchChance = 25 * getLimbCount(Arm.class); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
+		int punchChance = PUNCH_PROBABILITTY_CONSTANT * getLimbCount(Arm.class); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
 		if (rand.nextInt(100) < punchChance) {
 			return new IntrinsicWeapon(10, "punches");
 		}
