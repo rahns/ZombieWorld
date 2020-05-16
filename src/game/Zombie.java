@@ -44,6 +44,8 @@ public class Zombie extends ZombieActor {
 		limbs.add(new Leg());
 		limbs.add(new Leg());
 		
+		hitProbability=50;
+		
 		map = gameMap;
 	}
 	

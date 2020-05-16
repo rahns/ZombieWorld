@@ -10,6 +10,9 @@ import edu.monash.fit2099.engine.GameMap;
  *
  */
 public abstract class ZombieActor extends Actor {
+	
+	//TODO Rahn please check this is correct implementation of abstract class
+	protected int hitProbability;
 		
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team) {
 		super(name, displayChar, hitPoints);
@@ -24,4 +27,5 @@ public abstract class ZombieActor extends Actor {
 			list.add(new AttackAction(this));
 		return list;
 	}
+
 }
