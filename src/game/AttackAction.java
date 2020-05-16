@@ -36,9 +36,16 @@ public class AttackAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 		//Add a probability parameter for likeliness of hitting
 		Weapon weapon = actor.getWeapon();
-
-		if (rand.nextBoolean()) {
-			return actor + " misses " + target + ".";
+		 //TODO how to remove erros that come with weapon being Weaopon class 
+		if (weapon instanceof HitProbability) {
+			if (rand.nextInt(100)>weapon.getHitProbability()) {
+				return actor + " misses " + target + ".";
+			}
+		else if (actor instanceof HitProbability) {
+			if (rand.nextInt(100)>actor.getHitProbability()) {
+				return actor + " misses " + target + ".";
+			}
+		}
 		}
 
 		int damage = weapon.damage();

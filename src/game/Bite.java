@@ -4,7 +4,7 @@ public class Bite extends MissableIntrinsicWeapon {
 
 	public Bite() {
 		
-		super(70, "bites", 70);
+		super(10, "bites", 40);
 	}
 
 }
