@@ -73,7 +73,7 @@ public class Zombie extends ZombieActor {
 		}
 		else {
 			// return bite attack here
-			return new Bite(); // this is only here to make the program work until bite is added.
+			return new Bite(); 
 		}
 	}
 
