@@ -39,13 +39,13 @@ public class AttackAction extends Action {
 		// refer to the weapon's hit probability for the likeliness of missing
 		if (weapon instanceof HitProbability) {
 			HitProbability tempWeapon = (HitProbability) weapon;
-			if (rand.nextInt(100) < tempWeapon.getHitProbability()) {
+			if (rand.nextInt(100) > tempWeapon.getHitProbability()) {
 				return actor + " misses " + target + ".";
 			}
 		}
 		else if (actor instanceof ZombieActor) {
 			ZombieActor tempActor = (ZombieActor) actor;
-			if (rand.nextInt(100) < tempActor.getHitProbability()) {
+			if (rand.nextInt(100) > tempActor.getHitProbability()) {
 				return actor + " misses " + target + ".";
 			}
 		}
