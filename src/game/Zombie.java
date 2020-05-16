@@ -70,11 +70,11 @@ public class Zombie extends ZombieActor {
 		
 		int punchChance = 25 * getLimbCount(Arm.class); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
 		if (rand.nextInt(100) < punchChance) {
-			return new IntrinsicWeapon(10, "punches");
+			return new Punch();
 		}
 		else {
 			// return bite attack here
-			return new IntrinsicWeapon(0, "placeholder"); // this is only here to make the program work until bite is added.
+			return new Bite(); // this is only here to make the program work until bite is added.
 		}
 	}
 

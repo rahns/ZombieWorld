@@ -6,14 +6,16 @@ import edu.monash.fit2099.engine.GameMap;
 
 /**
  * Base class for Actors in the Zombie World
- * @author ram
+ * @author ram, ariehendrikse
  *
  */
-public abstract class ZombieActor extends Actor {
+public abstract class ZombieActor extends Actor implements HitProbability {
 	
 	//TODO Rahn please check this is correct implementation of abstract class
 	protected int hitProbability;
 		
+	
+
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team) {
 		super(name, displayChar, hitPoints);
 				
@@ -26,6 +28,14 @@ public abstract class ZombieActor extends Actor {
 		if (otherActor.hasCapability(ZombieCapability.UNDEAD) != this.hasCapability(ZombieCapability.UNDEAD))
 			list.add(new AttackAction(this));
 		return list;
+	}
+	
+	public int getHitProbability() {
+		return hitProbability;
+	}
+
+	public void setHitProbability(int hitProbability) {
+		this.hitProbability = hitProbability;
 	}
 
 }
