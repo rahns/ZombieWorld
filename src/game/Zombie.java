@@ -36,7 +36,7 @@ public class Zombie extends ZombieActor {
 	private static final int PUNCH_PROBABILITTY_CONSTANT = 25;
 
 	public Zombie(String name, GameMap gameMap) {
-		super(name, 'Z', 100, ZombieCapability.UNDEAD);
+		super(name, 'Z', 100, ZombieCapability.UNDEAD, 50);
 		
 		limbs = new ArrayList<>();
 		// All actors start with 2 arms and 2 legs
@@ -44,8 +44,6 @@ public class Zombie extends ZombieActor {
 		limbs.add(new Arm());
 		limbs.add(new Leg());
 		limbs.add(new Leg());
-		
-		hitProbability=50;
 		
 		map = gameMap;
 	}
