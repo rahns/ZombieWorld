@@ -13,7 +13,8 @@ import edu.monash.fit2099.engine.GameMap;
  *
  */
 public class Human extends ZombieActor {
-	private Behaviour behaviour = new WanderBehaviour();
+	private Behaviour wander = new WanderBehaviour();
+	private Behaviour farm = new farmBehaviour();
 
 	/**
 	 * The default constructor creates default Humans
@@ -39,7 +40,7 @@ public class Human extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?
-		return behaviour.getAction(this, map);
+		return wander.getAction(this, map);
 	}
 
 }
