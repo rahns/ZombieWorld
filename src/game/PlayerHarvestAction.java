@@ -6,8 +6,6 @@ import edu.monash.fit2099.engine.Location;
 
 public class PlayerHarvestAction extends HarvestAction {
 
-	private Location destination;
-
 	public PlayerHarvestAction(Location destination) {
 		super(destination);
 	}
