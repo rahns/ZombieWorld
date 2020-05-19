@@ -1,6 +1,7 @@
 package game;
 
 public class Farmer extends Human {
+	private Behaviour farm = new FarmBehaviour();
 
 	public Farmer(String name) {
 		super(name);

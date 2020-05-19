@@ -10,52 +10,42 @@ import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 
 
-public class FarmBehaviour implements Behaviour {
-	private Actor target;
+public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 	int sowProbability = 33;
 	int fertaliseProbability =50;
 	private Random rand = new Random();
-	public FarmBehaviour(Actor subject) {
-		this.target = subject;
-	}
-
+	private Ground ground;
+	
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
-		Action action=null;
-		
-		if(!map.contains(target) || !map.contains(actor))
-			return null;
 		
 		Location here = map.locationOf(actor);
-		Ground ground =here.getGround();
-		action=(farmDecision(here,ground));
-		if (action != null) {
-			return action;
-		}
-		for (Exit exit : here.getExits()) {
-			Location destination = exit.getDestination();
-			ground = destination.getGround();
-			action=(farmDecision(destination,ground));
-			if (action != null) {
-				return action;
-			}
-		}
-		return action;
-			
-	}
-	private Action farmDecision(Location destination, Ground ground) {
-		if (ground instanceof Dirt) {
-			return new SowAction(destination);
-		}
-		else if (ground instanceof Crop) {
-			if ((((Crop) ground).isRipe()) & (rand.nextInt(100)<sowProbability)) {
-				return new HarvestAction(destination);
-			} 
-			if (rand.nextInt(100)>fertaliseProbability) {
-				return new FertaliseAction(destination);
-			}
-		}
-		return null;
 		
+		if (rand.nextInt(100)>sowProbability) {
+			
+			for (Exit exit : here.getExits()) {
+				Location destination = exit.getDestination();
+				ground = destination.getGround();
+				if (ground instanceof Dirt) {
+					return new SowAction(destination);
+				}
+				
+			}
+		}
+		
+		ground = here.getGround();
+		
+		//Check the ground farmer is standing on
+		if (ground instanceof Crop) {
+			Location toHarvest= super.firstHarvestable(actor,map);
+			if (toHarvest != null) {
+				return new FarmerHarvestAction(toHarvest);
+			}
+			else {
+				return new FertaliseAction(here);
+			}
+		}	
+		return null;
+
 	}
 }
