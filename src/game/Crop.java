@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.Location;
 
 public class Crop extends Ground {
 	private int age = 0;
+	private int fertaliserAmount = 10;
 
 	public Crop() {
 		super('=');
@@ -26,7 +27,7 @@ public class Crop extends Ground {
 	}
 	
 	public void fertalise() {
-		age+=10;
+		age+=fertaliserAmount;
 	}
 
 }
