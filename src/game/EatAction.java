@@ -24,8 +24,7 @@ public class EatAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO Auto-generated method stub
-		return null;
+		return actor.toString() + " eats food";
 	}
 
 }

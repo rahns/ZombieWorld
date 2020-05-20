@@ -21,8 +21,7 @@ public class HarvestAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO add description
-		return null;
+		return "Harvest Crop";
 	}
 
 }

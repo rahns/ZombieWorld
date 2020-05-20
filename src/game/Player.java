@@ -21,7 +21,8 @@ public class Player extends Human {
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
-		
+		behaviours.add(new HarvestBehaviour());
+		behaviours.add(new EatBehaviour());
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class Player extends Human {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		System.out.println("Current player health: " + hitPoints + "/" + maxHitPoints);
+		System.out.println(actions.toString());
 		return menu.showMenu(this, actions, display);
 	}
 }
