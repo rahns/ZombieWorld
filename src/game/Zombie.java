@@ -14,6 +14,7 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.MoveActorAction;
+import edu.monash.fit2099.engine.PickUpItemAction;
 
 /**
  * A Zombie.
@@ -34,6 +35,7 @@ public class Zombie extends ZombieActor {
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD, 50);
 		
+		behaviours.add(new PickupWeaponBehaviour()); // Picking up weapon doesn't count as a zombie's turn, so should happen first
 		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
 		behaviours.add(new HuntBehaviour(Human.class, 15));
 		behaviours.add(new WanderBehaviour());
@@ -89,18 +91,17 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		// Pickup a weapon here
-		// Zombie picking up a weapon doesn't count as its turn
-		Action pickupWeapon = new PickupWeaponBehaviour().getAction(this, map);
-		if (pickupWeapon != null) {
-			pickupWeapon.execute(this, map);
-		}
-		// Then:
+
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null) {
 				if (action instanceof MoveActorAction) {
 					canMoveThisTurn = false; // Update for next turn
+				}
+				if (action instanceof PickUpItemAction) {
+					// Zombie can pick up weapon and do something else, so don't return yet
+					action.execute(this, map);
+					continue;
 				}
 				return action;
 			}
