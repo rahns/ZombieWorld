@@ -73,8 +73,8 @@ public class Zombie extends ZombieActor {
 			return new Punch();
 		}
 		else {
-			//TODO this feels hacky. ANy way to implment the healing into weopon?
-			heal(10);
+			//TODO biting heals whether or not the attack hits.
+			heal(5);
 			return new Bite(); 
 		}
 	}

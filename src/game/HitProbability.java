@@ -9,6 +9,7 @@ package game;
  */
 public interface HitProbability {
 
-	public int getHitProbability();
+
+	int getHitProbability();
 	
 }

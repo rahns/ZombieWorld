@@ -17,8 +17,8 @@ public class EatAction extends Action {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		actor.removeItemFromInventory(food);
-		actor.heal(food.getHitPointsRecovered());
-		return actor.toString() + " ate some food and recovered " + food.getHitPointsRecovered() + " hit points";
+		actor.heal(food.getHealAmount());
+		return actor.toString() + " ate some food and recovered " + food.getHealAmount() + " hit points";
 	}
 
 	@Override
