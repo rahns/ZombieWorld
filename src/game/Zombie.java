@@ -35,7 +35,7 @@ public class Zombie extends ZombieActor {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD, 50);
 		
 		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
-		behaviours.add(new HuntBehaviour(Human.class, 20));
+		behaviours.add(new HuntBehaviour(Human.class, 15));
 		behaviours.add(new WanderBehaviour());
 		
 		limbs = new ArrayList<>();
@@ -73,7 +73,8 @@ public class Zombie extends ZombieActor {
 			return new Punch();
 		}
 		else {
-			// return bite attack here
+			//TODO this feels hacky. ANy way to implment the healing into weopon?
+			heal(10);
 			return new Bite(); 
 		}
 	}

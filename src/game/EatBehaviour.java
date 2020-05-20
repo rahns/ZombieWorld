@@ -11,10 +11,8 @@ public class EatBehaviour implements Behaviour {
 
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
-		//FIXME actor doesnt display eat action when holding food
 		List<Item> inventory = actor.getInventory();
 		for (Item item : inventory) {
-			System.out.println("");
 			if (item instanceof Food) {
 				return new EatAction(item);
 			}
