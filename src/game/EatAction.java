@@ -9,18 +9,16 @@ import edu.monash.fit2099.engine.Item;
 public class EatAction extends Action {
 	
 	Food food;
-	int hitPointsRecovered;
 	
 	public EatAction(Item target) {
 		food=(Food) target;
-		hitPointsRecovered = food.getHitPointsRecovered();
 	}
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		actor.removeItemFromInventory(food);
-		actor.heal(hitPointsRecovered);
-		return actor.toString() + " ate some food and recovered " + hitPointsRecovered + " hit points";
+		actor.heal(food.getHitPointsRecovered());
+		return actor.toString() + " ate some food and recovered " + food.getHitPointsRecovered() + " hit points";
 	}
 
 	@Override
