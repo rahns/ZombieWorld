@@ -13,7 +13,7 @@ public class PlayerHarvestAction extends HarvestAction {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		String message=super.execute(actor, map);
-		actor.addItemToInventory(food);
+		actor.addItemToInventory(new Food());
 		return message;
 	}
 

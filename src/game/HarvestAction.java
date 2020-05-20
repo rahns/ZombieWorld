@@ -7,8 +7,7 @@ import edu.monash.fit2099.engine.Location;
 
 public class HarvestAction extends Action {
 	
-	private Location target;
-	protected Food food;
+	protected Location target;
 
 	public HarvestAction(Location destination) {
 		this.target=destination;
@@ -22,7 +21,7 @@ public class HarvestAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO Auto-generated method stub
+		// TODO add description
 		return null;
 	}
 

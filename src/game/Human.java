@@ -40,6 +40,8 @@ public class Human extends ZombieActor {
 	 */
 	protected Human(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints, ZombieCapability.ALIVE, 70);
+		behaviours.add(new AttackBehaviour(ZombieCapability.UNDEAD));
+
 	}
 	
 	@Override

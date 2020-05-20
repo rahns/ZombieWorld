@@ -28,15 +28,21 @@ public class HarvestBehaviour implements Behaviour {
 	protected Location firstHarvestable(Actor actor, GameMap map) {
 		Location here = map.locationOf(actor);
 		Ground ground =here.getGround();
-		if ((((Crop) ground).isRipe())) {
-			return here;
-		} 
+		if (ground instanceof Crop) {
+			if ((((Crop) ground).isRipe())) {
+				return here;
+			} 
+		}
 		for (Exit exit : here.getExits()) {
 			Location destination = exit.getDestination();
 			ground = destination.getGround();
-			if ((((Crop) ground).isRipe())) {
-				return destination;
-			} 
+			if (ground instanceof Crop){
+				if ((((Crop) ground).isRipe())) {
+					return destination;
+				} 
+				
+			}
+			
 		}
 		return null;
 	}

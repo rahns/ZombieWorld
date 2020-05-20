@@ -53,8 +53,9 @@ public class Application {
 		world.addPlayer(player, gameMap.at(42, 15));
 		
 	    // Place some random humans
-		String[] humans = {"Carlton", "May", "Vicente", "Andrea", "Wendy",
+		String[] humans = {"Carlton", "May", "Vicente", "Andrea",
 				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};
+		String[] farmers = {"Old McDonald", "Wendy", "Wes"};
 		int x, y;
 		for (String name : humans) {
 			do {
@@ -63,6 +64,15 @@ public class Application {
 			} 
 			while (gameMap.at(x, y).containsAnActor());
 			gameMap.at(x,  y).addActor(new Human(name));	
+		}
+		
+		for (String name : farmers) {
+			do {
+				x = (int) Math.floor(Math.random() * 20.0 + 30.0);
+				y = (int) Math.floor(Math.random() * 7.0 + 5.0);
+			} 
+			while (gameMap.at(x, y).containsAnActor());
+			gameMap.at(x,  y).addActor(new Farmer(name));	
 		}
 		
 		// place a simple weapon

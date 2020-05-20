@@ -3,13 +3,17 @@ package game;
 public class Farmer extends Human {
 
 	public Farmer(String name) {
-		super(name);
+		super(name,'f',80);
+
 		behaviours.add(new FarmBehaviour());
+		behaviours.add(new HuntBehaviour(Crop.class,10));
+		behaviours.add(new HuntBehaviour(Dirt.class,10));
+		behaviours.add(new WanderBehaviour());
 	}
 
 	public Farmer(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
-		// TODO Auto-generated constructor stub
+
 	}
 
 }
