@@ -26,6 +26,7 @@ public class Human extends ZombieActor {
 		//TODO possibly make humans run until they are out of options then attack
 		//TODO add runBehaviour for humans. Will calculate if the are has a total distance away from zombies that is good 
 		behaviours.add(new EatBehaviour());
+		behaviours.add(new PickupWeaponBehaviour());
 		behaviours.add(new AttackBehaviour(ZombieCapability.UNDEAD));
 		behaviours.add(new HarvestBehaviour());
 		behaviours.add(new HuntBehaviour(Food.class, 10));

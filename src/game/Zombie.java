@@ -89,9 +89,12 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		// Execute any PickUpItemActions here
+		// Pickup a weapon here
 		// Zombie picking up a weapon doesn't count as its turn
-		
+		Action pickupWeapon = new PickupWeaponBehaviour().getAction(this, map);
+		if (pickupWeapon != null) {
+			pickupWeapon.execute(this, map);
+		}
 		// Then:
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
