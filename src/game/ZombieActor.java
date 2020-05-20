@@ -40,5 +40,9 @@ public abstract class ZombieActor extends Actor implements HitProbability {
 	public void setHitProbability(int hitProbability) {
 		this.hitProbability = hitProbability;
 	}
+	
+	public String getHealthStatus() {
+		return "("+this.hitPoints+"/"+maxHitPoints + ")";
+	}
 
 }
