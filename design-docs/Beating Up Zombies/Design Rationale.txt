@@ -13,10 +13,6 @@ If called, knockOffLimb() will check if there are still limbs on the zombie and 
 
 Whenever a zombie's getIntrinsicWeapon() is called, it will check how many arms are left in the Limbs array and multiply 25% by the number of arms. This will result in a 50%, 25% and 0% chance of punching if there are 2, 1, and 0 arms respectively. In getWeapon, after chosing the attack, it will also drop any weapon if number of arms is 0, and have a 50% chance of dropping its weapon if number of arms is 1. The weapon will be removed from the inventory using removeItemFromInventory and dropped to an adjacent location using Location's addItem() and getExits().
 
-A new private boolean attribute will be added to the Zombie class called "canMoveThisTurn". I will use this attribute to determine if the actor should be able to move on a given turn, which depends on its leg count. 
+A new public method will be added to the Zombie class called "canMove". This will determine if the actor should be able to move on a given turn, which depends on its leg count. 
 
-In the Zombie class's playTurn(), whenever it iterates over a MoveActorAction, it will check its number of legs before allowing this action.
-
-If the number of legs is 1 and the canMoveThisTurn attribute is true, the zombie can move and canMoveThisTurn will be set to false. On the other hand, if canMoveThisTurn is false at the start of the turn, the zombie will not move that turn and will set canMoveThisTurn to true. 
-
-If the zombie has no legs, all MoveActorActions will be disregarded, and the zombie will not move.
+In the Hunt and Wander behaviours, I will call this new method (which returns a boolean) before generating any actions.
