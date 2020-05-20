@@ -37,7 +37,7 @@ public class Zombie extends ZombieActor {
 		
 		behaviours.add(new PickupWeaponBehaviour()); // Picking up weapon doesn't count as a zombie's turn, so should happen first
 		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
-		behaviours.add(new HuntBehaviour(Human.class, 15));
+		behaviours.add(new HuntBehaviour(Human.class, 16));
 		behaviours.add(new WanderBehaviour());
 		
 		limbs = new ArrayList<>();

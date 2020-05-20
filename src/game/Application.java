@@ -92,6 +92,16 @@ public class Application {
 		gameMap.at(6, 12).addActor(new Zombie("Bombie", gameMap));	
 		gameMap.at(2, 12).addActor(new Zombie("Micheal Jackson", gameMap));	
 		gameMap.at(5, 20).addActor(new Zombie("Meg", gameMap));	
+		gameMap.at(40, 1).addActor(new Zombie("Megger", gameMap));	
+		gameMap.at(41, 1).addActor(new Zombie("Megosauraus", gameMap));	
+		gameMap.at(42, 1).addActor(new Zombie("Megania", gameMap));	
+		gameMap.at(43, 1).addActor(new Zombie("Megatron", gameMap));	
+		gameMap.at(0, 0).addActor(new Farmer("Lonely Steve"));	
+
+
+
+
+
 
 		
 		

@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Weapon;
 
 /**
  * Class representing an ordinary human.
@@ -30,6 +31,7 @@ public class Human extends ZombieActor {
 		behaviours.add(new AttackBehaviour(ZombieCapability.UNDEAD));
 		behaviours.add(new HarvestBehaviour());
 		behaviours.add(new HuntBehaviour(Food.class, 10));
+		behaviours.add(new HuntBehaviour(Weapon.class, 50));
 		behaviours.add(new WanderBehaviour());
 	}
 	
