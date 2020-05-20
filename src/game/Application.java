@@ -55,7 +55,7 @@ public class Application {
 	    // Place some random humans
 		String[] humans = {"Carlton", "May", "Vicente", "Andrea",
 				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};
-		String[] farmers = {"Old McDonald", "Wendy", "Wes"};
+		String[] farmers = {"Old McDonald", "Wendy"};
 		int x, y;
 		for (String name : humans) {
 			do {
@@ -84,7 +84,19 @@ public class Application {
 		gameMap.at(10,  4).addActor(new Zombie("Uuuurgh", gameMap));
 		gameMap.at(50, 18).addActor(new Zombie("Mortalis", gameMap));
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah", gameMap));
-		gameMap.at(62, 12).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(62, 4).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(61, 12).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(70, 12).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(65, 8).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(67, 9).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(6, 12).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(2, 12).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(5, 20).addActor(new Zombie("Aaargh", gameMap));	
+
+		
+		
+		
+		
 		world.run();
 	}
 }

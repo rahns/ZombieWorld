@@ -9,6 +9,7 @@ public class Farmer extends Human {
 		behaviours.add(new HuntBehaviour(Crop.class,10));
 		behaviours.add(new HuntBehaviour(Dirt.class,10));
 		behaviours.add(new WanderBehaviour());
+		addItemToInventory(new Hoe());
 	}
 
 	public Farmer(String name, char displayChar, int hitPoints) {

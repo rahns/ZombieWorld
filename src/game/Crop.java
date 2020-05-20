@@ -19,7 +19,7 @@ public class Crop extends Ground {
 		if (age == 10)
 			displayChar = ':';
 		if (isRipe())
-			displayChar = '8';
+			displayChar = 'î';
 	}
 	
 	public boolean isRipe() {
