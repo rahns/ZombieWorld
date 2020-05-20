@@ -1,8 +1,10 @@
 package game;
 
 public interface Healing {
+	
+	public static final int DEFAULT_HEAL_AMOUNT = 10;
+	
 	public default int getHealAmount() {
-		int healAmount=10;
-		return healAmount;
+		return DEFAULT_HEAL_AMOUNT;
 	}
 }

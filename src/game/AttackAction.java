@@ -55,7 +55,7 @@ public class AttackAction extends Action {
 			return actor + " misses " + target + ".";
 		}
 		
-		//Heal actor because it now hits
+		//Heal actor because it will be a successful attack
 		if (weapon instanceof Healing) {
 			actor.heal(((Healing ) weapon).getHealAmount());
 		}
