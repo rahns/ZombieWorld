@@ -25,11 +25,11 @@ public class Player extends Human {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		actions.add(new HarvestBehaviour().getAction(this, map));
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		System.out.println("Current player health: " + hitPoints + "/" + maxHitPoints);
-		System.out.println(actions.toString());
 		return menu.showMenu(this, actions, display);
 	}
 }
