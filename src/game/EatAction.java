@@ -1,6 +1,5 @@
 package game;
 
-import java.util.List;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
@@ -19,7 +18,7 @@ public class EatAction extends Action {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		actor.removeItemFromInventory(food);
-		actor.heal(10);
+		actor.heal(hitPointsRecovered);
 		return actor.toString() + " ate some food and recovered " + hitPointsRecovered + " hit points";
 	}
 

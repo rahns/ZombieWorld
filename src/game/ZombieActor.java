@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
@@ -12,6 +14,7 @@ import edu.monash.fit2099.engine.GameMap;
 public abstract class ZombieActor extends Actor implements HitProbability {
 	
 	private int hitProbability;
+	ArrayList<Behaviour> behaviours = new ArrayList<>();
 		
 
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team, int hitProbability) {

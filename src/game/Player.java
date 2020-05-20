@@ -12,7 +12,6 @@ import edu.monash.fit2099.engine.Menu;
 public class Player extends Human {
 
 	private Menu menu = new Menu();
-
 	/**
 	 * Constructor.
 	 *
@@ -22,6 +21,7 @@ public class Player extends Human {
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
+		
 	}
 
 	@Override

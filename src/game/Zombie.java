@@ -24,11 +24,7 @@ import edu.monash.fit2099.engine.MoveActorAction;
  *
  */
 public class Zombie extends ZombieActor {
-	private Behaviour[] behaviours = {
-			new AttackBehaviour(ZombieCapability.ALIVE),
-			new HuntBehaviour(Human.class, 10),
-			new WanderBehaviour()
-	};
+
 	private GameMap map;
 	private Random rand = new Random();
 	private boolean canMoveThisTurn = false;
@@ -37,6 +33,10 @@ public class Zombie extends ZombieActor {
 
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD, 50);
+		
+		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
+		behaviours.add(new HuntBehaviour(Human.class, 10));
+		behaviours.add(new WanderBehaviour());
 		
 		limbs = new ArrayList<>();
 		// All actors start with 2 arms and 2 legs
@@ -66,7 +66,8 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		
+		//TODO make weopons array iterate through weapons instead of using get intrinsic
+		// this will allow for less hard coding.
 		int punchChance = PUNCH_PROBABILITTY_CONSTANT * getLimbCount(Arm.class); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
 		if (rand.nextInt(100) < punchChance) {
 			return new Punch();
@@ -95,7 +96,10 @@ public class Zombie extends ZombieActor {
 		for (Behaviour behaviour : behaviours) {
 			int legCount = getLimbCount(Leg.class);
 			boolean hasPreviouslyLostLeg = false; // Used so that on the turn a zombie looses its leg, 
-												  // it doesn't change canMoveThisTurn and move straight away
+			//FIXME put all of this stuff into the behaviour. The behaviour shoudld determine the attack.
+			//Behaviour already knows what actor is doing it so can check its limbs there. Either check if limbs
+			// are null or give all zombieactors limbs.
+			// it doesn't change canMoveThisTurn and move straight away
 			Action action = behaviour.getAction(this, map);
 			if (action != null) {
 				if (action instanceof MoveActorAction) {

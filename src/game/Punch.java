@@ -3,7 +3,7 @@ package game;
 public class Punch extends MissableIntrinsicWeapon {
 
 	public Punch() {
-		super(60, "punches", 60);
+		super(10, "punches", 60);
 	}
 
 }
