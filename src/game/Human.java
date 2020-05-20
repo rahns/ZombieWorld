@@ -23,6 +23,8 @@ public class Human extends ZombieActor {
 	 */
 	public Human(String name) {
 		super(name, 'H', 50, ZombieCapability.ALIVE, 70);
+		//TODO possibly make humans run until they are out of options then attack
+		//TODO add runBehaviour for humans. Will calculate if the are has a total distance away from zombies that is good 
 		behaviours.add(new AttackBehaviour(ZombieCapability.UNDEAD));
 		behaviours.add(new HuntBehaviour(Food.class, 10));
 		behaviours.add(new WanderBehaviour());
