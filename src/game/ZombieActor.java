@@ -13,7 +13,7 @@ import edu.monash.fit2099.engine.GameMap;
  */
 public abstract class ZombieActor extends Actor implements HitProbability {
 	
-	private int hitProbability;
+	private final int hitProbability;
 	ArrayList<Behaviour> behaviours = new ArrayList<>();
 		
 
@@ -35,10 +35,6 @@ public abstract class ZombieActor extends Actor implements HitProbability {
 	
 	public int getHitProbability() {
 		return hitProbability;
-	}
-
-	public void setHitProbability(int hitProbability) {
-		this.hitProbability = hitProbability;
 	}
 	
 	public String getHealthStatus() {
