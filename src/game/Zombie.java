@@ -74,7 +74,6 @@ public class Zombie extends ZombieActor {
 		}
 		else {
 			//TODO biting heals whether or not the attack hits.
-			heal(5);
 			return new Bite(); 
 		}
 	}
