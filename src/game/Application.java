@@ -53,8 +53,8 @@ public class Application {
 		world.addPlayer(player, gameMap.at(42, 15));
 		
 	    // Place some random humans
-		String[] humans = {"Carlton", "May", "Vicente", "Andrea",
-				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};
+		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",
+				"Elina", "Winter", "Clem", "Tallahassee", "Jaquelyn"};
 		String[] farmers = {"Old McDonald", "Farmer Wendy"};
 		int x, y;
 		for (String name : humans) {
@@ -85,13 +85,13 @@ public class Application {
 		gameMap.at(50, 18).addActor(new Zombie("Mortalis", gameMap));
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah", gameMap));
 		gameMap.at(62, 4).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(61, 12).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(70, 12).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(65, 8).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(67, 9).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(6, 12).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(2, 12).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(5, 20).addActor(new Zombie("Aaargh", gameMap));	
+		gameMap.at(61, 12).addActor(new Zombie("Zoombie", gameMap));	
+		gameMap.at(70, 12).addActor(new Zombie("Zomzilla", gameMap));	
+		gameMap.at(65, 8).addActor(new Zombie("Creeper", gameMap));	
+		gameMap.at(67, 9).addActor(new Zombie("Edward Richtofen ", gameMap));	
+		gameMap.at(6, 12).addActor(new Zombie("Bombie", gameMap));	
+		gameMap.at(2, 12).addActor(new Zombie("Micheal Jackson", gameMap));	
+		gameMap.at(5, 20).addActor(new Zombie("Meg", gameMap));	
 
 		
 		

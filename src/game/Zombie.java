@@ -101,6 +101,9 @@ public class Zombie extends ZombieActor {
 				if (action instanceof PickUpItemAction) {
 					// Zombie can pick up weapon and do something else, so don't return yet
 					action.execute(this, map);
+					if (rand.nextInt(100)>90) {
+						System.out.println(name+" says 'grooooan'");
+					}
 					continue;
 				}
 				return action;
