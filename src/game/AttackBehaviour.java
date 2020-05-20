@@ -36,6 +36,10 @@ public class AttackBehaviour implements Behaviour {
 	 * 
 	 * Actors are attackable if their ZombieCapability matches the 
 	 * "undeadness status" set 
+	 * 
+	 * Only attacks characters directly next to or diagonal to the actor.
+	 * 
+	 * @return Action: an AttackAction on an Actor that is undead, and withiin a range of 1
 	 */
 	@Override
 	public Action getAction(Actor actor, GameMap map) {

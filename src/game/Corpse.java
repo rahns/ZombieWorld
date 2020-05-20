@@ -72,7 +72,7 @@ public class Corpse extends PortableItem {
 			}
 		}
 	}
-	
+	//TODO documentation
 	private void riseFromTheDead(Location currentLocation, Actor actor) {
 		Zombie newZombie = new Zombie("Zombie " + oldName, map);
 		boolean success;
@@ -103,7 +103,7 @@ public class Corpse extends PortableItem {
 		// If rising was unsuccessful (due to no valid location for the new zombie), riseFromTheDead
 		// will be called again next turn as riseIn still equals 0.
 	}
-	
+	//TODO documentation
 	private boolean addAtValidAdjacentLocation(Location centreLocation, Actor newZombie) {
 		List<Exit> exits = centreLocation.getExits();
 		List<Exit> validExits = new ArrayList<>();

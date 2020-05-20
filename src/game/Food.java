@@ -1,11 +1,18 @@
 package game;
 
 import edu.monash.fit2099.engine.Item;
-
+/**
+ * Food class, an item that can be eaten by humans and
+ * drops after harvesting a crop
+ * @author ariehendrikse
+ *
+ */
 public class Food extends Item implements Healing {
 	
 	private static final int HIT_POINTS_RECOVERED = 10;
-
+	/**
+	 * Constructor
+	 */
 	public Food() {
 		super("Food", '~', true);
 		allowableActions.add(new EatAction(this));
