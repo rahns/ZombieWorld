@@ -21,8 +21,6 @@ public class Player extends Human {
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
-		behaviours.add(new HarvestBehaviour());
-		behaviours.add(new EatBehaviour());
 	}
 
 	@Override

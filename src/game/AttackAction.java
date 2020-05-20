@@ -43,6 +43,7 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";
 			}
 		}
+		// if not set for the weapon, used actors default:
 		else if (actor instanceof ZombieActor) {
 			ZombieActor tempActor = (ZombieActor) actor;
 			if (rand.nextInt(100) > tempActor.getHitProbability()) {

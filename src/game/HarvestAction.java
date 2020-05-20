@@ -15,6 +15,7 @@ public class HarvestAction extends Action {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
+		actor.addItemToInventory(new Food());
 		target.setGround(new Dirt());
 		return actor.toString() + " harvested a crop";
 	}

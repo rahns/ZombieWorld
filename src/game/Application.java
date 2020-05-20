@@ -55,7 +55,7 @@ public class Application {
 	    // Place some random humans
 		String[] humans = {"Carlton", "May", "Vicente", "Andrea",
 				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};
-		String[] farmers = {"Old McDonald", "Wendy"};
+		String[] farmers = {"Old McDonald", "Farmer Wendy"};
 		int x, y;
 		for (String name : humans) {
 			do {

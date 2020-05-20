@@ -11,8 +11,7 @@ import edu.monash.fit2099.engine.Location;
 
 
 public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
-	int sowProbability = 33;
-	int fertaliseProbability =50;
+	private static final int SOW_PROBABILITY = 33;
 	private Random rand = new Random();
 	private Ground ground;
 	
@@ -21,7 +20,7 @@ public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 		
 		Location here = map.locationOf(actor);
 		
-		if (rand.nextInt(100)>sowProbability) {
+		if (rand.nextInt(100)>SOW_PROBABILITY) {
 			
 			for (Exit exit : here.getExits()) {
 				Location destination = exit.getDestination();

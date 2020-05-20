@@ -13,6 +13,7 @@ public class EatAction extends Action {
 	
 	public EatAction(Item target) {
 		food=(Food) target;
+		hitPointsRecovered = food.getHitPointsRecovered();
 	}
 
 	@Override
