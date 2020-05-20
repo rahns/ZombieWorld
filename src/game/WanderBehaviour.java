@@ -30,6 +30,13 @@ public class WanderBehaviour implements Behaviour {
 	 */
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
+		// Check actor is allowed to move this turn:
+		if (actor instanceof Zombie) {
+			Zombie temp = (Zombie) actor;
+			if (!temp.canMove()){
+				 return null;
+			 }
+		}
 		ArrayList<Action> actions = new ArrayList<Action>();
 		
 		for (Exit exit : map.locationOf(actor).getExits()) {

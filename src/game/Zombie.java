@@ -94,32 +94,10 @@ public class Zombie extends ZombieActor {
 		
 		// Then:
 		for (Behaviour behaviour : behaviours) {
-			int legCount = getLimbCount(Leg.class);
-			boolean hasPreviouslyLostLeg = false; // Used so that on the turn a zombie looses its leg, 
-			//FIXME put all of this stuff into the behaviour. The behaviour shoudld determine the attack.
-			//Behaviour already knows what actor is doing it so can check its limbs there. Either check if limbs
-			// are null or give all zombieactors limbs.
-			// it doesn't change canMoveThisTurn and move straight away
 			Action action = behaviour.getAction(this, map);
 			if (action != null) {
 				if (action instanceof MoveActorAction) {
-					if (legCount == 2 || (legCount == 1 && canMoveThisTurn)) {
-						canMoveThisTurn = false;
-					}
-					else {
-						// Move to the next iteration and skip this action, as it is a move action and the Zombie shouldn't move
-						continue;
-					}
-				}
-				// If this action isn't a move action, the zombie can move next turn:
-				if (!(action instanceof MoveActorAction) && legCount != 2) {
-					if (!hasPreviouslyLostLeg) {
-						// This is still the turn where the zombie lost its first leg so don't change canMoveThisTurn
-						hasPreviouslyLostLeg = true;
-					}
-					else {
-						canMoveThisTurn = true;
-					}
+					canMoveThisTurn = false; // Update for next turn
 				}
 				return action;
 			}
@@ -173,4 +151,15 @@ public class Zombie extends ZombieActor {
 		return tally;
 	}
 	
+	/**
+	 * Find out if the Zombie can move this turn
+	 * @return a boolean, true if the Zombie can move, false otherwise
+	 */
+	public boolean canMove() {
+		int legCount = getLimbCount(Leg.class);
+		if (legCount == 2 || (legCount == 1 && canMoveThisTurn)) {
+			return true;
+		}
+		return false;
+	}
 }

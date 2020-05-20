@@ -90,6 +90,13 @@ public class HuntBehaviour implements Behaviour {
 
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
+		// Check if actor is allowed to move this turn
+		if (actor instanceof Zombie) {
+			Zombie temp = (Zombie) actor;
+			if (!temp.canMove()){
+				 return null;
+			 }
+		}
 		return hunt(actor, map.locationOf(actor));
 	}
 
