@@ -90,7 +90,7 @@ public class Application {
 		gameMap.at(61, 12).addActor(new Zombie("Zoombie", gameMap));	
 		gameMap.at(70, 12).addActor(new Zombie("Zomzilla", gameMap));	
 		gameMap.at(65, 8).addActor(new Zombie("Creeper", gameMap));	
-		gameMap.at(67, 9).addActor(new Zombie("Zombie Edward Richtofen ", gameMap));	
+		gameMap.at(67, 9).addActor(new Zombie("Zombie Edward Richtofen", gameMap));	
 		gameMap.at(6, 12).addActor(new Zombie("Bombie", gameMap));	
 		gameMap.at(2, 12).addActor(new Zombie("Zombie Micheal Jackson", gameMap));	
 		gameMap.at(5, 20).addActor(new Zombie("Zombie Meg", gameMap));	

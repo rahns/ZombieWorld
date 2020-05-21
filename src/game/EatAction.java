@@ -22,7 +22,7 @@ public class EatAction extends Action {
 
 	@Override
 	/**
-	 * Removes the food from inventory, then heas the eater.
+	 * Removes the food from inventory, then heals the eater.
 	 * 
 	 * @return String : description of who ate the food
 	 */

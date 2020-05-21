@@ -56,6 +56,7 @@ public class AttackAction extends Action {
 		//Heal actor because it will be a successful attack
 		if (weapon instanceof Healing) {
 			actor.heal(((Healing) weapon).getHealAmount());
+			System.out.println(actor.toString() + " gained " + ((Healing) weapon).getHealAmount() + " hit-points");
 		}
 
 		int damage = weapon.damage();

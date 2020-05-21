@@ -15,7 +15,7 @@ public class Bite extends MissableIntrinsicWeapon implements Healing {
 		super(10, "bites", 20);
 	}
 	/**
-	 * A getter for this  hitpoints recovered when attacking
+	 * A getter for this hitpoints recovered when attacking
 	 * @return the number of hitpoints recovered when this attack is performed
 	 */
 	public int gethealAmount() {

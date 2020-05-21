@@ -59,7 +59,7 @@ public class Zombie extends ZombieActor {
 				if (getLimbCount(Arm.class) == 0 || (getLimbCount(Arm.class) == 1 && rand.nextBoolean())) {
 					removeItemFromInventory(item);
 					dropItem(item);
-					System.out.println(this.name + " dropped its weapon: " + item.toString());
+					System.out.println(this.name + " dropped the " + item.toString() + " it was holding");
 					break;
 				}
 				return item.asWeapon();

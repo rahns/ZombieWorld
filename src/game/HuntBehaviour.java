@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
 /**
@@ -82,8 +83,19 @@ public class HuntBehaviour implements Behaviour {
 	}
 	
 	private boolean containsTarget(Location here) {
-		return (here.getActor() != null &&
-				targetClass.isInstance(here.getActor()));
+		// If target is an actor:
+		if((here.getActor() != null &&
+				targetClass.isInstance(here.getActor()))) {
+			return true;
+		}
+		// If target is an item:
+		for (Item item : here.getItems()) {
+			if (targetClass.isInstance(item)) {
+				return true;
+			}
+		}
+		// If target is a type of ground:
+		return (here.getGround() != null && targetClass.isInstance(here.getGround()));
 	}
 
 	@Override
