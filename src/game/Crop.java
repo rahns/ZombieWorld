@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Location;
 public class Crop extends Ground {
 	
 	private int age = 0;
+	private boolean beenFertilised = false;
 	
 	/**
 	 * Crop class. Sowed by farmers and harvested by the people. Takes
@@ -49,6 +50,15 @@ public class Crop extends Ground {
 	 */
 	public void fertalise() {
 		age+=FERTALISER_AMOUNT;
+		beenFertilised = true;
+	}
+	
+	/**
+	 * Checks if the crop has already been fertilised
+	 * @return boolean based on if the crop has been fertilised already
+	 */
+	public boolean getFertilisedStatus() {
+		return beenFertilised;
 	}
 
 }

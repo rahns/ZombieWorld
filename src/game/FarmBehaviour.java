@@ -54,7 +54,8 @@ public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 			if (toHarvest != null) {
 				return new FarmerHarvestAction(toHarvest);
 			}
-			else {
+			// Fertilise if not already:
+			else if (!((Crop) ground).getFertilisedStatus()){
 				return new FertiliseAction(here);
 			}
 		}	
