@@ -88,6 +88,6 @@ public class AttackAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		return actor + " attacks " + target + ((ZombieActor) target).getHealthStatus();
+		return actor + " attacks " + target + " " + ((ZombieActor) target).getHealthStatus();
 	}
 }

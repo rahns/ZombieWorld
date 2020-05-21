@@ -21,10 +21,10 @@ public class Application {
 		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Fence(), new Tree());
 		
 		List<String> map = Arrays.asList(
-		"................................................................................",
-		"................................................................................",
-		"....................................##########..................................",
-		"..........................###########........#####..............................",
+		"......................................................................##########",
+		"......................................................................#........#",
+		"....................................##########........................#........#",
+		"..........................###########........#####....................##########",
 		"............++...........##......................########.......................",
 		"..............++++.......#..............................##......................",
 		".............+++...+++...#...............................#......................",
@@ -55,7 +55,7 @@ public class Application {
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",
 				"Elina", "Winter", "Clem", "Tallahassee", "Jaquelyn"};
-		String[] farmers = {"Old McDonald", "Farmer Wendy"};
+		String[] farmers = {"Farmer Old McDonald", "Farmer Wendy"};
 		int x, y;
 		for (String name : humans) {
 			do {
@@ -74,6 +74,8 @@ public class Application {
 			while (gameMap.at(x, y).containsAnActor());
 			gameMap.at(x,  y).addActor(new Farmer(name));	
 		}
+		// Place lonely Steve in the top right corner:
+		gameMap.at(75, 1).addActor(new Farmer("Farmer Lonely Steve"));
 		
 		// place a simple weapon
 		gameMap.at(74, 20).addItem(new Plank());
@@ -88,15 +90,14 @@ public class Application {
 		gameMap.at(61, 12).addActor(new Zombie("Zoombie", gameMap));	
 		gameMap.at(70, 12).addActor(new Zombie("Zomzilla", gameMap));	
 		gameMap.at(65, 8).addActor(new Zombie("Creeper", gameMap));	
-		gameMap.at(67, 9).addActor(new Zombie("Edward Richtofen ", gameMap));	
+		gameMap.at(67, 9).addActor(new Zombie("Zombie Edward Richtofen ", gameMap));	
 		gameMap.at(6, 12).addActor(new Zombie("Bombie", gameMap));	
-		gameMap.at(2, 12).addActor(new Zombie("Micheal Jackson", gameMap));	
-		gameMap.at(5, 20).addActor(new Zombie("Meg", gameMap));	
-		gameMap.at(40, 1).addActor(new Zombie("Megger", gameMap));	
-		gameMap.at(41, 1).addActor(new Zombie("Megosauraus", gameMap));	
-		gameMap.at(42, 1).addActor(new Zombie("Megania", gameMap));	
-		gameMap.at(43, 1).addActor(new Zombie("Megatron", gameMap));	
-		gameMap.at(0, 0).addActor(new Farmer("Lonely Steve"));	
+		gameMap.at(2, 12).addActor(new Zombie("Zombie Micheal Jackson", gameMap));	
+		gameMap.at(5, 20).addActor(new Zombie("Zombie Meg", gameMap));	
+		gameMap.at(40, 1).addActor(new Zombie("Zombie Megger", gameMap));	
+		gameMap.at(41, 1).addActor(new Zombie("Zombie Megosauraus", gameMap));	
+		gameMap.at(42, 1).addActor(new Zombie("Zombie Megania", gameMap));	
+		gameMap.at(43, 1).addActor(new Zombie("Zombie Megatron", gameMap));		
 
 
 

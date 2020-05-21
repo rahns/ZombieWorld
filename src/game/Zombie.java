@@ -14,7 +14,6 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.MoveActorAction;
-import edu.monash.fit2099.engine.PickUpItemAction;
 
 /**
  * A Zombie.
@@ -31,6 +30,8 @@ public class Zombie extends ZombieActor {
 	private boolean canMoveThisTurn = false;
 	private List<Limb> limbs;
 	private static final int PUNCH_PROBABILITTY_CONSTANT = 25;
+	private static final String[] ZOMBIE_SPEECH = new String[] {"groaaaaan", "braaaains", "buurp", "grrrr", "gargle gargle",
+			"akhgrjbrdrd"};
 
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD, 50);
@@ -68,14 +69,11 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		//TODO make weopons array iterate through weapons instead of using get intrinsic
-		// this will allow for less hard coding.
 		int punchChance = PUNCH_PROBABILITTY_CONSTANT * getLimbCount(Arm.class); // 50, 25 and 0 chance of punching if there are 2, 1, and 0 arms respectively
 		if (rand.nextInt(100) < punchChance) {
 			return new Punch();
 		}
 		else {
-			//TODO biting heals whether or not the attack hits.
 			return new Bite(); 
 		}
 	}
@@ -91,20 +89,16 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		// Zombies can speak sometimes (doesn't count as its turn)
+		if (rand.nextInt(100)>90) {
+			System.out.println(name + " says '" + ZOMBIE_SPEECH[rand.nextInt(ZOMBIE_SPEECH.length)] + "'");
+		}
 
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null) {
 				if (action instanceof MoveActorAction) {
 					canMoveThisTurn = false; // Update for next turn
-				}
-				if (action instanceof PickUpItemAction) {
-					// Zombie can pick up weapon and do something else, so don't return yet
-					action.execute(this, map);
-					if (rand.nextInt(100)>90) {
-						System.out.println(name+" says 'grooooan'");
-					}
-					continue;
 				}
 				return action;
 			}
@@ -140,7 +134,7 @@ public class Zombie extends ZombieActor {
 	}
 	
 	// Custom dropItem method used instead of DropItemAction as zombies need 
-	// to drop limbs in adjacent locations, not where they're standing
+	// to drop limbs and weapons in adjacent locations, not where they're standing
 	private void dropItem(Item item) {
 		Location dropLocation = map.locationOf(this);
 		int selectedExit = rand.nextInt(dropLocation.getExits().size());
