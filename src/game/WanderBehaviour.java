@@ -32,8 +32,7 @@ public class WanderBehaviour implements Behaviour {
 	public Action getAction(Actor actor, GameMap map) {
 		// Check actor is allowed to move this turn:
 		if (actor instanceof Zombie) {
-			Zombie temp = (Zombie) actor;
-			if (!temp.canMove()){
+			if (!((Zombie) actor).canMove()){
 				 return null;
 			 }
 		}

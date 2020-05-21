@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.Item;
 public interface CraftableItem {
 
 	/**
-	 * Creates a new instance of the crafted item made from this item
+	 * Creates and returns a new instance of the crafted item made from this item
 	 * @return an Item
 	 */
 	public Item craftsInto();

@@ -36,15 +36,13 @@ public class AttackAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 		Weapon weapon = actor.getWeapon();
 		
-		
-		
 		// refer to the weapon's hit probability for the likeliness of missing
 		if (weapon instanceof HitProbability) {
 			if (rand.nextInt(100) > ((HitProbability) weapon).getHitProbability()) {
 				return actor + " misses " + target + ".";
 			}
 		}
-		// if not set for the weapon, used actors default:
+		// if not set for the weapon, used actor's default:
 		else if (actor instanceof HitProbability) {
 			if (rand.nextInt(100) > ((HitProbability) actor).getHitProbability()) {
 				return actor + " misses " + target + ".";
@@ -57,7 +55,7 @@ public class AttackAction extends Action {
 		
 		//Heal actor because it will be a successful attack
 		if (weapon instanceof Healing) {
-			actor.heal(((Healing ) weapon).getHealAmount());
+			actor.heal(((Healing) weapon).getHealAmount());
 		}
 
 		int damage = weapon.damage();

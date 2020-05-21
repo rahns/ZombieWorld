@@ -5,17 +5,17 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 /**
- * Class for the action that fertalises a crop
+ * Class for the action that fertilises a crop
  */ 
-public class FertaliseAction extends Action {
+public class FertiliseAction extends Action {
 	
-	protected Location target;
+	private Location target;
 
 	/**
 	 * Constructor
-	 * @param target : location of crop to be fertalised
+	 * @param target : location of crop to be fertilised
 	 */
-	public FertaliseAction(Location target) {
+	public FertiliseAction(Location target) {
 		this.target=target;
 	}
 	
@@ -28,8 +28,7 @@ public class FertaliseAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO Auto-generated method stub
-		return null;
+		return "Fertilse crop";
 	}
 
 }

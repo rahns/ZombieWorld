@@ -68,7 +68,7 @@ public class Corpse extends PortableItem {
 				riseFromTheDead(currentLocation, actor);
 			}
 			else {
-				riseIn -= 1;
+				riseIn--; // Decrement
 			}
 		}
 	}
@@ -105,9 +105,9 @@ public class Corpse extends PortableItem {
 	}
 	//TODO documentation
 	private boolean addAtValidAdjacentLocation(Location centreLocation, Actor newZombie) {
-		List<Exit> exits = centreLocation.getExits();
 		List<Exit> validExits = new ArrayList<>();
-		for (Exit exit : exits) {
+		
+		for (Exit exit : centreLocation.getExits()) {
 			// If actor can not be placed in the selected exit's location:
 			if (exit.getDestination().canActorEnter(newZombie)) {
 				// Remove it from the list:

@@ -75,7 +75,7 @@ public class Application {
 			gameMap.at(x,  y).addActor(new Farmer(name));	
 		}
 		// Place lonely Steve in the top right corner:
-		gameMap.at(75, 1).addActor(new Farmer("Farmer Lonely Steve"));
+		gameMap.at(75, 1).addActor(new Farmer("Lonely Farmer Steve"));
 		
 		// place a simple weapon
 		gameMap.at(74, 20).addItem(new Plank());

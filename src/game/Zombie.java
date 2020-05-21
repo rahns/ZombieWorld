@@ -36,13 +36,13 @@ public class Zombie extends ZombieActor {
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD, 50);
 		
-		behaviours.add(new PickupWeaponBehaviour()); // Picking up weapon doesn't count as a zombie's turn, so should happen first
+		behaviours.add(new PickupWeaponBehaviour());
 		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
 		behaviours.add(new HuntBehaviour(Human.class, 16));
 		behaviours.add(new WanderBehaviour());
 		
 		limbs = new ArrayList<>();
-		// All actors start with 2 arms and 2 legs
+		// All Zombies start with 2 arms and 2 legs
 		limbs.add(new Arm());
 		limbs.add(new Arm());
 		limbs.add(new Leg());
@@ -146,7 +146,7 @@ public class Zombie extends ZombieActor {
 		for (Limb aLimb: limbs) {
 			// Check if the selected limb is an instance of the parameter limbType:
 			if (limbType.isInstance(aLimb)) {
-				tally += 1;
+				tally++;
 			}
 		}
 		return tally;

@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 /**
- * Class that determines how or whether a human can farm surroundings.
+ * Class that determines how or whether an actor can farm surroundings.
  */
 
 public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
@@ -32,7 +32,8 @@ public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 		
 		Location here = map.locationOf(actor);
 		
-		if (rand.nextInt(100)>SOW_PROBABILITY) {
+		//Plant crops
+		if (rand.nextInt(100)<SOW_PROBABILITY) {
 			
 			for (Exit exit : here.getExits()) {
 				Location destination = exit.getDestination();
@@ -46,6 +47,7 @@ public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 		
 		ground = here.getGround();
 		
+		//Fertilise and Harvest existing crops
 		//Check the ground farmer is standing on
 		if (ground instanceof Crop) {
 			Location toHarvest= super.firstHarvestable(actor,map);
@@ -53,7 +55,7 @@ public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 				return new FarmerHarvestAction(toHarvest);
 			}
 			else {
-				return new FertaliseAction(here);
+				return new FertiliseAction(here);
 			}
 		}	
 		return null;

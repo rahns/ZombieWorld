@@ -19,7 +19,7 @@ public class HarvestBehaviour implements Behaviour {
 		toHarvest=(firstHarvestable(actor,map));
 		
 		if (toHarvest!=null) {
-			return new HarvestAction(toHarvest);
+			return new HumanHarvestAction(toHarvest);
 		}
 		
 		return null;

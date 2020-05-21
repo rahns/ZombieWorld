@@ -12,7 +12,7 @@ public class Bite extends MissableIntrinsicWeapon implements Healing {
 	 * Constructor 
 	 */
 	public Bite() {
-		super(10, "bites", 10);
+		super(10, "bites", 20);
 	}
 	/**
 	 * A getter for this  hitpoints recovered when attacking
