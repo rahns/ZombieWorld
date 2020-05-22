@@ -14,8 +14,6 @@ import edu.monash.fit2099.engine.Location;
  */
 public class HarvestBehaviour implements Behaviour {
 	
-	private Location toHarvest;
-	
 	/**
 	 * Constructor
 	 */
@@ -28,7 +26,7 @@ public class HarvestBehaviour implements Behaviour {
 	@Override
 	public Action getAction(Actor actor, GameMap map) {	
 		
-		toHarvest=(firstHarvestable(actor,map));
+		Location toHarvest = (firstHarvestable(actor,map));
 		
 		if (toHarvest!=null) {
 			return new HumanHarvestAction(toHarvest);

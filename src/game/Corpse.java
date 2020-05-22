@@ -32,11 +32,15 @@ public class Corpse extends PortableItem {
 	 */
 	public Corpse(String name, boolean shouldRise, GameMap map) {
 		super("dead " + name, '%');
-		this.shouldRise = shouldRise;
-		this.map = map;
-		this.oldName = name;
-		this.rand = new Random();
-		this.riseIn = rand.nextInt(6) + 5; // Range is 5-10 inclusive
+		try {
+			this.shouldRise = shouldRise;
+			this.map = map;
+			this.oldName = name;
+			this.rand = new Random();
+			this.riseIn = rand.nextInt(6) + 5; // Range is 5-10 inclusive
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 	}
 	
     /**

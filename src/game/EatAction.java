@@ -19,7 +19,16 @@ public class EatAction extends Action {
 	 * @param target the food to eat
 	 */
 	public EatAction(Item target) {
-		food=(Food) target;
+		try {
+			if (!(target instanceof Food)) {
+				throw new IllegalStateException("target must be an instance of Food.");
+			}
+			food = (Food) target;	
+		}
+		catch (IllegalStateException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	/**

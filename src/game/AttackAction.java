@@ -37,20 +37,25 @@ public class AttackAction extends Action {
 		Weapon weapon = actor.getWeapon();
 		
 		// refer to the weapon's hit probability for the likeliness of missing
-		if (weapon instanceof HitProbability) {
-			if (rand.nextInt(100) > ((HitProbability) weapon).getHitProbability()) {
+		try {
+			if (weapon instanceof HitProbability) {
+				if (rand.nextInt(100) > ((HitProbability) weapon).getHitProbability()) {
+					return actor + " misses " + target + ".";
+				}
+			}
+			// if not set for the weapon, used actor's default:
+			else if (actor instanceof HitProbability) {
+				if (rand.nextInt(100) > ((HitProbability) actor).getHitProbability()) {
+					return actor + " misses " + target + ".";
+				}
+			}
+			// Default hit probability if not set elsewhere:
+			else if (rand.nextBoolean()){
 				return actor + " misses " + target + ".";
 			}
-		}
-		// if not set for the weapon, used actor's default:
-		else if (actor instanceof HitProbability) {
-			if (rand.nextInt(100) > ((HitProbability) actor).getHitProbability()) {
-				return actor + " misses " + target + ".";
-			}
-		}
-		// Default hit probability if not set elsewhere:
-		else if (rand.nextBoolean()){
-			return actor + " misses " + target + ".";
+		} 
+		catch (NullPointerException e) {
+			e.printStackTrace();
 		}
 		
 		String healResultString = "";

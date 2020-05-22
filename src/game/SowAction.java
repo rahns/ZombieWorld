@@ -26,8 +26,13 @@ public class SowAction extends Action {
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		destination.setGround(new Crop());
-		return actor.toString() + " sowed a crop";
+		try {
+			destination.setGround(new Crop());
+			return actor.toString() + " sowed a crop";
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**

@@ -30,35 +30,39 @@ public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
 		
-		Location here = map.locationOf(actor);
-		//Plant crops
-		if (rand.nextInt(100)<SOW_PROBABILITY) {
-			
-			for (Exit exit : here.getExits()) {
-				Location destination = exit.getDestination();
-				ground = destination.getGround();
-				if (ground instanceof Dirt) {
-					return new SowAction(destination);
-				}
+		try {
+			Location here = map.locationOf(actor);
+			//Plant crops
+			if (rand.nextInt(100)<SOW_PROBABILITY) {
 				
+				for (Exit exit : here.getExits()) {
+					Location destination = exit.getDestination();
+					ground = destination.getGround();
+					if (ground instanceof Dirt) {
+						return new SowAction(destination);
+					}
+					
+				}
 			}
-		}
-		
-		ground = here.getGround();
-		
-		//Fertilise and Harvest existing crops
-		//Check the ground farmer is standing on
-		if (ground instanceof Crop) {
-			Location toHarvest= super.firstHarvestable(actor,map);
-			if (toHarvest != null) {
-				return new FarmerHarvestAction(toHarvest);
+			
+			ground = here.getGround();
+			
+			//Fertilise and Harvest existing crops
+			//Check the ground farmer is standing on
+			if (ground instanceof Crop) {
+				Location toHarvest= super.firstHarvestable(actor,map);
+				if (toHarvest != null) {
+					return new FarmerHarvestAction(toHarvest);
+				}
+				// Fertilise if not already:
+				else if (!((Crop) ground).getFertilisedStatus()){
+					return new FertiliseAction(here);
+				}
 			}
-			// Fertilise if not already:
-			else if (!((Crop) ground).getFertilisedStatus()){
-				return new FertiliseAction(here);
-			}
+		} 
+		catch (NullPointerException e) {
+			e.printStackTrace();
 		}	
 		return null;
-
 	}
 }

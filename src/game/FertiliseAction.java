@@ -25,8 +25,18 @@ public class FertiliseAction extends Action {
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		((Crop) target.getGround()).fertalise();
-		return actor.toString() + " fertilised crop";
+		try {
+			if (!(target.getGround() instanceof Crop)) {
+				throw new IllegalStateException("The ground at actor's location must be a crop");
+			}
+			((Crop) target.getGround()).fertalise();
+			return actor.toString() + " fertilised crop";
+		} 
+		catch (IllegalStateException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}	
 	}
 
 	/**

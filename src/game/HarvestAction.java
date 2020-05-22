@@ -26,8 +26,14 @@ public abstract class HarvestAction extends Action {
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		target.setGround(new Dirt());
-		return actor.toString() + " harvested a crop";
+		try {
+			target.setGround(new Dirt());
+			return actor.toString() + " harvested a crop";
+		} 
+		catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**

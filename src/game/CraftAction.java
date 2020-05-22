@@ -22,11 +22,16 @@ public class CraftAction extends Action{
 	 */
 	public CraftAction(CraftableItem item) {
 		// item must be an instance of Item as well as implement CraftableItem
-		if (!(item instanceof Item)) {
-			throw new IllegalStateException("CraftableItems must also be an instance of Item.");
+		try {
+			if (!(item instanceof Item)) {
+				throw new IllegalStateException("CraftableItems must also be an instance of Item.");
+			}
+			this.item = (Item) item;
+			this.newItem = item.craftsInto();
+		} catch (IllegalStateException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
-		this.item = (Item) item;
-		this.newItem = item.craftsInto();
 	}
 
 	/**
