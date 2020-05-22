@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 /**
- * Special Action for eating food.
+ * An action for eating food.
  * @author ariehendrikse
  */
 public class EatAction extends Action {
