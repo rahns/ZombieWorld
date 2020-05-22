@@ -3,22 +3,23 @@ package game;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * A Crop class. Extends Ground. Sowed by farmers and harvested by humans. Takes
+ * 20 turns to grow, then it can be harvested to create food.	
+ */
 public class Crop extends Ground {
 	
 	private int age = 0;
 	private boolean beenFertilised = false;
-	
-	/**
-	 * Crop class. Sowed by farmers and harvested by the people. Takes
-	 * 20 turns to grow, then it can be harvested to creat food.	
-	 */
 	private static final int FERTALISER_AMOUNT = 10;
+	
 	/**
 	 * Constructor	
 	 */
 	public Crop() {
 		super('=');
 	}
+	
 	/**
 	 * Method used to grow the crop every turn, and change its character
 	 * based on age.
@@ -36,7 +37,7 @@ public class Crop extends Ground {
 			displayChar = '1';
 	}
 	/**
-	 * Method used check if the crop is ripe (over 20 years old)
+	 * Method used check if the crop is ripe (over 20 turns old)
 	 * 
 	 * @return boolean based on whether or not the crop is ripe
 	 */
@@ -44,8 +45,8 @@ public class Crop extends Ground {
 		return age>=20;
 	}
 	/**
-	 * Fertalises the crop, raising it's age by the constant amount. 
-	 * Reduced turns needed for ripeness.
+	 * Fertalises the crop, raising it's age by the constant amount (10 turns). 
+	 * Reduces turns needed for ripeness.
 	 */
 	public void fertalise() {
 		age+=FERTALISER_AMOUNT;
