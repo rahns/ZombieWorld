@@ -1,7 +1,7 @@
 package game;
 
 /**
- * Interface for anything that has a chance of hitting or missing.
+ * Interface for anything that defines its chance of hitting or missing when attacking.
  * @author ariehendrikse
  *
  */

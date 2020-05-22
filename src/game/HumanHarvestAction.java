@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 /**
- * Class for regular human's Harvesting, where the time is added to the actors inventory
+ * Class for regular human's Harvesting, where the food is added to the actors inventory
  */
 public class HumanHarvestAction extends HarvestAction {
 	/**

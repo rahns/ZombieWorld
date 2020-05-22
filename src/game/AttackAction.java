@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 
 /**
- * Special Action for attacking other Actors.
+ * An action for attacking other Actors.
  */
 public class AttackAction extends Action {
 
