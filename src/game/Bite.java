@@ -1,10 +1,10 @@
 package game;
+
 /**
  * Class for a bite weapon.
  * 
  * @author ariehendrikse
  */
-
 public class Bite extends MissableIntrinsicWeapon implements Healing {
 	
 	private static final int HEAL_AMOUNT = 5;

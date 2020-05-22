@@ -7,14 +7,24 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * A behaviour for harvesting ripe crops and placing them in the actor's inventory
+ * @author ariehenrikse
+ *
+ */
 public class HarvestBehaviour implements Behaviour {
 	
-	Location toHarvest;
+	private Location toHarvest;
+	
 	/**
 	 * Constructor
 	 */
 	public HarvestBehaviour() {
 	}
+	
+	/**
+	 * Returns an action to harvest a crop and place it in the actor's inventory
+	 */
 	@Override
 	public Action getAction(Actor actor, GameMap map) {	
 		
@@ -26,6 +36,7 @@ public class HarvestBehaviour implements Behaviour {
 		
 		return null;
 	}
+	
 	/**
 	 * Returns the first crop that is harvestable by iterating over the ground
 	 * the actor is standing on then the surrounding exits.

@@ -16,7 +16,6 @@ public class HumanHarvestAction extends HarvestAction {
 		super(destination);
 	}
 	
-	@Override
 	/**
 	 * Adds the food to the actor's inventory and reverts the ground to dirt.
 	 * 
@@ -24,6 +23,7 @@ public class HumanHarvestAction extends HarvestAction {
 	 * @param map : the map to harvest on
 	 * @return String : the message to be displayed when harvesting
 	 */
+	@Override
 	public String execute(Actor actor, GameMap map) {
 		String message=super.execute(actor, map);
 		actor.addItemToInventory(new Food());

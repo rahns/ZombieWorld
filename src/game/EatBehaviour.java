@@ -12,12 +12,12 @@ import edu.monash.fit2099.engine.PickUpItemAction;
  */
 public class EatBehaviour implements Behaviour {
 
-	@Override
 	/**
 	 * Method used check if there is food, then returns the EatAction or PickUpItemAction of the food.
 	 * 
 	 * @return Action to eat or pickup the food, with that food as the parameter.
 	 */
+	@Override
 	public Action getAction(Actor actor, GameMap map) {
 		List<Item> inventory = actor.getInventory();
 		for (Item item : inventory) {

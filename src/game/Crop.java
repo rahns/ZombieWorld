@@ -26,7 +26,6 @@ public class Crop extends Ground {
 	 * @param location of the crop on the game map
 	 */
 	@Override
-	
 	public void tick(Location location) {
 		super.tick(location);
 
@@ -34,7 +33,7 @@ public class Crop extends Ground {
 		if (age == 10)
 			displayChar = ':';
 		if (isRipe())
-			displayChar = 'Î';
+			displayChar = '1';
 	}
 	/**
 	 * Method used check if the crop is ripe (over 20 years old)

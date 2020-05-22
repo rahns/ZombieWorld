@@ -82,6 +82,8 @@ public class HuntBehaviour implements Behaviour {
 		return null;
 	}
 	
+	
+	// Modified to work with items and types of ground as well
 	private boolean containsTarget(Location here) {
 		// If target is an actor:
 		if((here.getActor() != null &&

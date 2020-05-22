@@ -25,7 +25,9 @@ public class Player extends Human {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		// Also consider harvest actions:
 		actions.add(new HarvestBehaviour().getAction(this, map));
+		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();

@@ -48,19 +48,21 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";
 			}
 		}
-		// Default probability if not set elsewhere:
+		// Default hit probability if not set elsewhere:
 		else if (rand.nextBoolean()){
 			return actor + " misses " + target + ".";
 		}
 		
+		String healResultString = "";
 		//Heal actor because it will be a successful attack
 		if (weapon instanceof Healing) {
 			actor.heal(((Healing) weapon).getHealAmount());
-			System.out.println(actor.toString() + " gained " + ((Healing) weapon).getHealAmount() + " hit-points");
+			healResultString += System.lineSeparator() + actor.toString() + " gained " + ((Healing) weapon).getHealAmount() + " hit-points";
 		}
 
 		int damage = weapon.damage();
-		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
+		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage";
+		result += healResultString;
 
 		target.hurt(damage);
 		if (!target.isConscious()) {
@@ -79,7 +81,7 @@ public class AttackAction extends Action {
 				drop.execute(target, map);
 			map.removeActor(target);	
 			
-			result += System.lineSeparator() + target + " is killed.";
+			result += System.lineSeparator() + target + " is killed";
 		}
 
 		return result;

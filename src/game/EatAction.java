@@ -7,10 +7,12 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 /**
  * Special Action for eating food.
+ * @author ariehendrikse
  */
 public class EatAction extends Action {
 	
-	Food food;
+	private Food food;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -20,12 +22,12 @@ public class EatAction extends Action {
 		food=(Food) target;
 	}
 
-	@Override
 	/**
 	 * Removes the food from inventory, then heals the eater.
 	 * 
 	 * @return String : description of who ate the food
 	 */
+	@Override
 	public String execute(Actor actor, GameMap map) {
 		actor.removeItemFromInventory(food);
 		actor.heal(food.getHealAmount());

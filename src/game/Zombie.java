@@ -123,6 +123,7 @@ public class Zombie extends ZombieActor {
 			knockOffLimb();
 		}
 	}
+	
 	/**
 	 * Knocks a random limb off the zombie
 	 * 

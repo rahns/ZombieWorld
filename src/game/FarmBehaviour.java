@@ -17,21 +17,20 @@ public class FarmBehaviour extends HarvestBehaviour implements Behaviour {
 	private Random rand = new Random();
 	private Ground ground;
 	
-	@Override
 	/**
 	 * Method used check if there is dirt or crops near the farmer,
 	 * then returns the approriate action action of the food.
 	 * 
-	 * Order of priority is Sow>Harvest>Fertalise
+	 * Order of priority is Sow then Harvest then Fertalise
 	 * 
 	 * @param actor that is farming
 	 * @param map of the world for checking the locations
 	 * @return Action either Harvest, Fertalise, or Sow a crop
 	 */
+	@Override
 	public Action getAction(Actor actor, GameMap map) {
 		
 		Location here = map.locationOf(actor);
-		
 		//Plant crops
 		if (rand.nextInt(100)<SOW_PROBABILITY) {
 			

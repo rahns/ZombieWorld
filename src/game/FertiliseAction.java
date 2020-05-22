@@ -19,13 +19,20 @@ public class FertiliseAction extends Action {
 		this.target=target;
 	}
 	
+	/**
+	 * Executes the Action, which decreases the time left for a crop to ripen
+	 * @return A description of the action that happened
+	 */
 	@Override
-	//TODO idk if we have to document overides
 	public String execute(Actor actor, GameMap map) {
 		((Crop) target.getGround()).fertalise();
 		return actor.toString() + " fertilised crop";
 	}
 
+	/**
+	 * Gets the menu description for this action
+	 * @return the menu description
+	 */
 	@Override
 	public String menuDescription(Actor actor) {
 		return "Fertilse crop";
