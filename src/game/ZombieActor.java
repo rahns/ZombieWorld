@@ -16,7 +16,7 @@ public abstract class ZombieActor extends Actor implements HitProbability {
 	private final int hitProbability;
 	ArrayList<Behaviour> behaviours = new ArrayList<>();
 		
-
+	
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team, int hitProbability) {
 
 		super(name, displayChar, hitPoints);
@@ -32,11 +32,14 @@ public abstract class ZombieActor extends Actor implements HitProbability {
 			list.add(new AttackAction(this));
 		return list;
 	}
-	
+	@Override
 	public int getHitProbability() {
 		return hitProbability;
 	}
-	
+	/**
+	 * Getter for the actors health status
+	 * @return String : The health status in the format (HitPoints/TmaxHitpoints)
+	 */
 	public String getHealthStatus() {
 		return "("+this.hitPoints+"/"+maxHitPoints + ")";
 	}

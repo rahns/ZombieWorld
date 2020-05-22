@@ -1,7 +1,11 @@
 package game;
 
 import edu.monash.fit2099.engine.IntrinsicWeapon;
-
+/**
+ * INtrinsicWeapon that has the chance of missing. Implements hitprobability.
+ * @author ariehendrikse
+ *
+ */
 public class MissableIntrinsicWeapon extends IntrinsicWeapon implements HitProbability {
 	protected int hitProbability;
 	

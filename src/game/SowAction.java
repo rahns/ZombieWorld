@@ -4,7 +4,11 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
-
+/**
+ * Action class for sowing a crop, will change the ground from dirt to crop.
+ * @author ariehendrikse
+ *
+ */
 public class SowAction extends Action {
 
 	private Location destination;

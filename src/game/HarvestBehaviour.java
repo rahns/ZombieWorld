@@ -29,9 +29,9 @@ public class HarvestBehaviour implements Behaviour {
 	/**
 	 * Returns the first crop that is harvestable by iterating over the ground
 	 * the actor is standing on then the surrounding exits.
-	 * @param actor
-	 * @param map
-	 * @return
+	 * @param actor the actor harvesting
+	 * @param map the gamemap
+	 * @return the Location to harvest, if any.
 	 */
 	protected Location firstHarvestable(Actor actor, GameMap map) {
 		Location here = map.locationOf(actor);

@@ -123,7 +123,11 @@ public class Zombie extends ZombieActor {
 			knockOffLimb();
 		}
 	}
-	
+	/**
+	 * Knocks a random limb off the zombie
+	 * 
+	 * @author rahnstavar
+	 */
 	private void knockOffLimb() {
 		if (limbs.size() != 0){
 			int selected = rand.nextInt(limbs.size());
