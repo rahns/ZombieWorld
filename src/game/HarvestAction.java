@@ -4,11 +4,16 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
-
+/*
+ * abstract class for harvesting a crop. Will destroy the crop and replace it with dirt
+ */
 public abstract class HarvestAction extends Action {
 	
 	protected Location target;
-
+	/**
+	 * Constructor
+	 * @param destination where the crop will be planted
+	 */
 	public HarvestAction(Location destination) {
 		this.target=destination;
 	}

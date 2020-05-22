@@ -10,7 +10,9 @@ import edu.monash.fit2099.engine.Location;
 public class HarvestBehaviour implements Behaviour {
 	
 	Location toHarvest;
-	
+	/**
+	 * Constructor
+	 */
 	public HarvestBehaviour() {
 	}
 	@Override
@@ -24,7 +26,13 @@ public class HarvestBehaviour implements Behaviour {
 		
 		return null;
 	}
-	
+	/**
+	 * Returns the first crop that is harvestable by iterating over the ground
+	 * the actor is standing on then the surrounding exits.
+	 * @param actor
+	 * @param map
+	 * @return
+	 */
 	protected Location firstHarvestable(Actor actor, GameMap map) {
 		Location here = map.locationOf(actor);
 		Ground ground =here.getGround();
