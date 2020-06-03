@@ -73,7 +73,7 @@ public class Application {
 		
 		// Place player on main map
 		Actor player = new Player("Player", '@', PLAYER_HEALTH);
-		world.addPlayer(player, mainMap.at(42, 15));
+		world.addPlayer(player, mainMap.at(43, 15));
 		// townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans
