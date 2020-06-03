@@ -1,0 +1,22 @@
+Going to Town:
+
+Going to town involves moving the player to a new map and ensuring time doesn't freeze on the old map.
+The world class in the engine already supports multiple map functionality, which allows the game to have multiple maps and ensures time doesn't freeze on any map the player is not in.
+So, in order to create a town map, the application class will be modified to create a second map while the game is being initialised. The second map will be created using the same technique as the first one. This means using the same fancy ground factory instance created for the main map. 
+The new map will be created using the fancy ground factory and a string representation of the map, same as is done with the main map.
+The new map will then be added to the same world instance using the addGameMap method. The world instance then handles everything else, like ticking and actor turns on both maps.
+
+To move between the two maps, a vehicle will be needed. To implement this, a new class called Vehicle (which extends Item) will be created and a unique instance of this will be placed on both maps. 
+The vehicle class's constructor will take the vehicle name, display character, destination (as an instance of Location) and the friendly name of the destination (such as 'town', for showing on the player's menu). It will also add a moveActorAction to its allowableActions list (inherited from item), which allows the player to interact with the vehicle when standing on it. 
+This moveActorAction, when executed, will move the actor to the destination specified in the vehicle's constructor, and will take the friendly name of the destination as its direction (for showing on the menu).
+In this implementation, the vehicle doesn't actually move, it just moves the player to the destination. However, by placing a vehicle on each map and moving the player between them, it looks to the player like the vehicle has moved.
+
+The vehicles will be added to their respective maps in the application class and will have the name "Train", so that to the player, it looks like the are catching a train from the compound to the town, or visa versa.
+
+To make the town interesting, and more of a challenge to collect the guns that will be there, many zombies will be added. However, zombies can pick up weapons, so we don't want the zombies taking the guns before the player goes there.
+To fix this problem, the weapons need to be placed somewhere the zombies can't get to but the player can.
+
+For this reason the guns will be placed in a closed off area with a door, and only the player can open the door. 
+A new 'Door' class will be created, which will extend Ground. This class will override Ground's canActorEnter and allowableActions methods. canActorEnter will be made to return true only when the door is in an open state. To allow the player to change the state of the door (open or close it), the allowableActions method will return an instance of a new action class called 'DoorInteractAction'. 
+This action's constructor will take the instance of the door, and a boolean representing if the door is open or closed when the action is created (for showing 'open' or 'close' on the player's menu only). When executed, the action will call a method on the door instance called interact(), which will make the door change to the opposite state.
+When the player is next to a door, they will be presented with the option to open the door (allowing actors to walk through it) or close it (preventing actors from walking through it).

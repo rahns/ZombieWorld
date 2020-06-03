@@ -14,13 +14,15 @@ import edu.monash.fit2099.engine.World;
  *
  */
 public class Application {
+	
+	private static final int PLAYER_HEALTH = 100;
 
 	public static void main(String[] args) {
 		World world = new World(new Display());
 
-		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Fence(), new Tree());
+		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Fence(), new Tree(), new Door());
 		
-		List<String> map = Arrays.asList(
+		List<String> mainMapInput = Arrays.asList(
 		"......................................................................##########",
 		"......................................................................#........#",
 		"....................................##########........................#........#",
@@ -44,13 +46,35 @@ public class Application {
 		".........................................................................++.....",
 		"........................................................................++.++...",
 		".........................................................................++++...",
-		"..........................................................................++....",
-		"................................................................................");
-		GameMap gameMap = new GameMap(groundFactory, map );
-		world.addGameMap(gameMap);
+		"......................................#.........#.........................++....",
+		"......................................###########...............................");
 		
-		Actor player = new Player("Player", '@', 100);
-		world.addPlayer(player, gameMap.at(42, 15));
+		List<String> townMapInput = Arrays.asList(
+		".........................................",
+		".........................................",
+		"....###########..........................",
+		"....#.........#..........................",
+		"....#####_#####..########................",
+		"....#.........#..#.......................",
+		"....#.........#..#.......#...............",
+		"....#.........####.......#...............",
+		"....#....................#..........++++.",
+		"....######################........+++++..",
+		"..................................+++....",
+		".........................................");
+		
+		// Create main map
+		GameMap mainMap = new GameMap(groundFactory, mainMapInput);
+		world.addGameMap(mainMap);
+		
+		// Create town map
+		GameMap townMap = new GameMap(groundFactory, townMapInput);
+		world.addGameMap(townMap);
+		
+		// Place player on main map
+		Actor player = new Player("Player", '@', PLAYER_HEALTH);
+		world.addPlayer(player, mainMap.at(42, 15));
+		// townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",
@@ -62,8 +86,8 @@ public class Application {
 				x = (int) Math.floor(Math.random() * 20.0 + 30.0);
 				y = (int) Math.floor(Math.random() * 7.0 + 5.0);
 			} 
-			while (gameMap.at(x, y).containsAnActor());
-			gameMap.at(x,  y).addActor(new Human(name));	
+			while (mainMap.at(x, y).containsAnActor());
+			mainMap.at(x,  y).addActor(new Human(name));	
 		}
 		
 		for (String name : farmers) {
@@ -71,42 +95,46 @@ public class Application {
 				x = (int) Math.floor(Math.random() * 20.0 + 30.0);
 				y = (int) Math.floor(Math.random() * 7.0 + 5.0);
 			} 
-			while (gameMap.at(x, y).containsAnActor());
-			gameMap.at(x,  y).addActor(new Farmer(name));	
+			while (mainMap.at(x, y).containsAnActor());
+			mainMap.at(x,  y).addActor(new Farmer(name));	
 		}
 		// Place lonely Steve in the top right corner:
-		gameMap.at(75, 1).addActor(new Farmer("Lonely Farmer Steve"));
+		mainMap.at(75, 1).addActor(new Farmer("Lonely Farmer Steve"));
 		
 		// place a simple weapon
-		gameMap.at(74, 20).addItem(new Plank());
+		mainMap.at(74, 20).addItem(new Plank());
 		
-		// FIXME: Add more zombies!
-		gameMap.at(30, 20).addActor(new Zombie("Groan", gameMap));
-		gameMap.at(30,  18).addActor(new Zombie("Boo", gameMap));
-		gameMap.at(10,  4).addActor(new Zombie("Uuuurgh", gameMap));
-		gameMap.at(50, 18).addActor(new Zombie("Mortalis", gameMap));
-		gameMap.at(1, 10).addActor(new Zombie("Gaaaah", gameMap));
-		gameMap.at(62, 4).addActor(new Zombie("Aaargh", gameMap));	
-		gameMap.at(61, 12).addActor(new Zombie("Zoombie", gameMap));	
-		gameMap.at(70, 12).addActor(new Zombie("Zomzilla", gameMap));	
-		gameMap.at(65, 8).addActor(new Zombie("Creeper", gameMap));	
-		gameMap.at(67, 9).addActor(new Zombie("Zombie Edward Richtofen", gameMap));	
-		gameMap.at(6, 12).addActor(new Zombie("Bombie", gameMap));	
-		gameMap.at(2, 12).addActor(new Zombie("Zombie Micheal Jackson", gameMap));	
-		gameMap.at(5, 20).addActor(new Zombie("Zombie Meg", gameMap));	
-		gameMap.at(40, 1).addActor(new Zombie("Zombie Megger", gameMap));	
-		gameMap.at(41, 1).addActor(new Zombie("Zombie Megosauraus", gameMap));	
-		gameMap.at(42, 1).addActor(new Zombie("Zombie Megania", gameMap));	
-		gameMap.at(43, 1).addActor(new Zombie("Zombie Megatron", gameMap));		
-
-
-
-
-
-
+		// place a train to town on the main map
+		mainMap.at(43, 23).addItem(new Vehicle("train", '$', townMap.at(20, 0), "town"));
+		// place a train from town back to the main map
+		townMap.at(20, 0).addItem(new Vehicle("train", '$', mainMap.at(43, 23), "the compound"));
 		
-		
-		
+		// Add zombies to the main map
+		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));
+		mainMap.at(30,  18).addActor(new Zombie("Boo", mainMap));
+		mainMap.at(10,  4).addActor(new Zombie("Uuuurgh", mainMap));
+		mainMap.at(50, 18).addActor(new Zombie("Mortalis", mainMap));
+		mainMap.at(1, 10).addActor(new Zombie("Gaaaah", mainMap));
+		mainMap.at(62, 4).addActor(new Zombie("Aaargh", mainMap));	
+		mainMap.at(61, 12).addActor(new Zombie("Zoombie", mainMap));	
+		mainMap.at(70, 12).addActor(new Zombie("Zomzilla", mainMap));	
+		mainMap.at(65, 8).addActor(new Zombie("Creeper", mainMap));	
+		mainMap.at(67, 9).addActor(new Zombie("Zombie Edward Richtofen", mainMap));	
+		mainMap.at(6, 12).addActor(new Zombie("Bombie", mainMap));	
+		mainMap.at(2, 12).addActor(new Zombie("Zombie Micheal Jackson", mainMap));	
+		mainMap.at(5, 20).addActor(new Zombie("Zombie Meg", mainMap));	
+		mainMap.at(40, 1).addActor(new Zombie("Zombie Megger", mainMap));	
+		mainMap.at(41, 1).addActor(new Zombie("Zombie Megosauraus", mainMap));	
+		mainMap.at(42, 1).addActor(new Zombie("Zombie Megania", mainMap));	
+		mainMap.at(43, 1).addActor(new Zombie("Zombie Megatron", mainMap));		
+
+		// Add zombies to the town map
+		townMap.at(10, 6).addActor(new Zombie("Zombie Mayor Duncan", townMap));
+		townMap.at(8, 7).addActor(new Zombie("Zombie Bob Dylan", townMap));
+		townMap.at(19, 6).addActor(new Zombie("Zombie Rupert Murdoch", townMap));
+		townMap.at(13, 0).addActor(new Zombie("Zombie Kanye", townMap));
+		townMap.at(33, 5).addActor(new Zombie("Zombie Rick", townMap));
+		townMap.at(25, 6).addActor(new Zombie("Zombie Harold Holt", townMap));		
 		
 		world.run();
 	}
