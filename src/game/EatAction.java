@@ -32,13 +32,23 @@ public class EatAction extends Action {
 	}
 
 	/**
-	 * Removes the food from inventory, then heals the eater.
+	 * Removes the food from the ground or inventory, then heals the eater.
 	 * 
 	 * @return String : description of who ate the food
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		actor.removeItemFromInventory(food);
+		boolean ateFromGround = false;
+		for (Item item : map.locationOf(actor).getItems()) {
+			if (item == food) {
+				map.locationOf(actor).removeItem(item);
+				ateFromGround = true;
+				break;
+			}
+		}
+		if (!ateFromGround) {
+			actor.removeItemFromInventory(food);
+		}
 		actor.heal(food.getHealAmount());
 		return actor.toString() + " ate some food and recovered " + food.getHealAmount() + " hit points";
 	}
