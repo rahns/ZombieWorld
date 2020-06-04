@@ -38,7 +38,7 @@ public class Zombie extends ZombieActor {
 		
 		behaviours.add(new PickupWeaponBehaviour());
 		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
-		behaviours.add(new HuntBehaviour(Human.class, 16));
+		behaviours.add(new HuntBehaviour(Human.class, 11));
 		behaviours.add(new WanderBehaviour());
 		
 		limbs = new ArrayList<>();
