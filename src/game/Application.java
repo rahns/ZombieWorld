@@ -15,7 +15,7 @@ import edu.monash.fit2099.engine.World;
  */
 public class Application {
 	
-	private static final int PLAYER_HEALTH = 100;
+	private static final int PLAYER_HEALTH = 200;
 
 	public static void main(String[] args) {
 		World world = new World(new Display());
@@ -63,6 +63,7 @@ public class Application {
 		"..................................+++....",
 		".........................................");
 		
+		
 		// Create main map
 		GameMap mainMap = new GameMap(groundFactory, mainMapInput);
 		world.addGameMap(mainMap);
@@ -71,6 +72,14 @@ public class Application {
 		GameMap townMap = new GameMap(groundFactory, townMapInput);
 		world.addGameMap(townMap);
 		
+		// Create Mambo Marie's void
+		List<String> mambosVoidString = Arrays.asList(".");
+		GameMap mambosVoid = new GameMap(groundFactory, mambosVoidString);
+		world.addGameMap(mambosVoid);
+		
+		// Create Mambo Marie
+		mambosVoid.addActor(new MamboMarie(mambosVoid.at(0, 0), mainMap.at(79, 13)), mambosVoid.at(0, 0));
+				
 		// Place player on main map
 		Actor player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));

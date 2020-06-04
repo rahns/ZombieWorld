@@ -34,7 +34,7 @@ public class Zombie extends ZombieActor {
 			"akhgrjbrdrd"};
 
 	public Zombie(String name, GameMap gameMap) {
-		super(name, 'Z', 100, ZombieCapability.UNDEAD, 50);
+		super(name, 'Z', 50, ZombieCapability.UNDEAD, 50);
 		
 		behaviours.add(new PickupWeaponBehaviour());
 		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
@@ -91,7 +91,7 @@ public class Zombie extends ZombieActor {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// Zombies can speak sometimes (doesn't count as its turn)
 		if (rand.nextInt(100)>90) {
-			System.out.println(name + " says '" + ZOMBIE_SPEECH[rand.nextInt(ZOMBIE_SPEECH.length)] + "'");
+			display.println(name + " says '" + ZOMBIE_SPEECH[rand.nextInt(ZOMBIE_SPEECH.length)] + "'");
 		}
 
 		for (Behaviour behaviour : behaviours) {
