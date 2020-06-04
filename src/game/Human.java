@@ -44,7 +44,7 @@ public class Human extends ZombieActor {
 	 * @param hitPoints amount of damage that the Human can take before it dies
 	 */
 	protected Human(String name, char displayChar, int hitPoints) {
-		super(name, displayChar, hitPoints, ZombieCapability.ALIVE, 70);
+		super(name, displayChar, hitPoints, ZombieCapability.ALIVE, 100);
 		}
 	
 	@Override

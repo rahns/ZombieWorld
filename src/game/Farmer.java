@@ -11,7 +11,7 @@ public class Farmer extends Human {
 	 * @param name of the farmer
 	 */
 	public Farmer(String name) {
-		super(name,'f',80);
+		super(name,'f',100);
 
 		behaviours.add(new PickupWeaponBehaviour());
 		behaviours.add(new AttackBehaviour(ZombieCapability.UNDEAD));
