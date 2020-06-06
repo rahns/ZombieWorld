@@ -1,19 +1,15 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.Menu;
 
-public class ShopMenu extends Menu {
+public class ShopMenu extends SubMenu {
 	
 	private ArrayList<Product> products;
-	private ArrayList<Character> freeChars = new ArrayList<Character>();
-	private HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
 	
 	public ShopMenu(ArrayList<Product> products) {
 		this.products = products;
@@ -23,9 +19,7 @@ public class ShopMenu extends Menu {
 	public Action showMenu(Actor actor, Actions actions, Display display) {
 		try {
 			if (actor instanceof Wallet) {
-				for (char i = 'a'; i <= 'z'; i++)
-					freeChars.add(i);
-				
+				super.showMenu(actor, actions, display);
 				display.println("\nProducts: ");
 				for (Product product : products) {
 					if (((Wallet) actor).getWealth() < product.getCost()) {
@@ -33,20 +27,14 @@ public class ShopMenu extends Menu {
 						continue;
 					}
 				Action action = new BuyAction(product);
-				addActionToMenu(action, actor, display);
+				addActionToMenu(action, actor, display, null);
 				}
 				
 				// Add quit option
 				Action quitAction = new DoNothingCustomMessageAction("leaves the shop without buying anything");
-				addActionToMenu(quitAction, actor, display);
+				addActionToMenu(quitAction, actor, display, null);
 
-				// Display menu
-				char key;
-				do {
-					key = display.readChar();
-				} while (!keyToActionMap.containsKey(key));
-
-				return keyToActionMap.get(key);
+				return readInput(display);
 			}
 			else {
 				throw new Exception("Only actors who implement Wallet can buy things");
@@ -58,11 +46,6 @@ public class ShopMenu extends Menu {
 		return null;
 	}
 	
-	private void addActionToMenu(Action action, Actor actor, Display display) {
-		char c = freeChars.get(0);
-		freeChars.remove(Character.valueOf(c));
-		keyToActionMap.put(c, action);
-		display.println(c + ": " + action.menuDescription(actor));
-	}
+	
 
 }

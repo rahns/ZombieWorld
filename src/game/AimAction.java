@@ -26,8 +26,7 @@ public class AimAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO Auto-generated method stub
-		return null;
+		return "Aim";
 	}
 
 }
