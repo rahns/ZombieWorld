@@ -16,6 +16,10 @@ public class Coin extends Item {
 		super("coin", '$', false);
 	}
 	
+	/**
+	 * Gets an action to drop this coin
+	 * @return a new DropItemAction for dropping this coin
+	 */
 	@Override
 	public DropItemAction getDropAction() {  // Allows coins to be dropped despite not being portable
 		return new DropItemAction(this);

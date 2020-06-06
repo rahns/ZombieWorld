@@ -19,7 +19,7 @@ public class Application {
 	private static final int PLAYER_HEALTH = 300;
 
 	public static void main(String[] args) {
-		World world = new NewWorld(new Display());
+		World world = new ZombieWorld(new Display());
 
 		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Fence(), new Tree(), new Door());
 		

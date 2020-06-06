@@ -4,14 +4,29 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
+/**
+ * An action for buying an item with coins
+ * @author Rahn Stavar
+ *
+ */
 public class BuyAction extends Action {
 	
 	private Product product;
 	
+	/**
+	 * BuyAction Constructor
+	 * @param product the product to be bought
+	 */
 	public BuyAction(Product product) {
 		this.product = product;
 	}
 
+	/**
+	 * Complete the transaction
+	 * @param actor the actor doing the action
+	 * @param map the map the actor is on
+	 * @return a description of the transaction
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		try {
@@ -33,6 +48,11 @@ public class BuyAction extends Action {
 		return menuDescription(actor);
 	}
 
+	/**
+	 * Gets a description of the transaction
+	 * @param actor the actor making the purchase
+	 * @return a description of the transaction
+	 */
 	@Override
 	public String menuDescription(Actor actor) {
 		String plural = product.getCost() != 1 ? "s" : "";

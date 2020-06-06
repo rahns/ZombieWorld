@@ -6,11 +6,10 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.World;
 
-public class NewWorld extends World {
+public class ZombieWorld extends World {
 
-	public NewWorld(Display display) {
+	public ZombieWorld(Display display) {
 		super(display);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
