@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
@@ -15,7 +14,6 @@ import edu.monash.fit2099.engine.Menu;
 public class Player extends Human implements Wallet {
 
 	private Menu mainMenu = new Menu();
-	private Menu subMenu = new Menu();
 	private ArrayList<Coin> wallet = new ArrayList<>();
 	
 	/**
@@ -63,8 +61,7 @@ public class Player extends Human implements Wallet {
 		display.println("Current player wealth: " + getWealth() + " coin" + plural);
 		display.println("");  // Insert blank line between player statistics and menu options
 		
-		
-		// Also consider:
+		// Add some behaviours not considered in World:
 		actions.add(new HarvestBehaviour().getAction(this, map));
 		actions.add(new CollectCoinsBehaviour().getAction(this, map));
 		
@@ -72,11 +69,12 @@ public class Player extends Human implements Wallet {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();		
 		
-		Action action= mainMenu.showMenu(this, actions, display);
+		Action action = mainMenu.showMenu(this, actions, display);
 		
+		// While the option chosen presents a sub-menu:
 		while (action instanceof MenuAction) {
-			subMenu=((MenuAction) action).getMenu();
-			action=subMenu.showMenu(this, actions, display);
+			Menu subMenu = ((MenuAction) action).getMenu();
+			action = subMenu.showMenu(this, null, display);
 		}
 		
 		return action;

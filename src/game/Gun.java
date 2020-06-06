@@ -4,7 +4,7 @@ import edu.monash.fit2099.engine.WeaponItem;
 
 public class Gun extends WeaponItem implements HitProbability {
 	
-	AmmunitionCartridge ammo;
+	private AmmunitionCartridge ammo;
 
 	public Gun(String name, char displayChar, int damage, String verb) {
 		super(name, displayChar, damage, "shoots");
