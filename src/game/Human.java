@@ -31,7 +31,7 @@ public class Human extends ZombieActor {
 		behaviours.add(new AttackBehaviour(ZombieCapability.UNDEAD));
 		behaviours.add(new HarvestBehaviour());
 		behaviours.add(new HuntBehaviour(Food.class, 6));
-		behaviours.add(new HuntBehaviour(Weapon.class, 6)); // Reduced to 6 so they don't all run for the plank
+		behaviours.add(new HuntBehaviour(Weapon.class, 4)); // Reduced to 4 so they don't all run for the plank
 		behaviours.add(new WanderBehaviour());
 	}
 	

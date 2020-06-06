@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
@@ -17,7 +19,8 @@ public class CollectCoinsAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 		try {
 			if (actor instanceof Wallet) {
-				for (Item item : map.locationOf(actor).getItems()) {
+				ArrayList<Item> items = new ArrayList<>(map.locationOf(actor).getItems());
+				for (Item item : items) {
 					if (item instanceof Coin) {
 						((Wallet) actor).addCoinToWallet((Coin) item);
 						map.locationOf(actor).removeItem(item);
@@ -37,10 +40,7 @@ public class CollectCoinsAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		String plural = "";
-		if (numberOfCoins > 1) {
-			plural = "s";
-		}
+		String plural = numberOfCoins != 1 ? "s" : "";
 		return actor + " collects " + numberOfCoins + " coin" + plural;
 	}
 }

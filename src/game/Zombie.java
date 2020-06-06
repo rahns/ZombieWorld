@@ -56,7 +56,7 @@ public class Zombie extends ZombieActor {
 	@Override
 	public Weapon getWeapon() {
 		for (Item item : inventory) {
-			if (item.asWeapon() != null)
+			if (item.asWeapon() != null) {
 				// May drop the weapon when using it (depending on arm count). If dropped, just use intrinsic weapon:
 				if (getLimbCount(Arm.class) == 0 || (getLimbCount(Arm.class) == 1 && rand.nextBoolean())) {
 					removeItemFromInventory(item);
@@ -65,6 +65,7 @@ public class Zombie extends ZombieActor {
 					break;
 				}
 				return item.asWeapon();
+			}
 		}
 		return getIntrinsicWeapon();
 	}

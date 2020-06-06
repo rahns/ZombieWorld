@@ -57,15 +57,19 @@ public class Player extends Human implements Wallet {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		display.println("Current player health: " + hitPoints + "/" + maxHitPoints);
+		String plural = getWealth() != 1 ? "s" : "";
+		display.println("Current player wealth: " + getWealth() + " coin" + plural);
+		display.println("");  // Insert blank line between player statistics and menu options
+		
+		
 		// Also consider:
 		actions.add(new HarvestBehaviour().getAction(this, map));
 		actions.add(new CollectCoinsBehaviour().getAction(this, map));
 		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
-			return lastAction.getNextAction();
-		display.println("Current player health: " + hitPoints + "/" + maxHitPoints);
-		
+			return lastAction.getNextAction();		
 		
 		Action action= menu.showMenu(this, actions, display);
 		
