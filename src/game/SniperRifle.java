@@ -8,7 +8,7 @@ public class SniperRifle extends Gun implements HitProbability{
 
 	public SniperRifle() {
 		super("Sniper Rifle", 'R', 15, "snipes");
-		allowableActions.add(new SniperAction());
+		allowableActions.add(new SniperAction(this));
 		this.aimLevel=0;
 	}
 	@Override

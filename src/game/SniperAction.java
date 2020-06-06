@@ -6,12 +6,15 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
 
 public class SniperAction extends Action implements MenuAction {
-
+	SniperRifle sniper;
+	public SniperAction(SniperRifle sniper) {
+		this.sniper=sniper;
+	}
 
 
 	@Override
-	public Menu getMenu() {
-		return new SniperMenu();
+	public Menu getMenu(GameMap map) {
+		return new ChooseActorMenu(map);
 	}
 
 	@Override

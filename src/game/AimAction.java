@@ -5,22 +5,22 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
 
-public class AimAction extends Action implements MenuAction {
-	Actor actor;
+public class AimAction extends Action {
+	Actor target;
+	SniperRifle gun;
 
-	public AimAction(Actor actor) {
-		this.actor=actor;
+	public AimAction(Actor actor,SniperRifle gun) {
+		this.target=actor;
+		this.gun=gun;
 	}
 
-	@Override
-	public Menu getMenu() {
-		// TODO Auto-generated method stub
-		return new AimMenu(actor);
-	}
+
+
+
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		// TODO Auto-generated method stub
+		this.gun.aim(target);
 		return null;
 	}
 
