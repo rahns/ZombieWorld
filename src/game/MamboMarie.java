@@ -27,7 +27,8 @@ public class MamboMarie extends ZombieActor {
 		if (mambosVoid.getActor() == this) {
 			if (rand.nextInt(100) < 5) {
 				turnsSinceAppearing = 0;
-				return new MoveActorAction(appearLocation, "from her void to the compound");			}
+				return new MoveActorAction(appearLocation, "from her void to the compound");
+				}
 			else {
 				return new DoNothingCustomMessageAction("sits in her void");
 			}
