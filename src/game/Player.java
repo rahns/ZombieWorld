@@ -7,13 +7,12 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Menu;
 
 /**
  * Class representing the Player.
  */
-public class Player extends Human {
+public class Player extends Human implements Wallet {
 
 	private Menu menu = new Menu();
 	private ArrayList<Coin> wallet = new ArrayList<>();
@@ -37,6 +36,10 @@ public class Player extends Human {
 		return wallet.size();
 	}
 	
+	public void addCoinToWallet(Coin coin) {
+		wallet.add(coin);
+	}
+	
 	public void spendCoins(int cost) {
 		try {
 			if (cost > getWealth()) {
@@ -54,9 +57,9 @@ public class Player extends Human {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		spendCoins(10);
-		// Also consider harvest actions:
+		// Also consider:
 		actions.add(new HarvestBehaviour().getAction(this, map));
+		actions.add(new CollectCoinsBehaviour().getAction(this, map));
 		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
