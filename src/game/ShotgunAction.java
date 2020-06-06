@@ -33,8 +33,8 @@ public class ShotgunAction extends Action implements MenuAction{
 	public String execute(Actor actor, GameMap map) {
 		return null;
 	}
-	
-	public Menu getMenu() {
+	@Override
+	public Menu getMenu(GameMap map) {
 		return new ShotgunMenu();
 	}
 
@@ -44,6 +44,8 @@ public class ShotgunAction extends Action implements MenuAction{
 		// TODO Auto-generated method stub
 		return "Use shotgun";
 	}
+
+
 
 
 }

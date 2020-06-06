@@ -27,8 +27,10 @@ public class ShopAction extends Action implements MenuAction {
 		return "Shop at " + shopName;
 	}
 
+
+
 	@Override
-	public Menu getMenu() {
+	public Menu getMenu(GameMap map) {
 		return new ShopMenu(products);
 	}
 

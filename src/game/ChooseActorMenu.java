@@ -9,7 +9,6 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
-import edu.monash.fit2099.engine.Menu.SortHotkeysFirst;
 
 public class ChooseActorMenu extends Menu {
 	
