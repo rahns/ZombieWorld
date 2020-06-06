@@ -6,6 +6,7 @@ import java.util.List;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
+import edu.monash.fit2099.engine.ActorLocations;
 import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 
@@ -30,8 +31,9 @@ public class ShotgunBehaviour extends AttackBehaviour {
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
 		// Is there an attackable Actor next to me?
-		List<Action> action = new ArrayList<Action>();
-		//direction=ShotgunMenu.showMenu()
+//		Location location=map. (actor.)
+//		List<Action> action = new ArrayList<Action>();
+		
 		
 		return null;
 	}
