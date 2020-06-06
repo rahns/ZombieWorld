@@ -28,6 +28,9 @@ public class MamboMarie extends ZombieActor {
 	 */
 	public MamboMarie(Location mambosVoid, Location appearLoaction) {
 		super("Mambo Marie", 'M', 100, ZombieCapability.UNDEAD, 70);
+		for (int i = 0; i < 15; i++) {  // Give Mambo Marie 15 coins, which are dropped when she is killed
+			inventory.add(new Coin());
+		}
 		this.mambosVoid = mambosVoid;
 		this.appearLocation = appearLoaction;
 	}

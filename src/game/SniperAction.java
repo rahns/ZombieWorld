@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
 
-public class SniperAction extends Action implements menuAction {
+public class SniperAction extends Action implements MenuAction {
 
 
 

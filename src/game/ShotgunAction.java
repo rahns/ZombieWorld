@@ -12,7 +12,7 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.Menu;
 
-public class ShotgunAction extends Action implements menuAction{
+public class ShotgunAction extends Action implements MenuAction{
 	
 	static int SHOOT_RADIUS = 3;
 

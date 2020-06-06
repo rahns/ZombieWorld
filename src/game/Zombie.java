@@ -36,6 +36,8 @@ public class Zombie extends ZombieActor {
 	public Zombie(String name, GameMap gameMap) {
 		super(name, 'Z', 50, ZombieCapability.UNDEAD, 50);
 		
+		inventory.add(new Coin());  // Each zombie has 1 coin, which is dropped when they are killed
+		
 		behaviours.add(new PickupWeaponBehaviour());
 		behaviours.add(new AttackBehaviour(ZombieCapability.ALIVE));
 		behaviours.add(new HuntBehaviour(Human.class, 11));

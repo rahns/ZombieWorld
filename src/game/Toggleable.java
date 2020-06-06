@@ -14,8 +14,11 @@ public interface Toggleable {
 	
 	/**
 	 * A method to get a description of changing the specified state
+	 * 
+	 * @param stateToSwitchTo the state that the caller needs a description of changing to
+	 * 
 	 * @return a description of changing the state to the specified state
 	 */
-	public String switchToStateDescription(boolean state);
+	public String switchToStateDescription(boolean stateToSwitchTo);
 
 }

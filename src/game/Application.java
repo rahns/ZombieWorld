@@ -115,9 +115,9 @@ public class Application {
 		mainMap.at(74, 20).addItem(new Plank());
 		
 		// place a train to town on the main map
-		mainMap.at(43, 23).addItem(new Vehicle("train", '$', townMap.at(20, 0), "town"));
+		mainMap.at(43, 23).addItem(new Vehicle("train", '*', townMap.at(20, 0), "town"));
 		// place a train from town back to the main map
-		townMap.at(20, 0).addItem(new Vehicle("train", '$', mainMap.at(43, 23), "the compound"));
+		townMap.at(20, 0).addItem(new Vehicle("train", '*', mainMap.at(43, 23), "the compound"));
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));
