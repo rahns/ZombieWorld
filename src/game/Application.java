@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,8 +47,8 @@ public class Application {
 		".........................................................................++.....",
 		"........................................................................++.++...",
 		"......................................#####_#####........................++++...",
-		"......................................#.........#.........................++....",
-		"......................................###########...............................");
+		"..........#.......#...................#.........#.........................++....",
+		"..........#########...................###########...............................");
 		
 		List<String> townMapInput = Arrays.asList(
 		".........................................",
@@ -118,6 +119,14 @@ public class Application {
 		mainMap.at(43, 23).addItem(new Vehicle("train", '*', townMap.at(20, 0), "town"));
 		// place a train from town back to the main map
 		townMap.at(20, 0).addItem(new Vehicle("train", '*', mainMap.at(43, 23), "the compound"));
+		
+		// Add shop (for bonus marks)
+		ArrayList<Product> products = new ArrayList<>();
+		products.add(new Product(new ZombieMace(), 1));
+		products.add(new Product(new ZombieClub(), 1));
+		products.add(new Product(new Hoe(), 2));
+		products.add(new Product(new Plank(), 4));
+		mainMap.at(14, 23).setGround(new Shop("The Weapon Store", 'W', products));
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));

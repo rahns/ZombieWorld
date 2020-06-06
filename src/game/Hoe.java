@@ -12,7 +12,7 @@ public class Hoe extends WeaponItem {
 	 * Hoe constructor
 	 */
 	public Hoe() {
-		super("Hoe", ']', 15, "hoes down");
+		super("Hoe", ']', 35, "hoes down");
 	}
 
 }

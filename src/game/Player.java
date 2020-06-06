@@ -14,7 +14,8 @@ import edu.monash.fit2099.engine.Menu;
  */
 public class Player extends Human implements Wallet {
 
-	private Menu menu = new Menu();
+	private Menu mainMenu = new Menu();
+	private Menu subMenu = new Menu();
 	private ArrayList<Coin> wallet = new ArrayList<>();
 	
 	/**
@@ -71,11 +72,11 @@ public class Player extends Human implements Wallet {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();		
 		
-		Action action= menu.showMenu(this, actions, display);
+		Action action= mainMenu.showMenu(this, actions, display);
 		
 		while (action instanceof MenuAction) {
-			menu=((MenuAction) action).getMenu();
-			action=menu.showMenu(this, actions, display);
+			subMenu=((MenuAction) action).getMenu();
+			action=subMenu.showMenu(this, actions, display);
 		}
 		
 		return action;

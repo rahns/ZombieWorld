@@ -13,7 +13,7 @@ public class ZombieMace extends WeaponItem{
 	 * ZombieMace constructor
 	 */
 	public ZombieMace() {
-		super("zombie mace", 'm', 35, "struck");
+		super("zombie mace", 'm', 25, "struck");
 	}
 
 }
