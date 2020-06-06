@@ -126,7 +126,8 @@ public class Application {
 		products.add(new Product(new ZombieClub(), 1));
 		products.add(new Product(new Hoe(), 2));
 		products.add(new Product(new Plank(), 4));
-		mainMap.at(14, 23).setGround(new Shop("The Weapon Store", 'W', products));
+		products.add(new Product(new Food(), 1));
+		mainMap.at(14, 23).setGround(new Shop("Wallmart", 'W', products));
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));

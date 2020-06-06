@@ -46,7 +46,7 @@ public abstract class SubMenu extends Menu {
 	 * @param hotkey the hot-key for this option - null to have it auto assigned
 	 */
 	protected void addActionToMenu(Action action, Actor actor, Display display, Character hotkey) {
-		if (freeChars == null && hotkey == null) {  // Auto assigned hot-keys will be needed, so created the list of available hot-keys
+		if (freeChars == null && hotkey == null) {  // Auto assigned hot-keys will be needed, so create the list of available hot-keys
 			constructFreeCharsList();
 		}
 		char c = (char) (hotkey != null ? hotkey : freeChars.get(0));
