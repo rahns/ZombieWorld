@@ -19,6 +19,10 @@ public class Gun extends WeaponItem implements HitProbability {
 	public void reload(AmmunitionCartridge ammo) {
 		this.ammo=ammo;
 	}
+
+	public AmmunitionCartridge getAmmo() {
+		return this.ammo;
+	}
 	
 
 }

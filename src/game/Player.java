@@ -32,6 +32,15 @@ public class Player extends Human {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		System.out.println("Current player health: " + hitPoints + "/" + maxHitPoints);
-		return menu.showMenu(this, actions, display);
+		
+		
+		Action action= menu.showMenu(this, actions, display);
+		
+		while (action instanceof menuAction) {
+			menu=((menuAction) action).getMenu();
+			action=menu.showMenu(this, actions, display);
+		}
+		
+		return action;
 	}
 }

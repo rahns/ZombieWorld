@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
 import edu.monash.fit2099.engine.Action;
@@ -10,7 +9,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.Menu;
 
-public class ShotgunMenu extends Menu {
+public class SniperMenu extends Menu {
 	public Action showMenu(Actor actor, Actions actions, Display display) {
 		ArrayList<Character> freeChars = new ArrayList<Character>();
 		HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
@@ -19,15 +18,10 @@ public class ShotgunMenu extends Menu {
 		//TODO math on what locations are to be hit
 			
 		
-//		keyToActionMap.put(c, action);
-		display.println("1: Shoot north");
-		display.println("2: Shoot north-east");
-		display.println("3: Shoot east");
-		display.println("4: Shoot south-east");
-		display.println("5: Shoot south");
-		display.println("6: Shoot south-west");
-		display.println("7: Shoot west");
-		display.println("8: Shoot north-west");
+		//keyToActionMap.put('1', new AimAction(actor));
+		display.println("1: Aim");
+		display.println("2: Shoot");
+
 		
 
 		char key;
@@ -38,6 +32,4 @@ public class ShotgunMenu extends Menu {
 		return keyToActionMap.get(key);
 	}
 
-	}
-
-
+}

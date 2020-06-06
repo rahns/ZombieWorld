@@ -9,14 +9,13 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.ActorLocations;
 import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.Menu;
 
-public class ShotgunBehaviour extends AttackBehaviour {
+public class ShotgunAction extends Action implements menuAction{
 	
 	static int SHOOT_RADIUS = 3;
 
-	public ShotgunBehaviour(ZombieCapability attackableTeam) {
-		super(attackableTeam);
-	}
 	
 	/**
 	 * Returns a ShootAction that attacks a attackable Actor.
@@ -28,14 +27,23 @@ public class ShotgunBehaviour extends AttackBehaviour {
 	 * 
 	 * @return Action: an AttackAction on an Actor that is undead, and withiin a range of 1
 	 */
+
+
 	@Override
-	public Action getAction(Actor actor, GameMap map) {
-		// Is there an attackable Actor next to me?
-//		Location location=map. (actor.)
-//		List<Action> action = new ArrayList<Action>();
-		
-		
+	public String execute(Actor actor, GameMap map) {
 		return null;
 	}
+	
+	public Menu getMenu() {
+		return new ShotgunMenu();
+	}
+
+
+	@Override
+	public String menuDescription(Actor actor) {
+		// TODO Auto-generated method stub
+		return "Use shotgun";
+	}
+
 
 }

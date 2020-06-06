@@ -5,7 +5,7 @@ package edu.monash.fit2099.engine;
  */
 public abstract class WeaponItem extends Item implements Weapon{
 
-	private int damage;
+	protected int damage;
 	private String verb;
 
 	/** Constructor.
