@@ -35,15 +35,14 @@ public class ShopMenu extends SubMenu {
 	public Action showMenu(Actor actor, Actions actions, Display display) {
 		try {
 			if (actor instanceof Wallet) {
-				super.constructFreeCharsList();
 				display.println("\nProducts: ");
 				for (Product product : products) {
 					if (((Wallet) actor).getWealth() < product.getCost()) {
 						display.println(product.getItem() + " - Can't afford, Costs: " + product.getCost() + " coins");
 						continue;
 					}
-				Action action = new BuyAction(product);
-				addActionToMenu(action, actor, display, null);
+					Action action = new BuyAction(product);
+					addActionToMenu(action, actor, display, null);
 				}
 				
 				// Add quit option

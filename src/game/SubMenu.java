@@ -15,13 +15,11 @@ import edu.monash.fit2099.engine.Menu;
  */
 public abstract class SubMenu extends Menu {
 	
-	private ArrayList<Character> freeChars = new ArrayList<Character>();
+	private ArrayList<Character> freeChars;
 	private HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
 	
-	/**
-	 * A method to initialise the free characters list for assigning hot-keys
-	 */
-	protected void constructFreeCharsList() {
+	private void constructFreeCharsList() {
+		freeChars = new ArrayList<Character>();
 		for (char i = 'a'; i <= 'z'; i++)
 			freeChars.add(i);
 	}
@@ -48,6 +46,9 @@ public abstract class SubMenu extends Menu {
 	 * @param hotkey the hot-key for this option - null to have it auto assigned
 	 */
 	protected void addActionToMenu(Action action, Actor actor, Display display, Character hotkey) {
+		if (freeChars == null && hotkey == null) {  // Auto assigned hot-keys will be needed, so created the list of available hot-keys
+			constructFreeCharsList();
+		}
 		char c = (char) (hotkey != null ? hotkey : freeChars.get(0));
 		if (freeChars.contains(Character.valueOf(c))){
 			freeChars.remove(Character.valueOf(c));

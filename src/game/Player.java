@@ -61,7 +61,7 @@ public class Player extends Human implements Wallet {
 		display.println("Current player wealth: " + getWealth() + " coin" + plural);
 		display.println("");  // Insert blank line between player statistics and menu options
 		
-		// Add some behaviours not considered in World:
+		// Add some behaviours/actions not considered in World:
 		actions.add(new HarvestBehaviour().getAction(this, map));
 		actions.add(new CollectCoinsBehaviour().getAction(this, map));
 		
