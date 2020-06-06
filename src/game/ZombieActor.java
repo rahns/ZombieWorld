@@ -1,10 +1,12 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 
 /**
  * Base class for Actors in the Zombie World
@@ -24,7 +26,13 @@ public abstract class ZombieActor extends Actor implements HitProbability {
 		this.hitProbability = hitProbability;
 		addCapability(team);
 	}
-	
+	public Item getItemOf(Class<?> cls){
+		for (Item item : inventory) {
+			if (item.getClass() ==cls )
+				return item;
+		}
+		return null;
+	}
 	@Override
 	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
 		Actions list = super.getAllowableActions(otherActor, direction, map);

@@ -18,7 +18,7 @@ public class SniperMenu extends Menu {
 		//TODO math on what locations are to be hit
 			
 		
-		keyToActionMap.put('1', new AimAction(actor));
+		//keyToActionMap.put('1', new AimAction(actor));
 		display.println("1: Aim");
 		display.println("2: Shoot");
 
