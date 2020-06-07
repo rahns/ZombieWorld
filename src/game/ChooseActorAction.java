@@ -5,19 +5,18 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
 
-public class SniperAction extends Action implements MenuAction {
+public class ChooseActorAction extends Action implements MenuAction {
+	
 	SniperRifle sniper;
-	Actor target;
-	public SniperAction(SniperRifle sniper, Actor a) {
-		this.sniper=sniper;
-		this.target=a;
+
+	public ChooseActorAction(SniperRifle sniperRifle) {
+		this.sniper=sniperRifle;
 	}
-
-
 
 	@Override
 	public Menu getMenu(GameMap map) {
-		return new SniperMenu(target,sniper);
+		// TODO Auto-generated method stub
+		return new ChooseActorMenu(map,sniper);
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class SniperAction extends Action implements MenuAction {
 	@Override
 	public String menuDescription(Actor actor) {
 		// TODO Auto-generated method stub
-		return "Choose "+target;
+		return "Uses Sniper Rifle";
 	}
 
 }

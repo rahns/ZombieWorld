@@ -8,7 +8,9 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.Menu;
+import edu.monash.fit2099.engine.NumberRange;
 
 public class ChooseActorMenu extends Menu {
 	
@@ -16,14 +18,28 @@ public class ChooseActorMenu extends Menu {
 	
 	SniperRifle sniper;
 	GameMap map;
-	public ChooseActorMenu(GameMap map) {
-		this.map=map; 
+	public ChooseActorMenu(GameMap map, SniperRifle sniper) {
+		this.sniper=sniper;
+		this.map=map;
  	}
 
-	public Action showMenu(Actor actor, Actions actions, Display display) {
+	public Action showMenu(Actor actor, Actions nothing, Display display) {
 		ArrayList<Character> freeChars = new ArrayList<Character>();
 		HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
-
+		Actions actions = new Actions();
+		NumberRange x =map.getXRange();
+		NumberRange y = map.getYRange();
+		for (int xcoord : x) {
+			for (int ycoord : y) {
+				Location loc =map.at(xcoord, ycoord);
+				if (map.isAnActorAt(loc)){
+					Actor a = map.getActorAt(loc);
+					actions.add(new SniperAction(sniper,a));
+				}
+			}
+		}
+		
+		
 		for (char i = 'a'; i <= 'z'; i++)
 			freeChars.add(i);
 		//TODO loop through all actors on map and add sniper action for them
@@ -50,4 +66,5 @@ public class ChooseActorMenu extends Menu {
 
 		return keyToActionMap.get(key);
 	}
+
 }
