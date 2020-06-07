@@ -3,7 +3,6 @@ package game;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Menu;
 
 public class AimAction extends Action {
 	Actor target;
@@ -14,14 +13,10 @@ public class AimAction extends Action {
 		this.gun=gun;
 	}
 
-
-
-
-
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		this.gun.aim(target);
-		return null;
+		this.gun.aim(target,((ZombieActor) actor).getHealthStatus());
+		return actor+" aimed at " + target;
 	}
 
 	@Override

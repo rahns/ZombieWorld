@@ -22,6 +22,9 @@ public abstract class SubMenu extends Menu {
 		freeChars = new ArrayList<Character>();
 		for (char i = 'a'; i <= 'z'; i++)
 			freeChars.add(i);
+		for (char i = '1'; i <= '9'; i++) {
+			freeChars.add(i);
+		}
 	}
 	
 	/**
