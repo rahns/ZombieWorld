@@ -122,11 +122,11 @@ public class Application {
 		
 		// Add shop (for bonus marks)
 		ArrayList<Product> products = new ArrayList<>();
+		products.add(new Product(new Food(), 1));
 		products.add(new Product(new ZombieMace(), 1));
 		products.add(new Product(new ZombieClub(), 1));
 		products.add(new Product(new Hoe(), 2));
 		products.add(new Product(new Plank(), 4));
-		products.add(new Product(new Food(), 1));
 		mainMap.at(14, 23).setGround(new Shop("Wallmart", 'W', products));
 		
 		// Add zombies to the main map

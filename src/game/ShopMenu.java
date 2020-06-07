@@ -41,8 +41,7 @@ public class ShopMenu extends SubMenu {
 						display.println(product.getItem() + " - Can't afford, Costs: " + product.getCost() + " coins");
 						continue;
 					}
-					Action action = new BuyAction(product);
-					addActionToMenu(action, actor, display, null);
+					addActionToMenu(new BuyAction(product), actor, display, null);
 				}
 				
 				// Add quit option

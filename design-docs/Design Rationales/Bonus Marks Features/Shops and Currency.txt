@@ -1,0 +1,54 @@
+Shops and Currency:
+
+In order to have a shop, there has to be some sort of currency in the game. We have chosen to make zombies drop a coin when they are killed and make Mambo Marie drop 15 coins when she is killed.
+
+Coins will be instances of a new class called Coin, which will extend Item. This is because we have chosen to make coins physical objects that can be dropped on the map, instead of just treating them as a number and increasing the player's number when a zombie is killed. We wanted the player to be able to see coins on the map and have to actually pick them up. Hence making them extend Item.
+
+To make zombies and Mambo Marie drop these coins upon their death, their constructors will be modified to add the right number of coins to their inventory when they are created. The game already makes actors drop everything in their inventory upon their death, so these coins will be dropped.
+
+Because many coins can be on the ground at the same location (e.g. when Mambo Marie is killed, 15 coins will be dropped at her location), we also wanted to provide a way to pick them all up at once, so the player doesn't have to waste up to 15 turns picking up coins. To achieve this, we needed to disable the existing pickup mechanisism and use a new one unique to coins. A new CollectCoinsBehaviour will be used to add CollectCoinActions to the player's actions list in their playTurn.
+
+The CollectCoinBehvaiour, which will implement the existing Behvaiour interface, will check the ground the actor is on and, if there are any coins on the ground, will return a new CollectCoinAction which will allow the actor to pick them all up.
+
+The CollectCoinAction needs to be able to take coins from the ground and add them to an actor's wallet. This means actors who have the ability to pickup coins must also have a wallet. These actors (just the player in our case) will implement a new interface called Wallet, which forces them to have the public methods addCoinToWallet, spendCoins, and getWealth. In player's case, these methods will work with a new private ArrayList called wallet, which will store all the coins. 
+
+We could have just made coins get added to the player's inventory to avoid this new wallet interface, but we decided this wouldn't be ideal as the actor's inventory would mostly fill up with coins and the player's menu would be full of mostly "drop coin" options, due to the game engine rule which allows items in inventorys to be dropped.
+
+The CollectCoinsAction will require that the actor passed in to its execute method is an instance of the Wallet interface. We realise this will need to be done with type checking as the CollectCoinsAction extends Action and Action requires that execute take an Actor parameter, however the way around this issue would be to not use the existing Action public interface and rewrite part of world to specifically also execute CollectCoinsActions, which isn't ideal either, so we chose the better of the two options. 
+
+If the actor passed is not an instance of Wallet, we will throw an exception with the message "Only actors who implement Wallet can collect coins". This exception will then be caught in the same method and handled by printing the stack trace.
+
+CollectCoinsAction will scan the location of the actor for coins, remove them from the location, and add them to the actor's wallet using the method from the Wallet interface, addCoinToWallet(). This is different to the PickupItemAction as it can pick up multiple coins in one action and adds the coins to a wallet instead of the actor's inventory.
+
+Now that zombies drop coins and players can pick them up, we will need to add some where for the player to spend these coins.
+
+Naturally, we will start by creating a Shop class for representing a shop. We have chosen to make the shop class extend Ground, as we wanted to be able to stop actors from standing on the shop, and allow interacting with it from its adjacent locations. 
+
+The shop class's constructor will take a name and display character, so that different shops can have different names and display characters. The constructor will also take a list of Products, so that each shop can sell different things. 
+
+A very simple Product class will be created, which will hold an instance of an Item (the thing that can be bought) and the price of this product. Getters will be made for both of these attributes, as they will be private to the Product. We chose to make this product class to have a simple way of grouping items and prices. It would also allow us to easily add info to each product in the future, such as item quantities, or tags, such as 'weapon' and 'food'.
+
+To allow actors to interact with the Shop, we will override Ground's allowableActions to return a ShopAction. The allowableActions are presented to actors when they are adjacent to the Ground object.
+
+The new ShopAction will extend Action and implement the MenuAction interface, which we created for showing submenus for the guns task. Simply, our MenuAction interface marks actions that open submenus, and requires that these actions have the public method getMenu(). The player's playTurn already checks if the selected action is a MenuAction due to our guns implementation, and so if the player selects a shop's ShopAction from the main menu, it will know to call that action's getMenu method to open a sub-menu.
+
+
+When the ShopAction's getMenu is called, it will return an instance of the new class ShopMenu.
+
+The ShopAction's constructor will take the name of the shop, for showing "Shop at <shop_name>" in the main menu, and the shop's list of products, for passing into the ShopMenu that ShopAction's getMenu returns.
+
+The ShopMenu class will take a list of Products in its constructor and will extend the SubMenu class we created for the guns task. 
+
+The SubMenu class extends Menu and allows easily creating a menu by calling its method addActionToMenu and passing it an action. It also handles reading the user input by calling readInput, which returns the action that was selected.
+
+The ShopMenu class, when its showMenu method is called, will handle displaying a "Products:" heading and displaying all the items that the actor can't afford (done by calling actor.getWealth()), and any products the actor can afford will be used to create a BuyAction and that BuyAction will be added to the menu using addActionToMenu(aBuyAction, actor, display, null) (null denotes an unspecified hotkey). Like above with the CollectCoinsAction, the ShopMenu also requires the actor to implement Wallet, for the same reasons as CollectCoinsAction. ShopMenu will raise an exception if this is not true, which will be handled again by printing the stack trace and returning null.
+
+Finally, the ShopMenu's showMenu method will also add a DoNothingCustomMessage("leaves the shop without buying anything") action (an action we created for the Mambo Marie task) to the menu for the action of not buying anything, and then call readInput, which it inherits off SubMenu. readInput will read the user input and return the chosen action, which ShopMenu's showMenu will then return.
+
+The BuyAction's mentioned above will be instances of a new class called BuyAction, which will extend Action. The BuyAction constructor will take a product, the product that is being bought. When BuyAction's execute is called it completes a transaction. This is done by checking the actor can afford the product, with actor.getWealth(), then if they can calling actor.spendCoins(product.getCost()) and then adding the product.getItem() to the actor's inventory. 
+
+Again, this method requires that the actor implements Wallet, and because the signature of Action's execute method can't be changed to take a Wallet instance instead of an Actor, this will need to be done with actor instanceof Wallet. If the actor is not an instance of Wallet an exception will be thrown which will be handled by printing the stack trace. Again, this isn't ideal but it is better than the alternative of making BuyAction not an Action and making the player check if its chosen action is a BuyAction and then executing it instead of letting World do it.
+
+All together, the flow of visiting a shop is: Play selects a ShopAction from the main manu, which starts a ShopMenu that displays the shop's products and allows the user to pick one. The ShopMenu then returns a BuyAction corresponding to the item selected (or DoNothingCustomMessageAction if nothing is bought), which is then passed back to world by the player's playTurn to be executed.
+
+At the start of the player's playTurn we will also use the display parameter to print the player's current number of coins, just like we have done with their current health, so that the player can keep track of how many coins they have.
