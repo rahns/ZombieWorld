@@ -25,7 +25,7 @@ public class Gun extends WeaponItem implements HitProbability {
 		return this.ammo;
 	}
 
-	public void aim(Actor target, String currHealth) {
+	public void aim(Actor target) {
 		// TODO Auto-generated method stub
 		
 	}

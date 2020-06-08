@@ -15,8 +15,12 @@ import edu.monash.fit2099.engine.Menu;
 public class ShotgunAction extends Action implements MenuAction{
 	
 	static int SHOOT_RADIUS = 3;
+	private Shotgun gun;
 
 	
+	public ShotgunAction(Shotgun shotgun) {
+		this.gun=shotgun;
+	}
 	/**
 	 * Returns a ShootAction that attacks a attackable Actor.
 	 * 

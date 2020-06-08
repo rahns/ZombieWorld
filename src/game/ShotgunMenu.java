@@ -7,15 +7,23 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
+import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Location;
 
 public class ShotgunMenu extends SubMenu {
+	private Shotgun gun;
+	private GameMap map;
+	public ShotgunMenu(GameMap map, Shotgun shotgun) {
+		this.gun=shotgun;
+		this.map=map;
+ 	}
 	public Action showMenu(Actor actor, Actions actions, Display display) {
-		ArrayList<Character> freeChars = new ArrayList<Character>();
-		HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
-
 		
-		//TODO math on what locations are to be hit
-			
+		
+		//TODO math on what locations are to be hit, create actions then add them to options.
+		Location actor_loc=map.locationOf(actor);
+		int x = actor_loc.x();
+		int y = actor_loc.y();
 		
 //		keyToActionMap.put(c, action);
 		display.println("1: Shoot north");
@@ -28,12 +36,6 @@ public class ShotgunMenu extends SubMenu {
 		display.println("8: Shoot north-west");
 		
 
-		char key;
-		do {
-			key = display.readChar();
-		} while (!keyToActionMap.containsKey(key));
-
-		return keyToActionMap.get(key);
 	}
 
 	}

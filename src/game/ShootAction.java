@@ -48,7 +48,7 @@ public class ShootAction extends AttackAction {
 			actor.heal(((Healing) gun).getHealAmount());
 			healResultString += System.lineSeparator() + actor.toString() + " gained " + ((Healing) gun).getHealAmount() + " hit-points";
 		}
-		gun.aim(target,((ZombieActor) actor).getHealthStatus());
+		gun.aim(target);
 		int damage = gun.shootDamage();
 		String result = actor + " shoots " + target + " for " + damage + " damage";
 		result += healResultString;
