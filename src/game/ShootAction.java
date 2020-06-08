@@ -19,8 +19,6 @@ public class ShootAction extends AttackAction {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		//TODO make ammo go down
-		AmmunitionCartridge ammo = gun.getAmmo();
 		//TODO make this all inherit off of attack action but make the weapon the gun.
 		// refer to the weapon's hit probability for the likeliness of missing
 		try {
@@ -74,7 +72,6 @@ public class ShootAction extends AttackAction {
 			
 			result += System.lineSeparator() + target + " is killed";
 		}
-		ammo.reduceBulletCount();
 
 		return result;
 	}

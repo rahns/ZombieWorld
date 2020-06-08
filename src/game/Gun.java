@@ -14,8 +14,7 @@ public class Gun extends WeaponItem implements HitProbability {
 
 	@Override
 	public int getHitProbability() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 100;
 	}
 	
 	public void reload(AmmunitionCartridge ammo) {

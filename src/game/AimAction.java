@@ -15,7 +15,9 @@ public class AimAction extends Action {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		this.gun.aim(target,((ZombieActor) actor).getHealthStatus());
+		String healthStat=((ZombieActor) actor).getHealthStatus();
+		this.gun.aim(target,healthStat);
+		System.out.println("What was passed was: "+healthStat);
 		return actor+" aimed at " + target;
 	}
 

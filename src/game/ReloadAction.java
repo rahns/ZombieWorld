@@ -18,13 +18,14 @@ public class ReloadAction extends Action {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		gun.reload(ammo);
-		return null;
+		actor.removeItemFromInventory(ammo);
+		return actor + " reloads " +gun+" with " +ammo.getBulletCount()+" bullets";
 	}
 
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return "Reload with "+ammo.getBulletCount()+" bullets";
 	}
 
 }

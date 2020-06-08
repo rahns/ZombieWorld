@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
@@ -26,13 +25,7 @@ public abstract class ZombieActor extends Actor implements HitProbability {
 		this.hitProbability = hitProbability;
 		addCapability(team);
 	}
-	public Item getItemOf(Class<?> cls){
-		for (Item item : inventory) {
-			if (item.getClass() ==cls )
-				return item;
-		}
-		return null;
-	}
+
 	@Override
 	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
 		Actions list = super.getAllowableActions(otherActor, direction, map);
@@ -43,6 +36,15 @@ public abstract class ZombieActor extends Actor implements HitProbability {
 	@Override
 	public int getHitProbability() {
 		return hitProbability;
+	}
+	@Override
+	public void hurt(int points) {
+		hitPoints -= points;
+		for(Item item : this.inventory) {
+			if (item instanceof SniperRifle) {
+				((SniperRifle) item).resetAimLevel();
+			}
+		}
 	}
 	/**
 	 * Getter for the actors health status
