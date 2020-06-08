@@ -39,7 +39,7 @@ public class ShotgunAction extends Action implements MenuAction{
 	}
 	@Override
 	public Menu getMenu(GameMap map) {
-		return new ShotgunMenu();
+		return new ShotgunMenu(map, gun);
 	}
 
 

@@ -35,6 +35,7 @@ public class ShotgunMenu extends SubMenu {
 		display.println("7: Shoot west");
 		display.println("8: Shoot north-west");
 		
+		return null;
 
 	}
 

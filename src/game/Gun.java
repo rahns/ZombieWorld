@@ -3,7 +3,7 @@ package game;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.WeaponItem;
 
-public class Gun extends WeaponItem implements HitProbability {
+public abstract class Gun extends WeaponItem implements HitProbability {
 	
 	protected AmmunitionCartridge ammo;
 	protected int melee_damage=12;
@@ -26,17 +26,17 @@ public class Gun extends WeaponItem implements HitProbability {
 	}
 
 	public void aim(Actor target) {
-		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public int damage() {
 		return melee_damage;
 	}
 
-	public int shootDamage() {
-		return melee_damage;
-	}
+	public abstract int shootDamage();
+	
+	public abstract ShootAction shoot();
 	
 
 }

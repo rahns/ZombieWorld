@@ -13,8 +13,6 @@ public class SniperAction extends Action implements MenuAction {
 		this.target=a;
 	}
 
-
-
 	@Override
 	public Menu getMenu(GameMap map) {
 		return new SniperMenu(target,sniper);
@@ -27,7 +25,7 @@ public class SniperAction extends Action implements MenuAction {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		return "Choose "+target;
+		return "Choose "+target + " " + ((ZombieActor) actor).getHealthStatus();
 	}
 
 }

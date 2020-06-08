@@ -120,7 +120,7 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public void hurt(int points) {
-		hitPoints -= points;
+		super.hurt(points);
 		// 25% chance of dropping a limb:
 		if (rand.nextInt(100) < 25) {
 			knockOffLimb();

@@ -6,12 +6,15 @@ public class SniperRifle extends Gun {
 	private int aimLevel;
 	private Actor target;
 	private String shooterHealth="";
+	
+	
 	public SniperRifle() {
 		super("Sniper Rifle", 'R', 15, "snipes");
 		allowableActions.add(new ChooseActorAction(this));
 		this.aimLevel=0;
 		this.ammo=new AmmunitionCartridge();
 	}
+	
 	@Override
 	public int getHitProbability() {
 		if (this.aimLevel==1) {
@@ -41,6 +44,8 @@ public class SniperRifle extends Gun {
 		
 		
 	}
+	
+	@Override
 	public void aim(Actor target) {
 		if (target==this.target) {
 			this.aimLevel+=1;
@@ -56,6 +61,8 @@ public class SniperRifle extends Gun {
 		
 		
 	}
+	
+	@Override
 	public ShootAction shoot() {
 		ShootAction shoot = new ShootAction(target,this);
 		ammo.reduceBulletCount();

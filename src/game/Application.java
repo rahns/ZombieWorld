@@ -85,7 +85,7 @@ public class Application {
 		Actor player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
 		mainMap.at(43,16).addItem(new SniperRifle());
-		// townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
+//		townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",
@@ -119,6 +119,10 @@ public class Application {
 		mainMap.at(43, 23).addItem(new Vehicle("train", '*', townMap.at(20, 0), "town"));
 		// place a train from town back to the main map
 		townMap.at(20, 0).addItem(new Vehicle("train", '*', mainMap.at(43, 23), "the compound"));
+		
+		// Add guns to town map
+		townMap.at(11, 3).addItem(new SniperRifle());
+		townMap.at(7, 3).addItem(new Shotgun());
 		
 		// Add shop (for bonus marks)
 		ArrayList<Product> products = new ArrayList<>();
