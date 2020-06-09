@@ -75,5 +75,9 @@ public class ShootAction extends AttackAction {
 
 		return result;
 	}
+	@Override
+	public String menuDescription(Actor actor) {
+		return actor + " shoots at " + target + " " + ((ZombieActor) target).getHealthStatus();
+	}
 
 }

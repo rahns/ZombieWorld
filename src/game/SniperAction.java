@@ -25,7 +25,7 @@ public class SniperAction extends Action implements MenuAction {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		return "Choose "+target + " " + ((ZombieActor) actor).getHealthStatus();
+		return "Choose "+target + " " + ((ZombieActor) target).getHealthStatus();
 	}
 
 }
