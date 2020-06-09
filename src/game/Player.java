@@ -64,7 +64,7 @@ public class Player extends Human implements Wallet {
 		// Add some behaviours/actions not considered in World:
 		actions.add(new HarvestBehaviour().getAction(this, map));
 		actions.add(new CollectCoinsBehaviour().getAction(this, map));
-		actions.add(new EndGameAction());
+		//actions.add(new EndGameAction());
 		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)

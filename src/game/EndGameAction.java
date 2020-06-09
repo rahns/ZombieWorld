@@ -8,7 +8,7 @@ public class EndGameAction extends Action {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		actor.hurt(1000000000);
+		actor.hurt(1000);
 		return actor+ " took the easy way out ";
 	}
 
