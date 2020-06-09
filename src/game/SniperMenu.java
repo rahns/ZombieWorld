@@ -32,7 +32,6 @@ public class SniperMenu extends SubMenu {
 			}
 		}
 		
-		
 		addActionToMenu(new AimAction(target,gun), actor, display, null);
 		if (!(gun.getAmmo().isEmpty())) {
 			addActionToMenu(new ShootAction(target,gun), actor, display, null);

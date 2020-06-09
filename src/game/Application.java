@@ -47,15 +47,15 @@ public class Application {
 		".........................................................................++.....",
 		"........................................................................++.++...",
 		"......................................#####_#####........................++++...",
-		"..........#.......#...................#.........#.........................++....",
-		"..........#########...................###########...............................");
+		"......................................#.........#.........................++....",
+		"......................................###########...............................");
 		
 		List<String> townMapInput = Arrays.asList(
 		".........................................",
 		".........................................",
 		"....###########..........................",
 		"....#.........#..........................",
-		"....#####_#####..########................",
+		"....#####_###############................",
 		"....#.........#..#.......................",
 		"....#.........#..#.......#...............",
 		"....#.........####.......#...............",
@@ -126,12 +126,15 @@ public class Application {
 		
 		// Add shop (for bonus marks)
 		ArrayList<Product> products = new ArrayList<>();
-		products.add(new Product(new Food(), 1));
-		products.add(new Product(new ZombieMace(), 1));
-		products.add(new Product(new ZombieClub(), 1));
+		products.add(new Product(new Food(), 2));
+		products.add(new Product(new ZombieMace(), 3));
+		products.add(new Product(new ZombieClub(), 3));
 		products.add(new Product(new Hoe(), 2));
-		products.add(new Product(new Plank(), 4));
-		mainMap.at(14, 23).setGround(new Shop("Wallmart", 'W', products));
+		products.add(new Product(new Plank(), 1));
+		products.add(new Product(new AmmunitionCartridge(), 5));
+		products.add(new Product(new AmmunitionCartridge(), 5));
+		products.add(new Product(new AmmunitionCartridge(), 5));
+		townMap.at(14,5).setGround(new Shop("Wallmart", 'W', products));
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));
@@ -158,7 +161,9 @@ public class Application {
 		townMap.at(19, 6).addActor(new Zombie("Zombie Rupert Murdoch", townMap));
 		townMap.at(13, 0).addActor(new Zombie("Zombie Kanye", townMap));
 		townMap.at(33, 5).addActor(new Zombie("Zombie Rick", townMap));
-		townMap.at(25, 6).addActor(new Zombie("Zombie Harold Holt", townMap));		
+		townMap.at(25, 6).addActor(new Zombie("Zombie Harold Holt", townMap));
+		townMap.at(15, 5).addActor(new Zombie("Shop Keeper Zombie", townMap));		
+
 		
 		world.run();
 	}

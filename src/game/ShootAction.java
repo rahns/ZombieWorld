@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
@@ -10,9 +12,16 @@ import edu.monash.fit2099.engine.Weapon;
 public class ShootAction extends AttackAction {
 	
 	Gun gun;
+	ArrayList<Actor> targets;
 
 	public ShootAction(Actor target,Gun gun) {
 		super(target);
+		this.gun=gun;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ShootAction(ArrayList<Actor> targets,Gun gun) {
+		super(targets);
 		this.gun=gun;
 		// TODO Auto-generated constructor stub
 	}
