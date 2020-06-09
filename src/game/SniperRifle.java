@@ -5,7 +5,6 @@ import edu.monash.fit2099.engine.Actor;
 public class SniperRifle extends Gun {
 	private int aimLevel;
 	private Actor target;
-	private String shooterHealth="";
 	
 	
 	public SniperRifle() {
@@ -38,7 +37,7 @@ public class SniperRifle extends Gun {
 			return 2*d;
 		}
 		else if (this.aimLevel>1) {
-			return 10000;
+			return ((ZombieActor) target).getMaxHitpoints();
 		}
 		else return d;
 		
