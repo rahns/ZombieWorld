@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.Action;
@@ -32,6 +33,10 @@ public class AttackAction extends Action {
 		this.target = target;
 	}
 
+	public AttackAction(ArrayList<Actor> targets) {
+		// TODO create attack action for multiple targets
+	}
+	//TODO a lot of repeated code here
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		Weapon weapon = actor.getWeapon();
