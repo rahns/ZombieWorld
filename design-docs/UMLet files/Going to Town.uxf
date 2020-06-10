@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
   <help_text/>
-  <zoom_level>20</zoom_level>
+  <zoom_level>17</zoom_level>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>240</x>
-      <y>500</y>
-      <w>960</w>
-      <h>180</h>
+      <x>425</x>
+      <y>136</y>
+      <w>816</w>
+      <h>153</h>
     </coordinates>
     <panel_attributes>edu.monash.fit2099.engine</panel_attributes>
     <additional_attributes/>
@@ -16,10 +16,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>920</y>
-      <w>200</w>
-      <h>60</h>
+      <x>255</x>
+      <y>493</y>
+      <w>170</w>
+      <h>51</h>
     </coordinates>
     <panel_attributes>Application</panel_attributes>
     <additional_attributes/>
@@ -27,10 +27,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>880</x>
-      <y>820</y>
-      <w>300</w>
-      <h>60</h>
+      <x>969</x>
+      <y>408</y>
+      <w>255</w>
+      <h>51</h>
     </coordinates>
     <panel_attributes>ToggleAction
 bg=pink</panel_attributes>
@@ -39,10 +39,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>820</y>
-      <w>200</w>
-      <h>60</h>
+      <x>680</x>
+      <y>408</y>
+      <w>170</w>
+      <h>51</h>
     </coordinates>
     <panel_attributes>Door
 bg=pink</panel_attributes>
@@ -51,10 +51,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>820</y>
-      <w>200</w>
-      <h>60</h>
+      <x>459</x>
+      <y>408</y>
+      <w>170</w>
+      <h>51</h>
     </coordinates>
     <panel_attributes>Vehicle
 bg=pink</panel_attributes>
@@ -63,10 +63,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>560</y>
-      <w>200</w>
-      <h>80</h>
+      <x>459</x>
+      <y>187</y>
+      <w>170</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Item/
@@ -76,10 +76,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>560</y>
-      <w>200</w>
-      <h>80</h>
+      <x>680</x>
+      <y>187</y>
+      <w>170</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Ground/</panel_attributes>
@@ -88,10 +88,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>960</x>
-      <y>560</y>
-      <w>200</w>
-      <h>80</h>
+      <x>1037</x>
+      <y>187</y>
+      <w>170</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Action/</panel_attributes>
@@ -100,10 +100,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>620</y>
-      <w>60</w>
-      <h>240</h>
+      <x>527</x>
+      <y>238</y>
+      <w>51</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
@@ -111,10 +111,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>620</y>
-      <w>60</w>
-      <h>240</h>
+      <x>748</x>
+      <y>238</y>
+      <w>51</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
@@ -122,10 +122,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1040</x>
-      <y>620</y>
-      <w>60</w>
-      <h>240</h>
+      <x>1105</x>
+      <y>238</y>
+      <w>51</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
@@ -133,10 +133,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>40</x>
-      <y>800</y>
-      <w>200</w>
-      <h>80</h>
+      <x>255</x>
+      <y>391</y>
+      <w>170</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>Pink classes 
 are new
@@ -146,10 +146,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>220</x>
-      <y>860</y>
-      <w>320</w>
-      <h>140</h>
+      <x>408</x>
+      <y>442</y>
+      <w>272</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;creates&gt;</panel_attributes>
@@ -158,10 +158,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>340</x>
-      <y>860</y>
-      <w>400</w>
-      <h>140</h>
+      <x>510</x>
+      <y>442</y>
+      <w>340</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;creates&gt;</panel_attributes>
@@ -170,10 +170,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>0</x>
-      <y>740</y>
-      <w>1200</w>
-      <h>320</h>
+      <x>221</x>
+      <y>340</y>
+      <w>1020</w>
+      <h>272</h>
     </coordinates>
     <panel_attributes>game</panel_attributes>
     <additional_attributes/>
@@ -181,10 +181,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1040</x>
-      <y>860</y>
-      <w>80</w>
-      <h>120</h>
+      <x>1105</x>
+      <y>442</y>
+      <w>68</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1</panel_attributes>
@@ -193,10 +193,10 @@ m1=1</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>0</x>
-      <y>600</y>
-      <w>220</w>
-      <h>80</h>
+      <x>221</x>
+      <y>221</y>
+      <w>187</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>Going to Town
 bg=blue</panel_attributes>
@@ -205,10 +205,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>880</x>
-      <y>940</y>
-      <w>300</w>
-      <h>80</h>
+      <x>969</x>
+      <y>510</y>
+      <w>255</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 /Toggleable/
@@ -218,10 +218,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>840</y>
-      <w>200</w>
-      <h>160</h>
+      <x>833</x>
+      <y>425</y>
+      <w>170</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>80.0;60.0;20.0;60.0;20.0;10.0;10.0;10.0</additional_attributes>
@@ -229,10 +229,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>800</y>
-      <w>200</w>
-      <h>80</h>
+      <x>833</x>
+      <y>391</y>
+      <w>170</w>
+      <h>68</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;creates&gt;&gt;</panel_attributes>

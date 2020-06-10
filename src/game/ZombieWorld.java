@@ -1,6 +1,5 @@
 package game;
 
-import java.util.Iterator;
 
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
@@ -18,10 +17,8 @@ public class ZombieWorld extends World {
 		boolean containsMambo=false;
 		boolean containsZombie=false;
 		boolean containsHuman=false;
-		Iterator<Actor> iter=actorLocations.iterator();
 		
-		while(iter.hasNext()){
-			Actor curr=iter.next();
+		for (Actor curr : actorLocations) {
 			if (curr instanceof Zombie){
 				containsZombie=true;
 			}

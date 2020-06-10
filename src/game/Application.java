@@ -55,10 +55,10 @@ public class Application {
 		".........................................",
 		"....###########..........................",
 		"....#.........#..........................",
-		"....#####_###############................",
+		"....#####_#####..########................",
 		"....#.........#..#.......................",
-		"....#.........#..#.......#...............",
 		"....#.........####.......#...............",
+		"....#....................#...............",
 		"....#....................#..........++++.",
 		"....######################........+++++..",
 		"..................................+++....",
@@ -121,8 +121,8 @@ public class Application {
 		townMap.at(20, 0).addItem(new Vehicle("train", '*', mainMap.at(43, 23), "the compound"));
 		
 		// Add guns to town map
-		townMap.at(11, 3).addItem(new SniperRifle());
-		townMap.at(7, 3).addItem(new Shotgun());
+		townMap.at(8, 3).addItem(new SniperRifle());
+		townMap.at(6, 3).addItem(new Shotgun());
 		
 		// Add shop (for bonus marks)
 		ArrayList<Product> products = new ArrayList<>();
@@ -132,9 +132,7 @@ public class Application {
 		products.add(new Product(new Hoe(), 2));
 		products.add(new Product(new Plank(), 1));
 		products.add(new Product(new AmmunitionCartridge(), 5));
-		products.add(new Product(new AmmunitionCartridge(), 5));
-		products.add(new Product(new AmmunitionCartridge(), 5));
-		townMap.at(14,5).setGround(new Shop("Wallmart", 'W', products));
+		townMap.at(12,3).setGround(new Shop("Wallmart", 'W', products));
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));
@@ -156,13 +154,13 @@ public class Application {
 		mainMap.at(43, 1).addActor(new Zombie("Zombie Megatron", mainMap));		
 
 		// Add zombies to the town map
-		townMap.at(10, 6).addActor(new Zombie("Zombie Mayor Duncan", townMap));
+		townMap.at(15, 5).addActor(new Zombie("Zombie Mayor Duncan", townMap));
 		townMap.at(8, 7).addActor(new Zombie("Zombie Bob Dylan", townMap));
 		townMap.at(19, 6).addActor(new Zombie("Zombie Rupert Murdoch", townMap));
 		townMap.at(13, 0).addActor(new Zombie("Zombie Kanye", townMap));
 		townMap.at(33, 5).addActor(new Zombie("Zombie Rick", townMap));
 		townMap.at(25, 6).addActor(new Zombie("Zombie Harold Holt", townMap));
-		townMap.at(15, 5).addActor(new Zombie("Shop Keeper Zombie", townMap));		
+		townMap.at(10, 5).addActor(new Zombie("Zombie Wallmart Employee", townMap));		
 
 		
 		world.run();
