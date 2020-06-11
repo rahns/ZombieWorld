@@ -1,17 +1,47 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import edu.monash.fit2099.engine.Action;
+import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
+import edu.monash.fit2099.engine.DoNothingAction;
+import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
+import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.NumberRange;
 
 public class SniperRifle extends Gun {
 	private int aimLevel;
 	private Actor target;
+	private Actions actions;
 	
 	
 	public SniperRifle() {
 		super("Sniper Rifle", 'R', 15, "snipes");
-		allowableActions.add(new ChooseActorAction(this));
+		allowableActions.add(new GunAction(this));
 		this.aimLevel=0;
 		this.ammo=new AmmunitionCartridge();
+	}
+		public ArrayList<Action> getActions(Actor actor,GameMap map, Shotgun shotgun) {
+		
+		ArrayList<Action> actions = new ArrayList<Action>();
+		actions.add(new SnipeAction(this));
+		actions.add(new ChooseAimAction(this));
+		
+		
+		
+		Iterator<Item> iter= actor.getInventory().iterator();
+		while (iter.hasNext()) {
+			Item item = iter.next();
+			if (item instanceof AmmunitionCartridge) {
+				actions.add(new ReloadAction((AmmunitionCartridge) item,this));
+			}
+		}
+		actions.add(new DoNothingAction());
+		return actions;
+
 	}
 	
 	@Override
@@ -65,6 +95,25 @@ public class SniperRifle extends Gun {
 	}
 	public void resetAimLevel() {
 		this.aimLevel=0;
+	}
+	public ArrayList<Actor> getTargets(Actor actor, GameMap map, SniperRifle gun) {
+		ArrayList<Actor> targets = new ArrayList<Actor>();
+		
+		NumberRange x =map.getXRange();
+		NumberRange y = map.getYRange();
+		for (int xcoord : x) {
+			for (int ycoord : y) {
+				Location loc =map.at(xcoord, ycoord);
+				if (map.isAnActorAt(loc)){
+					Actor a = map.getActorAt(loc);
+					if (actor.hasCapability(ZombieCapability.ALIVE) && a.hasCapability(ZombieCapability.UNDEAD)){
+						targets.add(a);
+					}
+					
+				}
+			}
+		}
+		return targets;
 	}
 	
 	

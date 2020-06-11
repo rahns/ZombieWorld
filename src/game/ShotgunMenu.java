@@ -11,7 +11,11 @@ import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
-
+/**
+ * 
+ * @author ariehendrikse
+ *
+ */
 public class ShotgunMenu extends SubMenu {
 	private Shotgun gun;
 	private GameMap map;
@@ -21,7 +25,7 @@ public class ShotgunMenu extends SubMenu {
 	
 	
 	
-	public ShotgunMenu(GameMap map, Shotgun shotgun) {
+	public GetActions(GameMap map, Shotgun shotgun) {
 		this.gun=shotgun;
 		this.map=map;
 		
