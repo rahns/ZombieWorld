@@ -11,12 +11,11 @@ public class Shotgun extends Gun implements HitProbability {
 	@Override
 	public int shootDamage() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 15;
 	}
 
 	@Override
 	public ShootAction shoot() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
