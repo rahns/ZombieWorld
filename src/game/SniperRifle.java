@@ -28,7 +28,6 @@ public class SniperRifle extends Gun {
 	
 	@Override
 	public int shootDamage() {
-		System.out.println(this.aimLevel + "is the aim level");
 		int d=this.damage;
 		if (this.aimLevel==0) {
 			return d;
@@ -51,7 +50,6 @@ public class SniperRifle extends Gun {
 		}
 		else
 		{
-			System.out.println("reset due to non matching target");
 			this.aimLevel=0;
 		}	
 
@@ -61,12 +59,7 @@ public class SniperRifle extends Gun {
 		
 	}
 	
-	@Override
-	public ShootAction shoot() {
-		ShootAction shoot = new ShootAction(target,this);
-		ammo.reduceBulletCount();
-		return shoot;
-	}
+
 	public void increaseAimLevel() {
 		this.aimLevel+=1;
 	}

@@ -12,7 +12,7 @@ public class Turret extends Gun implements DisablePickupWeaponBehaviour {
 	private SetUpTurretAction setUpAction;
 
 	public Turret(Display display) {
-		super("turret", '¬', 10, "shoots");
+		super("turret", 'ï¿½', 10, "shoots");
 		this.display = display;
 		this.setUpAction = new SetUpTurretAction(this);
 		allowableActions.add(this.setUpAction);
@@ -29,7 +29,7 @@ public class Turret extends Gun implements DisablePickupWeaponBehaviour {
 	@Override
 	public void tick(Location currentLocation, Actor actor) {  // Called only when in an inventory
 		isSetUp = false;
-		displayChar = '¬';
+		displayChar = 'ï¿½';
 		
 		boolean foundAction = false;
 		for (Action i : allowableActions) {
@@ -54,10 +54,6 @@ public class Turret extends Gun implements DisablePickupWeaponBehaviour {
 		return 3;
 	}
 
-	@Override
-	public ShootAction shoot() {
-		return null;
-	}
-	
+
 
 }

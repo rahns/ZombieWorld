@@ -15,9 +15,5 @@ public class Shotgun extends Gun implements HitProbability {
 		return 15;
 	}
 
-	@Override
-	public ShootAction shoot() {
-		return null;
-	}
 
 }

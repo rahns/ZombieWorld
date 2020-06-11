@@ -13,7 +13,7 @@ public class ShootAction extends AttackAction {
 	Gun gun;
 	String direction;
 	boolean single;
-
+	
 	public ShootAction(Actor target,Gun gun) {
 		super(target);
 		targets.add(target);
