@@ -85,12 +85,11 @@ public class Application {
 		// Place player on main map
 		Actor player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
-<<<<<<< Upstream, based on branch 'master' of https://git.infotech.monash.edu/fit2099-s1-2020/OkGoogleFindMeATeamName/project.git
-		mainMap.at(43,16).addItem(new SniperRifle()); //TODO Remove these items
+ //TODO Remove these items
 		mainMap.at(43, 17).addItem(new Turret(display));
-=======
+
 		mainMap.at(43,16).addItem(new Shotgun());
->>>>>>> 5b2ffa3 Shotgun works north east south and west.
+
 //		townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans
