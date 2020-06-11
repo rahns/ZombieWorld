@@ -76,11 +76,35 @@ public class AttackAction extends Action {
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage";
 		result += healResultString;
 
+		return hurt(damage, actor, map, result);
+	}
+	
+	/**
+	 * Allows hurting an actor without specifying an attacking actor or weapon.
+	 * Useful for items which can damage actors, such as the turret.
+	 * Hurts the actor but also handles the case when it dies, and drop everything.
+	 * @param map the map the target is on
+	 * @param damage the amount of damage to do
+	 * @return a string describing the action
+	 */
+	public String executeWithoutWeapon(GameMap map, int damage) {
+		return hurt(damage, null, map, null);	
+	}
+
+	@Override
+	public String menuDescription(Actor actor) {
+		return actor + " attacks " + target + " " + ((ZombieActor) target).getHealthStatus();
+	}
+	
+	private String hurt(int damage, Actor actor, GameMap map, String result) {
 		target.hurt(damage);
+		if (result == null) {
+			result = "";
+		}
 		if (!target.isConscious()) {
 			boolean shouldRise = false;
 			// Check if target was human and killed by a zombie:
-			if (target.hasCapability(ZombieCapability.ALIVE) && actor.hasCapability(ZombieCapability.UNDEAD)) {
+			if (actor != null && target.hasCapability(ZombieCapability.ALIVE) && actor.hasCapability(ZombieCapability.UNDEAD)) {
 				shouldRise = true;
 			}
 			Corpse corpse = new Corpse(target.toString(), shouldRise, map);
@@ -93,14 +117,12 @@ public class AttackAction extends Action {
 				drop.execute(target, map);
 			map.removeActor(target);	
 			
-			result += System.lineSeparator() + target + " is killed";
+			if (result != "") {
+				result += System.lineSeparator();
+			}
+
+			result += target + " is killed";
 		}
-
 		return result;
-	}
-
-	@Override
-	public String menuDescription(Actor actor) {
-		return actor + " attacks " + target + " " + ((ZombieActor) target).getHealthStatus();
 	}
 }

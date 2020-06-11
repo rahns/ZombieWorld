@@ -31,6 +31,7 @@ public class Shop extends Ground {
 		this.products = products;
 		this.name = name;
 		this.unlockAge = unlockAge;
+		this.shopActions.add(new DoNothingCustomMessageAction("stares at the closed " + name + " store"));
 	}
 	
 	/**
@@ -68,6 +69,7 @@ public class Shop extends Ground {
 			age++;
 		}
 		else if (age == unlockAge){
+			shopActions.clear();
 			shopActions.add(new ShopAction(products, name));
 			displayChar = ']';
 			age++;

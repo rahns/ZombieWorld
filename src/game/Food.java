@@ -14,7 +14,7 @@ public class Food extends Item implements Healing {
 	 * Constructor
 	 */
 	public Food() {
-		super("Food", '~', true);
+		super("food", '~', true);
 		allowableActions.add(new EatAction(this));
 	}
 	

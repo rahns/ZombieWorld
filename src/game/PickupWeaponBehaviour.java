@@ -22,7 +22,7 @@ public class PickupWeaponBehaviour implements Behaviour{
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
 		for (Item item : map.locationOf(actor).getItems()) {
-			if (item instanceof WeaponItem && !(item instanceof DisablePickupWeaponBehaviour)) {
+			if (item instanceof WeaponItem) {
 				return new PickUpItemAction(item);
 			}
 		}

@@ -30,5 +30,10 @@ public class DoNothingCustomMessageAction extends DoNothingAction {
 	public String menuDescription(Actor actor) {
 		return actor + " " + message;
 	}
+	
+	@Override
+	public String hotkey() {
+		return "-";
+	}
 
 }

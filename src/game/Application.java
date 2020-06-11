@@ -65,19 +65,23 @@ public class Application {
 		"..................................+++....",
 		".........................................");
 		
+		ArrayList<GameMap> maps = new ArrayList<>();
 		
 		// Create main map
 		GameMap mainMap = new GameMap(groundFactory, mainMapInput);
 		world.addGameMap(mainMap);
+		maps.add(mainMap);
 		
 		// Create town map
 		GameMap townMap = new GameMap(groundFactory, townMapInput);
 		world.addGameMap(townMap);
+		maps.add(townMap);
 		
 		// Create Mambo Marie's void
 		List<String> mambosVoidString = Arrays.asList(".");
 		GameMap mambosVoid = new GameMap(groundFactory, mambosVoidString);
 		world.addGameMap(mambosVoid);
+		maps.add(mambosVoid);
 		
 		// Create Mambo Marie
 		mambosVoid.addActor(new MamboMarie(mambosVoid.at(0, 0), mainMap.at(79, 13)), mambosVoid.at(0, 0));
@@ -86,11 +90,10 @@ public class Application {
 		Actor player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
  //TODO Remove these items
-		mainMap.at(43, 17).addItem(new Turret(display));
+		mainMap.at(43, 17).addItem(new Turret(display, maps));
 		mainMap.at(43,16).addItem(new Shotgun());
 		mainMap.at(43,17).addItem(new SniperRifle());
-
-//		townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
+		townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",
@@ -137,8 +140,8 @@ public class Application {
 		products.add(new Product(new Hoe(), 2));
 		products.add(new Product(new Plank(), 1));
 		products.add(new Product(new AmmunitionCartridge(), 5));
-		products.add(new Product(new Turret(display), 15));
-		townMap.at(12,3).setGround(new Shop("Wallmart", products, 60));
+		products.add(new Product(new Turret(display, maps), 30));
+		townMap.at(12,3).setGround(new Shop("Wallmart", products, 10));
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));
