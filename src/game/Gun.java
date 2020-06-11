@@ -6,10 +6,9 @@ import edu.monash.fit2099.engine.WeaponItem;
 public abstract class Gun extends WeaponItem implements HitProbability {
 	
 	protected AmmunitionCartridge ammo;
-	protected int melee_damage=12;
-
-	public Gun(String name, char displayChar, int damage, String verb) {
-		super(name, displayChar, damage, "melees");
+	
+	public Gun(String name, char displayChar, int melee_damage, String verb) {
+		super(name, displayChar, melee_damage, "whacks");
 	}
 
 	@Override
@@ -27,11 +26,6 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 
 	public void aim(Actor target) {
 		
-	}
-	
-	@Override
-	public int damage() {
-		return melee_damage;
 	}
 
 	public abstract int shootDamage();

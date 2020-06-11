@@ -19,7 +19,8 @@ public class Application {
 	private static final int PLAYER_HEALTH = 300;
 
 	public static void main(String[] args) {
-		World world = new ZombieWorld(new Display());
+		Display display = new Display();
+		World world = new ZombieWorld(display);
 
 		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Fence(), new Tree(), new Door());
 		
@@ -84,7 +85,8 @@ public class Application {
 		// Place player on main map
 		Actor player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
-		mainMap.at(43,16).addItem(new SniperRifle());
+		mainMap.at(43,16).addItem(new SniperRifle()); //TODO Remove these items
+		mainMap.at(43, 17).addItem(new Turret(display));
 //		townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans
@@ -132,6 +134,7 @@ public class Application {
 		products.add(new Product(new Hoe(), 2));
 		products.add(new Product(new Plank(), 1));
 		products.add(new Product(new AmmunitionCartridge(), 5));
+		products.add(new Product(new Turret(display), 15));
 		townMap.at(12,3).setGround(new Shop("Wallmart", 'W', products));
 		
 		// Add zombies to the main map
