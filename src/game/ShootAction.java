@@ -7,12 +7,18 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
-
+/**
+ * This is an action class that shoots either a target or group of
+ * targets and then decreases the ammunition in the gun
+ * @author ariehendrikse
+ *
+ */
 public class ShootAction extends AttackAction {
 	
-	Gun gun;
-	String direction;
-	boolean single;
+	private Gun gun;
+	private String direction;
+	private boolean single;
+	
 	
 	public ShootAction(Actor target,Gun gun) {
 		super(target);
@@ -21,7 +27,15 @@ public class ShootAction extends AttackAction {
 		this.gun=gun;
 		// TODO Auto-generated constructor stub
 	}
-	
+	/**
+	 * This is an action class that shoots either a target or group of
+	 * targets and then decreases the ammunition in the gun
+	 * @param targets - A collection of actors to shoot at.
+	 * @param gun - the gun object that will be shooting 
+	 * @param the direction that gun is shooting in (for {@code menuDescription})
+	 * @author ariehendrikse
+	 *
+	 */
 	public ShootAction(ArrayList<Actor> targets,Gun gun,String direction) {
 		
 		super(targets);
@@ -30,7 +44,7 @@ public class ShootAction extends AttackAction {
 		this.single=false;
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		String result="";

@@ -13,11 +13,16 @@ import edu.monash.fit2099.engine.Menu;
  * @author Rahn Stavar
  *
  */
-public abstract class SubMenu extends Menu {
+public class SubMenu extends Menu {
 	
 	private ArrayList<Character> freeChars;
 	private HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
+	private Display display;
 	
+	public SubMenu(Display display) {
+		this.display=display;
+	}
+
 	private void constructFreeCharsList() {
 		freeChars = new ArrayList<Character>();
 		for (char i = 'a'; i <= 'z'; i++)
