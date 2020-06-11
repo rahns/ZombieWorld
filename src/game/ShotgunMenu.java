@@ -28,7 +28,7 @@ public class ShotgunMenu extends SubMenu {
 		
 		//TODO math on what locations are to be hit, create actions then add them to options.
 		//South
-		String[] directions= {"North","South","East","West"};
+		String[] directions= {"North","South","East","West","North-East","North-West","South-East","South-West"};
 		Location actor_loc=map.locationOf(actor);
 		this.x = actor_loc.x();
 		this.y = actor_loc.y();
@@ -56,6 +56,18 @@ public class ShotgunMenu extends SubMenu {
 		if (direction=="West") {
 			return x-y2;
 		}
+		if (direction=="North-East") {
+			return x+y2;
+		}
+		if (direction=="North-West") {
+			return x-y2;
+		}
+		if (direction=="South-East") {
+			return x+y2;
+		}
+		if (direction=="South-West") {
+			return x-y2;
+		}
 		return 0;
 		
 	}
@@ -72,6 +84,18 @@ public class ShotgunMenu extends SubMenu {
 		if (direction=="West") {
 			return y+x2;
 		}
+		if (direction=="North-East") {
+			return y-y2;
+		}
+		if (direction=="North-West") {
+			return y-y2;
+		}
+		if (direction=="South-East") {
+			return y+y2;
+		}
+		if (direction=="South-West") {
+			return y+y2;
+		}
 		return 0;
 		
 	}
@@ -84,7 +108,10 @@ public class ShotgunMenu extends SubMenu {
 				int x3= directX(direction,x2,y2);
 				int y3= directY(direction,y2,x2);
 				if (map.getXRange().contains(x3) && map.getYRange().contains(y3) ) {
-					locations.add(map.at(x3,y3));
+					Location placeToShoot=map.at(x3,y3);
+					if (!(locations.contains(placeToShoot))) {
+						locations.add(placeToShoot);
+					}
 				}
 				
 			}
