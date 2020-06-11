@@ -8,9 +8,9 @@ import edu.monash.fit2099.engine.Item;
 public class ReloadAction extends Action {
 	
 	private AmmunitionCartridge ammo;
-	private SniperRifle gun;
+	private Gun gun;
 
-	public ReloadAction(AmmunitionCartridge ammo, SniperRifle gun) {
+	public ReloadAction(AmmunitionCartridge ammo, Gun gun) {
 		this.gun=gun;
 		this.ammo=ammo;
 	}

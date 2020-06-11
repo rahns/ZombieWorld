@@ -5,6 +5,7 @@ public class Shotgun extends Gun implements HitProbability {
 
 	public Shotgun() {
 		super("shotgun", 'S', 13, "blasts");
+		this.ammo= new AmmunitionCartridge();
 		allowableActions.add(new ShotgunAction(this));
 	}
 

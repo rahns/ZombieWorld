@@ -2,17 +2,20 @@ package game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
 public class ShotgunMenu extends SubMenu {
 	private Shotgun gun;
 	private GameMap map;
+	Actor actor;
 	int x;
 	int y;
 	
@@ -25,19 +28,32 @@ public class ShotgunMenu extends SubMenu {
  	}
 	public Action showMenu(Actor actor, Actions actions, Display display) {
 		
+		String ammo_amount="";
+		for (int i = 0;i< gun.getAmmo().getBulletCount();i++) {
+			ammo_amount+="=";
+		}
 		
-		//TODO math on what locations are to be hit, create actions then add them to options.
+		display.println("Ammo: " +ammo_amount);
 		//South
 		String[] directions= {"North","South","East","West","North-East","North-West","South-East","South-West"};
 		Location actor_loc=map.locationOf(actor);
 		this.x = actor_loc.x();
 		this.y = actor_loc.y();
-		
-		for (String direction : directions) {
-			this.addActionToMenu(createActionForDirection( direction), actor,display, null);
+		this.actor=actor;
+		if (!(gun.getAmmo().isEmpty())) {
+			for (String direction : directions) {
+				this.addActionToMenu(createActionForDirection( direction), actor,display, null);
+			}
 		}
 		
 		
+		Iterator<Item> iter= actor.getInventory().iterator();
+		while (iter.hasNext()) {
+			Item item = iter.next();
+			if (item instanceof AmmunitionCartridge) {
+				addActionToMenu(new ReloadAction((AmmunitionCartridge) item,gun), actor, display, null);
+			}
+		}
 		
 		return readInput(display);
 
@@ -57,16 +73,16 @@ public class ShotgunMenu extends SubMenu {
 			return x-y2;
 		}
 		if (direction=="North-East") {
-			return x+y2;
+			return x+Math.abs(x2);
 		}
 		if (direction=="North-West") {
-			return x-y2;
+			return x-Math.abs(x2);
 		}
 		if (direction=="South-East") {
-			return x+y2;
+			return x+Math.abs(x2);
 		}
 		if (direction=="South-West") {
-			return x-y2;
+			return x-Math.abs(x2);
 		}
 		return 0;
 		
@@ -85,16 +101,16 @@ public class ShotgunMenu extends SubMenu {
 			return y+x2;
 		}
 		if (direction=="North-East") {
-			return y-y2;
+			return y-Math.abs(x2);
 		}
 		if (direction=="North-West") {
-			return y-y2;
+			return y-Math.abs(x2);
 		}
 		if (direction=="South-East") {
-			return y+y2;
+			return y+Math.abs(x2);
 		}
 		if (direction=="South-West") {
-			return y+y2;
+			return y+Math.abs(x2);
 		}
 		return 0;
 		
@@ -127,8 +143,11 @@ public class ShotgunMenu extends SubMenu {
 		for (Location loc : locations) {
 			if (map.isAnActorAt(loc)) {
 				Actor a=map.getActorAt(loc);
-				System.out.println(a+" here");
-				targets.add(a);
+				if (a!=actor) {
+					System.out.println(a+" here");
+					targets.add(a);
+				}
+				
 			}
 			
 		}
