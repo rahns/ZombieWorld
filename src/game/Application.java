@@ -85,8 +85,11 @@ public class Application {
 		// Place player on main map
 		Actor player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
-		mainMap.at(43,16).addItem(new SniperRifle()); //TODO Remove these items
+ //TODO Remove these items
 		mainMap.at(43, 17).addItem(new Turret(display));
+
+		mainMap.at(43,16).addItem(new Shotgun());
+
 //		townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans

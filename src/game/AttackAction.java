@@ -19,6 +19,7 @@ public class AttackAction extends Action {
 	 * The Actor that is to be attacked
 	 */
 	protected Actor target;
+	ArrayList<Actor> targets = new ArrayList<Actor>();
 	/**
 	 * Random number generator
 	 */
@@ -31,10 +32,11 @@ public class AttackAction extends Action {
 	 */
 	public AttackAction(Actor target) {
 		this.target = target;
+		targets.add(target);
 	}
 
 	public AttackAction(ArrayList<Actor> targets) {
-		// TODO create attack action for multiple targets
+		this.targets=targets;
 	}
 	//TODO a lot of repeated code here
 	@Override

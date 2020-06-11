@@ -13,31 +13,129 @@ import edu.monash.fit2099.engine.Location;
 public class ShotgunMenu extends SubMenu {
 	private Shotgun gun;
 	private GameMap map;
+	int x;
+	int y;
+	
+	
+	
 	public ShotgunMenu(GameMap map, Shotgun shotgun) {
 		this.gun=shotgun;
 		this.map=map;
+		
  	}
 	public Action showMenu(Actor actor, Actions actions, Display display) {
 		
 		
 		//TODO math on what locations are to be hit, create actions then add them to options.
+		//South
+		String[] directions= {"North","South","East","West","North-East","North-West","South-East","South-West"};
 		Location actor_loc=map.locationOf(actor);
-		int x = actor_loc.x();
-		int y = actor_loc.y();
+		this.x = actor_loc.x();
+		this.y = actor_loc.y();
 		
-//		keyToActionMap.put(c, action);
-		display.println("1: Shoot north");
-		display.println("2: Shoot north-east");
-		display.println("3: Shoot east");
-		display.println("4: Shoot south-east");
-		display.println("5: Shoot south");
-		display.println("6: Shoot south-west");
-		display.println("7: Shoot west");
-		display.println("8: Shoot north-west");
+		for (String direction : directions) {
+			this.addActionToMenu(createActionForDirection( direction), actor,display, null);
+		}
 		
-		return null;
+		
+		
+		return readInput(display);
 
 	}
+	
+	private int directX(String direction,int x2,int y2) {
+		if (direction=="South") {
+			return x+x2;
+		}
+		if (direction=="North") {
+			return x+x2;
+		}
+		if (direction=="East") {
+			return x+y2;
+		}
+		if (direction=="West") {
+			return x-y2;
+		}
+		if (direction=="North-East") {
+			return x+y2;
+		}
+		if (direction=="North-West") {
+			return x-y2;
+		}
+		if (direction=="South-East") {
+			return x+y2;
+		}
+		if (direction=="South-West") {
+			return x-y2;
+		}
+		return 0;
+		
+	}
+	private int directY(String direction,int y2,int x2) {
+		if (direction=="South") {
+			return y+y2;
+		}
+		if (direction=="North") {
+			return y-y2;
+		}
+		if (direction=="East") {
+			return y+x2;
+		}
+		if (direction=="West") {
+			return y+x2;
+		}
+		if (direction=="North-East") {
+			return y-y2;
+		}
+		if (direction=="North-West") {
+			return y-y2;
+		}
+		if (direction=="South-East") {
+			return y+y2;
+		}
+		if (direction=="South-West") {
+			return y+y2;
+		}
+		return 0;
+		
+	}
+	
+	private ShootAction createActionForDirection(String direction){
+		ArrayList<Location> locations =  new ArrayList<Location>();
+		for (int y2 = 3; y2>0;y2--) {
+			
+			for (int x2 = -y2; x2<y2;x2++) {
+				int x3= directX(direction,x2,y2);
+				int y3= directY(direction,y2,x2);
+				if (map.getXRange().contains(x3) && map.getYRange().contains(y3) ) {
+					Location placeToShoot=map.at(x3,y3);
+					if (!(locations.contains(placeToShoot))) {
+						locations.add(placeToShoot);
+					}
+				}
+				
+			}
+		}
+		ArrayList<Actor> targets = getAllActors(locations);
+		return new ShootAction(targets,gun,direction);
+		
+		
+	}
+	
+	private ArrayList<Actor> getAllActors(ArrayList<Location> locations) {
+		ArrayList<Actor> targets =  new ArrayList<Actor>();
+		for (Location loc : locations) {
+			if (map.isAnActorAt(loc)) {
+				Actor a=map.getActorAt(loc);
+				System.out.println(a+" here");
+				targets.add(a);
+			}
+			
+		}
+		return targets;
+	}
+	
+	
 
 	}
 

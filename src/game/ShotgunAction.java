@@ -16,22 +16,13 @@ public class ShotgunAction extends Action implements MenuAction{
 	
 	static int SHOOT_RADIUS = 3;
 	private Shotgun gun;
+	String direction;
 
 	
 	public ShotgunAction(Shotgun shotgun) {
 		this.gun=shotgun;
 	}
-	/**
-	 * Returns a ShootAction that attacks a attackable Actor.
-	 * 
-	 * Actors are attackable if their ZombieCapability matches the 
-	 * "undeadness status" set 
-	 * 
-	 * Only attacks characters in a cone shape surrounding the player and three square close.
-	 * 
-	 * @return Action: an AttackAction on an Actor that is undead, and withiin a range of 1
-	 */
-
+	
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
