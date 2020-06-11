@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.Location;
 
-public class Turret extends Gun {
+public class Turret extends Gun implements DisablePickupWeaponBehaviour {
 	
 	private boolean isSetUp = false;
 	private Display display;
