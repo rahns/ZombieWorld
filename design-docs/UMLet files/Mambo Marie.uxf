@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
   <help_text/>
-  <zoom_level>15</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>210</x>
-      <y>645</y>
-      <w>150</w>
-      <h>45</h>
+      <x>70</x>
+      <y>450</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>MamboMarie
 bg=pink</panel_attributes>
@@ -17,10 +17,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>105</x>
-      <y>450</y>
-      <w>1095</w>
-      <h>480</h>
+      <x>0</x>
+      <y>320</y>
+      <w>730</w>
+      <h>320</h>
     </coordinates>
     <panel_attributes>game</panel_attributes>
     <additional_attributes/>
@@ -28,10 +28,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>150</x>
-      <y>255</y>
-      <w>1050</w>
-      <h>180</h>
+      <x>30</x>
+      <y>190</y>
+      <w>700</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>edu.moansh.fit2099.engine</panel_attributes>
     <additional_attributes/>
@@ -39,10 +39,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>465</x>
-      <y>570</y>
-      <w>330</w>
-      <h>45</h>
+      <x>240</x>
+      <y>400</y>
+      <w>220</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>DoNothingCustomMessageAction
 bg=pink</panel_attributes>
@@ -51,10 +51,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>465</x>
-      <y>750</y>
-      <w>195</w>
-      <h>45</h>
+      <x>240</x>
+      <y>520</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>ChantSpawnAction
 bg=pink</panel_attributes>
@@ -63,10 +63,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>990</x>
-      <y>330</y>
-      <w>195</w>
-      <h>45</h>
+      <x>590</x>
+      <y>240</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>DoNothingAction</panel_attributes>
     <additional_attributes/>
@@ -74,10 +74,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>195</x>
-      <y>540</y>
-      <w>180</w>
-      <h>60</h>
+      <x>60</x>
+      <y>380</y>
+      <w>120</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /ZombieActor/</panel_attributes>
@@ -86,10 +86,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>735</x>
-      <y>315</y>
-      <w>195</w>
-      <h>60</h>
+      <x>420</x>
+      <y>230</y>
+      <w>130</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Action/</panel_attributes>
@@ -98,10 +98,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>165</x>
-      <y>330</y>
-      <w>195</w>
-      <h>45</h>
+      <x>40</x>
+      <y>240</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>Location</panel_attributes>
     <additional_attributes/>
@@ -109,10 +109,10 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>210</x>
-      <y>825</y>
-      <w>150</w>
-      <h>45</h>
+      <x>70</x>
+      <y>570</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>Application
 bg=pink</panel_attributes>
@@ -121,10 +121,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>780</x>
-      <y>360</y>
-      <w>330</w>
-      <h>270</h>
+      <x>450</x>
+      <y>260</y>
+      <w>220</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>200.0;10.0;200.0;160.0;10.0;160.0</additional_attributes>
@@ -132,10 +132,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>645</x>
-      <y>360</y>
-      <w>210</w>
-      <h>435</h>
+      <x>360</x>
+      <y>260</y>
+      <w>140</w>
+      <h>290</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>120.0;10.0;120.0;270.0;10.0;270.0</additional_attributes>
@@ -143,10 +143,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>915</x>
-      <y>330</y>
-      <w>105</w>
-      <h>45</h>
+      <x>540</x>
+      <y>240</y>
+      <w>70</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
@@ -154,10 +154,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>270</x>
-      <y>585</y>
-      <w>45</w>
-      <h>90</h>
+      <x>110</x>
+      <y>410</y>
+      <w>30</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -165,10 +165,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>270</x>
-      <y>675</y>
-      <w>135</w>
-      <h>180</h>
+      <x>110</x>
+      <y>470</y>
+      <w>90</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;creates&gt;&gt;</panel_attributes>
@@ -177,10 +177,10 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>165</x>
-      <y>360</y>
-      <w>210</w>
-      <h>330</h>
+      <x>40</x>
+      <y>260</y>
+      <w>140</w>
+      <h>220</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=2
@@ -190,10 +190,10 @@ moves between ^</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>390</x>
-      <y>330</y>
-      <w>195</w>
-      <h>45</h>
+      <x>190</x>
+      <y>240</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>MoveActorAction</panel_attributes>
     <additional_attributes/>
@@ -201,10 +201,10 @@ moves between ^</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
-      <y>330</y>
-      <w>195</w>
-      <h>45</h>
+      <x>310</x>
+      <y>240</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
@@ -212,10 +212,10 @@ moves between ^</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>345</x>
-      <y>360</y>
-      <w>105</w>
-      <h>345</h>
+      <x>160</x>
+      <y>260</y>
+      <w>70</w>
+      <h>230</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>50.0;10.0;50.0;210.0;10.0;210.0</additional_attributes>
@@ -223,10 +223,10 @@ moves between ^</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>465</x>
-      <y>660</y>
-      <w>195</w>
-      <h>45</h>
+      <x>240</x>
+      <y>460</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>WanderBehaviour</panel_attributes>
     <additional_attributes/>
@@ -234,10 +234,10 @@ moves between ^</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>345</x>
-      <y>660</y>
-      <w>150</w>
-      <h>45</h>
+      <x>160</x>
+      <y>460</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>80.0;10.0;50.0;10.0;10.0;10.0</additional_attributes>
@@ -245,10 +245,10 @@ moves between ^</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>405</x>
-      <y>645</y>
-      <w>90</w>
-      <h>150</h>
+      <x>200</x>
+      <y>450</y>
+      <w>60</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>40.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
@@ -256,10 +256,10 @@ moves between ^</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>405</x>
-      <y>585</y>
-      <w>90</w>
-      <h>105</h>
+      <x>200</x>
+      <y>410</y>
+      <w>60</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>40.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
@@ -267,10 +267,10 @@ moves between ^</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>900</x>
-      <y>660</y>
-      <w>180</w>
-      <h>90</h>
+      <x>530</x>
+      <y>460</y>
+      <w>120</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>New &amp; modified 
 classes are 
@@ -281,10 +281,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>495</x>
-      <y>870</y>
-      <w>150</w>
-      <h>45</h>
+      <x>260</x>
+      <y>600</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>Zombie</panel_attributes>
     <additional_attributes/>
@@ -292,10 +292,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>555</x>
-      <y>780</y>
-      <w>135</w>
-      <h>120</h>
+      <x>300</x>
+      <y>540</y>
+      <w>90</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;creates&gt;&gt;</panel_attributes>
@@ -304,10 +304,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1830</x>
-      <y>75</y>
-      <w>285</w>
-      <h>45</h>
+      <x>1150</x>
+      <y>70</y>
+      <w>190</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>_mamboMarie : MamboMarie_</panel_attributes>
     <additional_attributes/>
@@ -315,10 +315,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1950</x>
-      <y>105</y>
-      <w>45</w>
-      <h>105</h>
+      <x>1230</x>
+      <y>90</y>
+      <w>30</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
@@ -326,10 +326,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1950</x>
-      <y>180</y>
-      <w>30</w>
-      <h>975</h>
+      <x>1230</x>
+      <y>140</y>
+      <w>20</w>
+      <h>650</h>
     </coordinates>
     <panel_attributes>
 layer=-1</panel_attributes>
@@ -338,10 +338,10 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1305</x>
-      <y>0</y>
-      <w>1500</w>
-      <h>1260</h>
+      <x>800</x>
+      <y>20</y>
+      <w>1000</w>
+      <h>840</h>
     </coordinates>
     <panel_attributes>Mambo Marie's 
 Play Turn Method
@@ -351,10 +351,10 @@ layer=-2</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>2145</x>
-      <y>75</y>
-      <w>285</w>
-      <h>45</h>
+      <x>1360</x>
+      <y>70</y>
+      <w>190</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>_mambosVoid : Location_</panel_attributes>
     <additional_attributes/>
@@ -362,10 +362,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2265</x>
-      <y>105</y>
-      <w>45</w>
-      <h>120</h>
+      <x>1440</x>
+      <y>90</y>
+      <w>30</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -373,10 +373,10 @@ layer=-2</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>2265</x>
-      <y>195</y>
-      <w>30</w>
-      <h>75</h>
+      <x>1440</x>
+      <y>150</y>
+      <w>20</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
@@ -384,10 +384,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1965</x>
-      <y>195</y>
-      <w>330</w>
-      <h>60</h>
+      <x>1240</x>
+      <y>150</y>
+      <w>220</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 getActor()</panel_attributes>
@@ -396,10 +396,10 @@ getActor()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1965</x>
-      <y>225</y>
-      <w>330</w>
-      <h>60</h>
+      <x>1240</x>
+      <y>170</y>
+      <w>220</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 actor</panel_attributes>
@@ -408,10 +408,10 @@ actor</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1320</x>
-      <y>270</y>
-      <w>720</w>
-      <h>420</h>
+      <x>810</x>
+      <y>200</y>
+      <w>480</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>opt
 --
@@ -424,10 +424,10 @@ layer=-2</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1425</x>
-      <y>285</y>
-      <w>315</w>
-      <h>105</h>
+      <x>880</x>
+      <y>210</y>
+      <w>210</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>[ actor == mamboMarie ]
 style=wordwrap
@@ -437,10 +437,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1320</x>
-      <y>75</y>
-      <w>150</w>
-      <h>45</h>
+      <x>810</x>
+      <y>70</y>
+      <w>100</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>_ : World_</panel_attributes>
     <additional_attributes/>
@@ -448,10 +448,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1380</x>
-      <y>150</y>
-      <w>30</w>
-      <h>1050</h>
+      <x>850</x>
+      <y>120</y>
+      <w>20</w>
+      <h>700</h>
     </coordinates>
     <panel_attributes>
 layer=-1</panel_attributes>
@@ -460,10 +460,10 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1380</x>
-      <y>105</y>
-      <w>45</w>
-      <h>75</h>
+      <x>850</x>
+      <y>90</y>
+      <w>30</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -471,10 +471,10 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1395</x>
-      <y>165</y>
-      <w>585</w>
-      <h>60</h>
+      <x>860</x>
+      <y>130</y>
+      <w>390</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 mamboMarie.playTurn(mainMap)</panel_attributes>
@@ -483,10 +483,10 @@ mamboMarie.playTurn(mainMap)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1395</x>
-      <y>390</y>
-      <w>585</w>
-      <h>60</h>
+      <x>860</x>
+      <y>280</y>
+      <w>390</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 new MoveActorAction(mamboMarie.appearLocation)</panel_attributes>
@@ -495,10 +495,10 @@ new MoveActorAction(mamboMarie.appearLocation)</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1335</x>
-      <y>345</y>
-      <w>675</w>
-      <h>150</h>
+      <x>820</x>
+      <y>250</y>
+      <w>450</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>opt
 --
@@ -511,10 +511,10 @@ layer=1</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1425</x>
-      <y>345</y>
-      <w>480</w>
-      <h>105</h>
+      <x>880</x>
+      <y>250</y>
+      <w>320</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>[ a randomly generated int [0, 99] is &lt; 5 ]
 style=wordwrap
@@ -524,10 +524,10 @@ layer=2</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1425</x>
-      <y>510</y>
-      <w>300</w>
-      <h>105</h>
+      <x>880</x>
+      <y>360</y>
+      <w>200</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>[ else ]
 style=wordwrap
@@ -537,10 +537,10 @@ layer=3</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1335</x>
-      <y>510</y>
-      <w>675</w>
-      <h>150</h>
+      <x>820</x>
+      <y>360</y>
+      <w>450</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>opt
 --
@@ -553,10 +553,10 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1395</x>
-      <y>555</y>
-      <w>585</w>
-      <h>60</h>
+      <x>860</x>
+      <y>390</y>
+      <w>390</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 new doNothingCustomMessageAction("sits in her void")
@@ -566,10 +566,10 @@ layer=3</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1320</x>
-      <y>705</y>
-      <w>720</w>
-      <h>480</h>
+      <x>810</x>
+      <y>490</y>
+      <w>480</w>
+      <h>320</h>
     </coordinates>
     <panel_attributes>opt
 --
@@ -582,10 +582,10 @@ layer=-1</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1425</x>
-      <y>720</y>
-      <w>315</w>
-      <h>105</h>
+      <x>880</x>
+      <y>500</y>
+      <w>210</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>[ else ]
 style=wordwrap
@@ -595,10 +595,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1335</x>
-      <y>765</y>
-      <w>675</w>
-      <h>105</h>
+      <x>820</x>
+      <y>530</y>
+      <w>450</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>opt
 --
@@ -611,10 +611,10 @@ layer=3</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1425</x>
-      <y>765</y>
-      <w>525</w>
-      <h>105</h>
+      <x>880</x>
+      <y>530</y>
+      <w>350</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>[ mamboMarie.turnsSinceAppearing == 30 ]
 style=wordwrap
@@ -624,10 +624,10 @@ layer=4</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1395</x>
-      <y>810</y>
-      <w>585</w>
-      <h>60</h>
+      <x>860</x>
+      <y>560</y>
+      <w>390</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 new MoveActorAction(mamboMarie.mambosVoid)
@@ -637,10 +637,10 @@ layer=4</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1335</x>
-      <y>885</y>
-      <w>675</w>
-      <h>105</h>
+      <x>820</x>
+      <y>610</y>
+      <w>450</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>opt
 --
@@ -653,10 +653,10 @@ layer=3</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1395</x>
-      <y>930</y>
-      <w>585</w>
-      <h>60</h>
+      <x>860</x>
+      <y>640</y>
+      <w>390</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 new ChantSpawnAction()
@@ -666,10 +666,10 @@ layer=4</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1425</x>
-      <y>885</y>
-      <w>540</w>
-      <h>105</h>
+      <x>880</x>
+      <y>610</y>
+      <w>360</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>[ else if mamboMarie.turnsSinceAppearing % 10 == 0 ]
 style=wordwrap
@@ -679,10 +679,10 @@ layer=4</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>1335</x>
-      <y>1005</y>
-      <w>675</w>
-      <h>165</h>
+      <x>820</x>
+      <y>690</y>
+      <w>450</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>opt
 --
@@ -695,10 +695,10 @@ layer=3</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1395</x>
-      <y>1110</y>
-      <w>585</w>
-      <h>60</h>
+      <x>860</x>
+      <y>760</y>
+      <w>390</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 aMoveAction
@@ -708,10 +708,10 @@ layer=4</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1425</x>
-      <y>1005</y>
-      <w>525</w>
-      <h>105</h>
+      <x>880</x>
+      <y>690</y>
+      <w>350</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>[ else ]
 style=wordwrap
@@ -721,10 +721,10 @@ layer=4</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>2460</x>
-      <y>990</y>
-      <w>285</w>
-      <h>45</h>
+      <x>1570</x>
+      <y>680</y>
+      <w>190</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>_ : WanderBehaviour_</panel_attributes>
     <additional_attributes/>
@@ -732,10 +732,10 @@ layer=4</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1965</x>
-      <y>1050</y>
-      <w>660</w>
-      <h>60</h>
+      <x>1240</x>
+      <y>720</y>
+      <w>440</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 getAction(this, mainMap)
@@ -745,10 +745,10 @@ layer=26</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2595</x>
-      <y>1020</y>
-      <w>45</w>
-      <h>60</h>
+      <x>1660</x>
+      <y>700</y>
+      <w>30</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;20.0</additional_attributes>
@@ -756,10 +756,10 @@ layer=26</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>2595</x>
-      <y>1050</y>
-      <w>30</w>
-      <h>75</h>
+      <x>1660</x>
+      <y>720</y>
+      <w>20</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes/>
@@ -767,10 +767,10 @@ layer=26</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1965</x>
-      <y>1080</y>
-      <w>660</w>
-      <h>60</h>
+      <x>1240</x>
+      <y>740</y>
+      <w>440</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 aMoveAction</panel_attributes>
@@ -779,10 +779,10 @@ aMoveAction</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1965</x>
-      <y>1005</y>
-      <w>525</w>
-      <h>60</h>
+      <x>1240</x>
+      <y>690</y>
+      <w>350</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 &lt;&lt;create&gt;&gt;</panel_attributes>
@@ -791,10 +791,10 @@ aMoveAction</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1950</x>
-      <y>1140</y>
-      <w>45</w>
-      <h>120</h>
+      <x>1230</x>
+      <y>780</y>
+      <w>30</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -802,10 +802,10 @@ aMoveAction</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1380</x>
-      <y>1185</y>
-      <w>45</w>
-      <h>75</h>
+      <x>850</x>
+      <y>810</y>
+      <w>30</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -813,10 +813,10 @@ aMoveAction</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2595</x>
-      <y>1110</y>
-      <w>45</w>
-      <h>150</h>
+      <x>1660</x>
+      <y>760</y>
+      <w>30</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
@@ -824,10 +824,10 @@ aMoveAction</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2265</x>
-      <y>255</y>
-      <w>45</w>
-      <h>1005</h>
+      <x>1440</x>
+      <y>190</y>
+      <w>30</w>
+      <h>670</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;650.0</additional_attributes>
@@ -835,10 +835,10 @@ aMoveAction</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>150</x>
-      <y>195</y>
-      <w>210</w>
-      <h>45</h>
+      <x>30</x>
+      <y>150</y>
+      <w>140</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>Mambo Marie
 bg=blue</panel_attributes>
