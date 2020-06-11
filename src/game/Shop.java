@@ -16,6 +16,9 @@ public class Shop extends Ground {
 	
 	private ArrayList<Product> products;
 	private String name;
+	private int age = 0;
+	private Actions shopActions = new Actions();
+	private int unlockAge;
 
 	/**
 	 * Shop constructor
@@ -23,10 +26,11 @@ public class Shop extends Ground {
 	 * @param displayChar the display character of the shop
 	 * @param products a list of the products this shop sells
 	 */
-	public Shop(String name, char displayChar, ArrayList<Product> products) {
-		super(displayChar);
+	public Shop(String name, ArrayList<Product> products, int unlockAge) {
+		super('[');
 		this.products = products;
 		this.name = name;
+		this.unlockAge = unlockAge;
 	}
 	
 	/**
@@ -54,8 +58,19 @@ public class Shop extends Ground {
 	 */
 	@Override
 	public Actions allowableActions(Actor actor, Location location, String direction) {
-		Actions shopActions = new Actions();
-		shopActions.add(new ShopAction(products, name));
 		return shopActions;
+	}
+	
+	@Override
+	public void tick(Location location) {  // Unlock the shop after a number of turns
+		super.tick(location);
+		if (age < unlockAge) {
+			age++;
+		}
+		else if (age == unlockAge){
+			shopActions.add(new ShopAction(products, name));
+			displayChar = ']';
+			age++;
+		}
 	}
 }
