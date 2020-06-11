@@ -1,11 +1,9 @@
 package game;
 
-import java.util.ArrayList;
-
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
+import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Menu;
 
 /**
  * An action for shopping at a shop
@@ -14,17 +12,15 @@ import edu.monash.fit2099.engine.Menu;
  */
 public class ShopAction extends Action implements MenuAction {
 	
-	private ArrayList<Product> products;
-	private String shopName;
+	private Shop shop;
 	
 	/**
 	 * ShopAction Constructor
 	 * @param products a list of the products available at the shop
 	 * @param shopName the name of the shop
 	 */
-	public ShopAction(ArrayList<Product> products, String shopName) {
-		this.products = products;
-		this.shopName = shopName;
+	public ShopAction(Shop shop) {
+		this.shop = shop;
 	}
 
 	/**
@@ -43,17 +39,44 @@ public class ShopAction extends Action implements MenuAction {
 	 */
 	@Override
 	public String menuDescription(Actor actor) {
-		return "Shop at " + shopName;
+		return "Shop at " + shop;
 	}
 
 	/**
 	 * Gets the sub menu of options at the shop
+	 * @param actor the actor using the shop
 	 * @param map the map that the shop is on
-	 * @return the sub-menu of options at the shop
+	 * @param display the display to show the sub menu on
+	 * @return the action chosen on the sub-menu
 	 */
 	@Override
-	public Menu getMenu(GameMap map) {
-		return new ShopMenu(products);
+	public Action getAction(Actor actor, GameMap map, Display display) {
+		SubMenu sub = new SubMenu();
+		try {
+			if (actor instanceof Wallet) {
+				display.println("\nProducts: ");
+				for (Product product : shop.getProducts()) {
+					if (((Wallet) actor).getWealth() < product.getCost()) {
+						display.println(product.getItem() + " - Can't afford, Costs: " + product.getCost() + " coins");
+						continue;
+					}
+					sub.addActionToMenu(new BuyAction(product), actor, display, null);
+				}
+				
+				// Add quit option
+				Action quitAction = new DoNothingCustomMessageAction("leaves the shop without buying anything");
+				sub.addActionToMenu(quitAction, actor, display, null);
+
+				return sub.readInput(display);
+			}
+			else {
+				throw new Exception("Only actors who implement Wallet can buy things");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

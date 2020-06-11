@@ -71,10 +71,9 @@ public class Player extends Human implements Wallet {
 			return lastAction.getNextAction();		
 		
 		Action action = mainMenu.showMenu(this, actions, display);
-		SubMenu subMenu = new SubMenu(display);
 		// While the option chosen presents a sub-menu:
 		if (action instanceof MenuAction) {
-			action = ((MenuAction) action).getMenu(this,map, display);
+			action = ((MenuAction) action).getAction(this,map, display);
 		}
 		
 		return action;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.FancyGroundFactory;
 import edu.monash.fit2099.engine.GameMap;
@@ -87,7 +86,7 @@ public class Application {
 		mambosVoid.addActor(new MamboMarie(mambosVoid.at(0, 0), mainMap.at(79, 13)), mambosVoid.at(0, 0));
 				
 		// Place player on main map
-		Actor player = new Player("Player", '@', PLAYER_HEALTH);
+		Player player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
  //TODO Remove these items
 		mainMap.at(43, 17).addItem(new Turret(display, maps));
@@ -137,11 +136,14 @@ public class Application {
 		products.add(new Product(new Food(), 2));
 		products.add(new Product(new ZombieMace(), 3));
 		products.add(new Product(new ZombieClub(), 3));
-		products.add(new Product(new Hoe(), 2));
-		products.add(new Product(new Plank(), 1));
+		products.add(new Product(new Hoe(), 5));
 		products.add(new Product(new AmmunitionCartridge(), 5));
+		products.add(new Product(new Plank(), 6));
 		products.add(new Product(new Turret(display, maps), 30));
-		townMap.at(12,3).setGround(new Shop("Wallmart", products, 10));
+		townMap.at(12,3).setGround(new Shop("Wallmart", products, 70));
+//		for (int i = 0; i < 100; i++) {  // Uncomment these lines to give the player 100 coins, for testing
+//			player.addCoinToWallet(new Coin());
+//		}
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));

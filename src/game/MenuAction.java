@@ -10,11 +10,7 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
 
 public interface MenuAction {
-	
-	
 
-
-	Action getMenu(Actor actor, GameMap map, Display display);
-
+	Action getAction(Actor actor, GameMap map, Display display);
 
 }

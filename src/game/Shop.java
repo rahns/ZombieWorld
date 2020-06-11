@@ -31,7 +31,6 @@ public class Shop extends Ground {
 		this.products = products;
 		this.name = name;
 		this.unlockAge = unlockAge;
-		this.shopActions.add(new DoNothingCustomMessageAction("stares at the closed " + name + " store"));
 	}
 	
 	/**
@@ -66,13 +65,24 @@ public class Shop extends Ground {
 	public void tick(Location location) {  // Unlock the shop after a number of turns
 		super.tick(location);
 		if (age < unlockAge) {
+			shopActions.clear();
+			this.shopActions.add(new DoNothingCustomMessageAction("stares at the closed " + name + " store. This shop will unlock in " + (unlockAge-age) + " turn(s)"));
 			age++;
 		}
 		else if (age == unlockAge){
 			shopActions.clear();
-			shopActions.add(new ShopAction(products, name));
+			shopActions.add(new ShopAction(this));
 			displayChar = ']';
 			age++;
 		}
+	}
+	
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }

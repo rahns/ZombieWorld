@@ -43,15 +43,15 @@ public class GunAction extends Action implements MenuAction{
 
 
 	@Override
-	public Action getMenu(Actor actor,GameMap map, Display display) {
-		SubMenu sub = new SubMenu(display);
+	public Action getAction(Actor actor,GameMap map, Display display) {
+		SubMenu sub = new SubMenu();
 		Action action = null;
 		for (Action a : gun.getActions(actor,map,gun)) {
 			sub.addActionToMenu(a, actor, display, null);
 		}
 		action = sub.readInput(display);
 		if (action instanceof MenuAction) {
-			action = ((MenuAction) action).getMenu(actor,map, display);
+			action = ((MenuAction) action).getAction(actor,map, display);
 		}
 		
 		return action;		

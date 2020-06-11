@@ -17,10 +17,8 @@ public class SubMenu extends Menu {
 	
 	private ArrayList<Character> freeChars;
 	private HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
-	private Display display;
 	
-	public SubMenu(Display display) {
-		this.display=display;
+	public SubMenu() {
 	}
 
 	private void constructFreeCharsList() {
