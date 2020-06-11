@@ -31,7 +31,6 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 
 	public abstract int shootDamage();
 	
-	public abstract ShootAction shoot();
-	
+
 
 }
