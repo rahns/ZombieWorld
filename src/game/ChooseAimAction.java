@@ -1,6 +1,5 @@
 package game;
 
-import java.util.ArrayList;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
@@ -12,7 +11,10 @@ public class ChooseAimAction extends Action implements MenuAction{
 	SniperRifle gun;
 
 
-
+	/**
+	 * MenuAction that chooses who to aim at and increments teh aim level.
+	 * @param sniperRifle - the rifle used to aim at a target
+	 */
 	public ChooseAimAction( SniperRifle sniperRifle) {
 
 		this.gun=sniperRifle;

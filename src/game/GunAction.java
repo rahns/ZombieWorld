@@ -6,7 +6,6 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Menu;
 /**
  * Action for shotgun that displays the submenu for shotgun.
  * @author ariehendrikse
