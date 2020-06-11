@@ -31,14 +31,11 @@ public class SnipeAction extends Action implements MenuAction {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO Auto-generated method stub
-		return null;
+		return "Shoot";
 	}
 
 }

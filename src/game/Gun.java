@@ -58,6 +58,15 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 		return null;
 	}
 
+	public String getHeader() {
+		String output="Ammo: ";
+		for (int i =0;i<ammo.getBulletCount();i++) {
+			output+="-";
+		}
+		return output;
+	}
+
+
 	
 
 

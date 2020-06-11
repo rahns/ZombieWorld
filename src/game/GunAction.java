@@ -48,6 +48,7 @@ public class GunAction extends Action implements MenuAction{
 		Action action = null;
 		for (Action a : gun.getActions(actor,map,gun)) {
 			sub.addActionToMenu(a, actor, display, null);
+			sub.setFooter(gun.getHeader());
 		}
 		action = sub.readInput(display);
 		if (action instanceof MenuAction) {

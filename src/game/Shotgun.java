@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
-import edu.monash.fit2099.engine.Menu;
 
 /**
  * Gun that shoots in cone shapes from the chosen direction. Hitting multiple actors
@@ -70,7 +67,13 @@ public class Shotgun extends Gun implements HitProbability {
 		return actions;
 
 	}
-	
+	/**
+	 * Gets the shotgun x coordinate based on the direction.
+	 * @param direction
+	 * @param x2 - the width of the shot.
+	 * @param y2 - the depth of the shot.
+	 * @return int - the x coordinate for the location
+	 */
 	private int directX(String direction,int x2,int y2) {
 		if (direction=="South") {
 			return x+x2;
@@ -99,6 +102,13 @@ public class Shotgun extends Gun implements HitProbability {
 		return 0;
 		
 	}
+	/**
+	 * Gets the shotgun y coordinate based on the direction.
+	 * @param direction
+	 * @param x2 - the width of the shot.
+	 * @param y2 - the depth of the shot.
+	 * @return int - the y coordinate for the location
+	 */
 	private int directY(String direction,int y2,int x2) {
 		if (direction=="South") {
 			return y+y2;
@@ -127,7 +137,14 @@ public class Shotgun extends Gun implements HitProbability {
 		return 0;
 		
 	}
-	
+	/**Scans the range in a cone shape with length 3 when N,E,S,W and adds the actors.
+	 * If two compass directions are passed it will return the actions for the top right hand square.
+	 * 
+	 * @param map- the current game map
+	 * @param direction - the direction with which the shot will be.
+	 * @param actor - the actor that is shooting.
+	 * @return a {@code ShootAction} that shoots at all the actors in the range
+	 */
 	private ShootAction createActionForDirection(GameMap map,String direction,Actor actor){
 		ArrayList<Location> locations =  new ArrayList<Location>();
 		for (int y2 = 3; y2>0;y2--) {
@@ -164,6 +181,14 @@ public class Shotgun extends Gun implements HitProbability {
 			
 		}
 		return targets;
+	}
+	
+	public String getHeader() {
+		String output="Ammo: ";
+		for (int i =0;i<ammo.getBulletCount();i++) {
+			output+="=";
+		}
+		return output;
 	}
 
 	

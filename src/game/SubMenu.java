@@ -17,6 +17,7 @@ public class SubMenu extends Menu {
 	
 	private ArrayList<Character> freeChars;
 	private HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
+	private String footer;
 	
 	public SubMenu() {
 	}
@@ -36,6 +37,7 @@ public class SubMenu extends Menu {
 	 * @return the action that was chosen
 	 */
 	protected Action readInput(Display display) {
+		display.println(footer);
 		char key;
 		do {
 			key = display.readChar();
@@ -61,6 +63,11 @@ public class SubMenu extends Menu {
 		}
 		keyToActionMap.put(c, action);
 		display.println(c + ": " + action.menuDescription(actor));
+	}
+
+	public void setFooter(String footer) {
+		this.footer=(footer);
+		
 	}
 
 }

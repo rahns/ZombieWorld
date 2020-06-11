@@ -92,7 +92,7 @@ public class Application {
 		mainMap.at(43, 17).addItem(new Turret(display, maps));
 		mainMap.at(43,16).addItem(new Shotgun());
 		mainMap.at(43,17).addItem(new SniperRifle());
-		townMap.moveActor(player, townMap.at(9, 6));  // Uncomment to spawn player in the town (for testing)
+  // Uncomment to spawn player in the town (for testing)
 		
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",

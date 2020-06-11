@@ -50,7 +50,7 @@ public class ShootAction extends AttackAction {
 		String result="";
 		gun.getAmmo().reduceBulletCount();
 		for (Actor t : targets) {
-			System.out.println(t);
+			result += System.lineSeparator();
 			if (t!=null) {
 				boolean missed =false;
 				if (gun instanceof HitProbability) {

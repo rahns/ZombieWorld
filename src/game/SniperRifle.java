@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
@@ -14,9 +13,7 @@ import edu.monash.fit2099.engine.NumberRange;
 
 public class SniperRifle extends Gun {
 	private int aimLevel;
-	private Actor target;
-	private Actions actions;
-	
+	private Actor target;	
 	
 	public SniperRifle() {
 		super("Sniper Rifle", 'R', 15, "snipes");
@@ -24,23 +21,25 @@ public class SniperRifle extends Gun {
 		this.aimLevel=0;
 		this.ammo=new AmmunitionCartridge();
 	}
-		public ArrayList<Action> getActions(Actor actor,GameMap map, Shotgun shotgun) {
-		
-		ArrayList<Action> actions = new ArrayList<Action>();
-		actions.add(new SnipeAction(this));
-		actions.add(new ChooseAimAction(this));
-		
-		
-		
-		Iterator<Item> iter= actor.getInventory().iterator();
-		while (iter.hasNext()) {
-			Item item = iter.next();
-			if (item instanceof AmmunitionCartridge) {
-				actions.add(new ReloadAction((AmmunitionCartridge) item,this));
-			}
+	@Override
+	public ArrayList<Action> getActions(Actor actor,GameMap map, Gun gun) {
+	
+	ArrayList<Action> actions = new ArrayList<Action>();
+	
+	actions.add(new SnipeAction(this));
+	actions.add(new ChooseAimAction(this));
+	
+	
+	
+	Iterator<Item> iter= actor.getInventory().iterator();
+	while (iter.hasNext()) {
+		Item item = iter.next();
+		if (item instanceof AmmunitionCartridge) {
+			actions.add(new ReloadAction((AmmunitionCartridge) item,this));
 		}
-		actions.add(new DoNothingAction());
-		return actions;
+	}
+	actions.add(new DoNothingAction());
+	return actions;
 
 	}
 	
@@ -114,6 +113,14 @@ public class SniperRifle extends Gun {
 			}
 		}
 		return targets;
+	}
+	@Override
+	public String getHeader() {
+		String output="Ammo: ";
+		for (int i =0;i<ammo.getBulletCount();i++) {
+			output+=">";
+		}
+		return output;
 	}
 	
 	

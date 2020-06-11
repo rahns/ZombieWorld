@@ -23,7 +23,7 @@ public class AimerAction extends Action {
 	@Override
 	public String menuDescription(Actor actor) {
 		// TODO Auto-generated method stub
-		return null;
+		return actor+" aims at " +target;
 	}
 
 }
