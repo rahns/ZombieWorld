@@ -6,6 +6,11 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.World;
 
 public class ZombieWorld extends World {
+	// Game state attributes;
+	private boolean containsPlayer;
+	private boolean containsMambo;
+	private boolean containsZombie;
+	private boolean containsHuman;
 
 	public ZombieWorld(Display display) {
 		super(display);
@@ -13,44 +18,13 @@ public class ZombieWorld extends World {
 	
 	@Override
 	protected boolean stillRunning() {
-		boolean containsPlayer=actorLocations.contains(player);
-		boolean containsMambo=false;
-		boolean containsZombie=false;
-		boolean containsHuman=false;
-		
-		for (Actor curr : actorLocations) {
-			if (curr instanceof Zombie){
-				containsZombie=true;
-			}
-			else if (curr instanceof MamboMarie) {
-				containsMambo=true;
-			}
-			else if(curr instanceof Human && !(curr instanceof Player)) {
-				containsHuman=true;
-			}
-		}
-		
+		updateGameState();
 		return containsPlayer && (containsMambo || containsZombie) && containsHuman;
 	}
 	
 	@Override 
 	public String endGameMessage() {
-		boolean containsMambo=false;
-		boolean containsZombie=false;
-		boolean containsHuman=false;
-		
-		for (Actor curr : actorLocations) {
-			if (curr instanceof Zombie){
-				containsZombie=true;
-			}
-			else if (curr instanceof MamboMarie) {
-				containsMambo=true;
-			}
-			else if(curr instanceof Human && !(curr instanceof Player)) {
-				containsHuman=true;
-			}
-		}
-		
+		updateGameState();
 		if (!(containsMambo || containsZombie)) {
 			return "Player wins";
 		}
@@ -59,5 +33,27 @@ public class ZombieWorld extends World {
 		}
 		
 		return "Player died. Game Over.";
+	}
+	
+	/**
+	 * Updates the private attributes about the game's current state
+	 */
+	private void updateGameState() {
+		containsPlayer=actorLocations.contains(player);
+		containsMambo=false;
+		containsZombie=false;
+		containsHuman=false;
+		
+		for (Actor curr : actorLocations) {
+			if (curr instanceof Zombie){
+				containsZombie=true;
+			}
+			else if (curr instanceof MamboMarie) {
+				containsMambo=true;
+			}
+			else if(curr instanceof Human && !(curr instanceof Player)) {
+				containsHuman=true;
+			}
+		}
 	}
 }
