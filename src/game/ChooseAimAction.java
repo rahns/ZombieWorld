@@ -25,16 +25,10 @@ public class ChooseAimAction extends Action implements MenuAction{
 	@Override
 	public Action getAction(Actor actor,GameMap map, Display display) {
 		SubMenu sub = new SubMenu();
-		Action action = null;
 		for (Actor a : ((SniperRifle) gun).getTargets(actor,map,gun)) {
 			sub.addActionToMenu(new AimerAction(a,gun),actor,display,null);
 		}
-		action = sub.readInput(display);
-		if (action instanceof MenuAction) {
-			action = ((MenuAction) action).getAction(actor,map, display);
-		}
-		
-		return action;	
+		return sub.readInput(display);
 	}
 	@Override
 	public String menuDescription(Actor actor) {

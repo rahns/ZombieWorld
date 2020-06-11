@@ -17,7 +17,7 @@ public class SubMenu extends Menu {
 	
 	private ArrayList<Character> freeChars;
 	private HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
-	private String footer ="Sub-Menu";
+	private String footer = "";
 	
 	public SubMenu() {
 	}
@@ -65,6 +65,10 @@ public class SubMenu extends Menu {
 		display.println(c + ": " + action.menuDescription(actor));
 	}
 
+	/**
+	 * Sets any text to show after all the menu options are displayed
+	 * @param footer the text to display after the menu actions
+	 */
 	public void setFooter(String footer) {
 		this.footer=(footer);
 		

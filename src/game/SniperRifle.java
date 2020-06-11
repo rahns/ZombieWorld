@@ -17,7 +17,7 @@ public class SniperRifle extends Gun {
 	
 	public SniperRifle() {
 		super("Sniper Rifle", 'R', 15, "snipes");
-		allowableActions.add(new GunAction(this));
+		allowableActions.add(new UseGunAction(this));
 		this.aimLevel=0;
 		this.ammo=new AmmunitionCartridge();
 	}
@@ -26,7 +26,7 @@ public class SniperRifle extends Gun {
 	
 	ArrayList<Action> actions = new ArrayList<Action>();
 	
-	actions.add(new SnipeAction(this));
+	actions.add(new ChooseShootTargetAction(this));
 	actions.add(new ChooseAimAction(this));
 	
 	

@@ -17,13 +17,13 @@ public class ShootAction extends AttackAction {
 	
 	private Gun gun;
 	private String direction;
-	private boolean single;
+	private boolean isSingleTarget;
 	
 	
 	public ShootAction(Actor target,Gun gun) {
 		super(target);
 		targets.add(target);
-		single=true;
+		isSingleTarget=true;
 		this.gun=gun;
 		// TODO Auto-generated constructor stub
 	}
@@ -41,7 +41,7 @@ public class ShootAction extends AttackAction {
 		super(targets);
 		this.gun=gun;
 		this.direction=direction;
-		this.single=false;
+		this.isSingleTarget=false;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -112,7 +112,7 @@ public class ShootAction extends AttackAction {
 	}
 	@Override
 	public String menuDescription(Actor actor) {
-		if (single) {
+		if (isSingleTarget) {
 			return actor + " shoots at " + target + " " + ((ZombieActor) target).getHealthStatus();
 		}
 		return actor + " shoots " + this.direction;
