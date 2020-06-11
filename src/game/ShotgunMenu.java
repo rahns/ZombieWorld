@@ -1,13 +1,13 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
+import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
@@ -45,6 +45,9 @@ public class ShotgunMenu extends SubMenu {
 				this.addActionToMenu(createActionForDirection( direction), actor,display, null);
 			}
 		}
+		else {
+			display.println("*click* out of ammo!");
+		}
 		
 		
 		Iterator<Item> iter= actor.getInventory().iterator();
@@ -54,7 +57,7 @@ public class ShotgunMenu extends SubMenu {
 				addActionToMenu(new ReloadAction((AmmunitionCartridge) item,gun), actor, display, null);
 			}
 		}
-		
+		addActionToMenu(new DoNothingAction(), actor, display, null);
 		return readInput(display);
 
 	}

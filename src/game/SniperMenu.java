@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
+import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.Item;
 
 public class SniperMenu extends SubMenu {
@@ -23,7 +24,7 @@ public class SniperMenu extends SubMenu {
 		}
 		
 		display.println("Ammo: " +ammo_amount);
-
+		
 		Iterator<Item> iter= actor.getInventory().iterator();
 		while (iter.hasNext()) {
 			Item item = iter.next();
@@ -36,7 +37,10 @@ public class SniperMenu extends SubMenu {
 		if (!(gun.getAmmo().isEmpty())) {
 			addActionToMenu(new ShootAction(target,gun), actor, display, null);
 		}
-
+		else {
+			display.println("*click* out of ammo!");
+		}
+		addActionToMenu(new DoNothingAction(), actor, display, null);
 		return readInput(display);
 	}
 

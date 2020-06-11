@@ -7,7 +7,6 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
-import edu.monash.fit2099.engine.Weapon;
 
 public class ShootAction extends AttackAction {
 	
@@ -35,16 +34,11 @@ public class ShootAction extends AttackAction {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		String result="";
-		if (targets.size()>0) {
-			
-		}
+		gun.getAmmo().reduceBulletCount();
 		for (Actor t : targets) {
 			System.out.println(t);
 			if (t!=null) {
 				boolean missed =false;
-				//TODO make this all inherit off of attack action but make the weapon the gun.
-				// refer to the weapon's hit probability for the likeliness of missing
-				
 				if (gun instanceof HitProbability) {
 					if (rand.nextInt(100) > ((HitProbability) gun).getHitProbability()) {
 						result += System.lineSeparator() + actor + " misses " + t + ".";
@@ -64,12 +58,12 @@ public class ShootAction extends AttackAction {
 					missed = true;
 				}
 				
-				gun.aim(t);
+				
 				
 				if (!(missed)) {
+					gun.aim(t);
 					int damage = gun.shootDamage();
 					result += actor + " shoots " + t + " for " + damage + " damage";
-					System.out.println(t);
 					t.hurt(damage);
 					if (!t.isConscious()) {
 						boolean shouldRise = false;

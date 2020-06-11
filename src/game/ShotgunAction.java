@@ -1,15 +1,11 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.ActorLocations;
-import edu.monash.fit2099.engine.Exit;
+
 import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.Menu;
 
 public class ShotgunAction extends Action implements MenuAction{
