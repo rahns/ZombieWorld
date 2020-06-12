@@ -92,7 +92,7 @@ public class Application {
 		//TODO Remove these items
 //		mainMap.at(43, 17).addItem(new Turret(display, maps));
 		mainMap.at(43,16).addItem(new Shotgun());
-		mainMap.at(43,17).addItem(new SniperRifle());
+		mainMap.at(43,17).addItem(new SniperRifle(new Turret(display, maps)));
 		
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",
@@ -124,12 +124,14 @@ public class Application {
 		
 		// place a train to town on the main map
 		mainMap.at(43, 23).addItem(new Vehicle("train", '*', townMap.at(20, 0), "town"));
-		// place a train from town back to the main map
+		// place a train to the compound on the town map
 		townMap.at(20, 0).addItem(new Vehicle("train", '*', mainMap.at(43, 23), "the compound"));
 		
 		// Add guns to town map
-		townMap.at(8, 3).addItem(new SniperRifle());
 		townMap.at(6, 3).addItem(new Shotgun());
+		Turret sniperCraftsIntoTurret = new Turret(display, maps);
+		townMap.at(8, 3).addItem(new SniperRifle(sniperCraftsIntoTurret));
+		
 		
 		// Add shop (for bonus marks)
 		ArrayList<Product> products = new ArrayList<>();
@@ -141,6 +143,7 @@ public class Application {
 		products.add(new Product(new Plank(), 6));
 		products.add(new Product(new Turret(display, maps), 30));
 		townMap.at(12,3).setGround(new Shop("Wallmart", products, 70));
+		
 //		for (int i = 0; i < 100; i++) {  // Uncomment these lines to give the player 100 coins, for testing
 //			player.addCoinToWallet(new Coin());
 //		}

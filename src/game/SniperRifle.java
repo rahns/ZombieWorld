@@ -15,15 +15,18 @@ import edu.monash.fit2099.engine.NumberRange;
  * @author ariehendrikse
  *
  */
-public class SniperRifle extends Gun {
-	private Actor target;	
+public class SniperRifle extends Gun implements CraftableItem{
+	private Actor target;
+	private Item craftsIntoItem;
 	
 	/**
 	 * SniperRifle constructor
 	 */
-	public SniperRifle() {
+	public SniperRifle(Item craftsIntoItem) {
 		super("Sniper Rifle", 'R', 15, "snipes");
+		this.craftsIntoItem = craftsIntoItem;
 		allowableActions.add(new UseGunAction(this));
+		allowableActions.add(new CraftAction(this));
 		this.ammo=new AmmunitionCartridge();
 	}
 	@Override
@@ -133,6 +136,10 @@ public class SniperRifle extends Gun {
 			output += "Empty";
 		}
 		return output;
+	}
+	@Override
+	public Item craftsInto() {
+		return craftsIntoItem;
 	}
 	
 	

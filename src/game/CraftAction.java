@@ -44,7 +44,12 @@ public class CraftAction extends Action{
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		actor.addItemToInventory(newItem);
-		actor.removeItemFromInventory(item);
+		if (map.locationOf(actor).getItems().contains(item)) {
+			map.locationOf(actor).removeItem(item);
+		}
+		else {
+			actor.removeItemFromInventory(item);
+		}
 		return actor.toString() + " crafted " + item.toString() + " into " + newItem.toString() + ".";
 	}
 
