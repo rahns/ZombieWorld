@@ -91,10 +91,25 @@ public class Application {
  //TODO Remove these items
 		mainMap.at(43, 17).addItem(new Turret(display, maps));
 		mainMap.at(43,16).addItem(new Shotgun());
+<<<<<<< Upstream, based on branch 'master' of https://git.infotech.monash.edu/fit2099-s1-2020/OkGoogleFindMeATeamName/project.git
 		mainMap.at(43,17).addItem(new SniperRifle());
 		for (int i = 0; i < 20; i++) {
 			mainMap.at(43, 15).addItem(new AmmunitionCartridge());
 		}
+=======
+		mainMap.at(43,19).addItem(new SniperRifle());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+		mainMap.at(43,15).addItem(new Coin());
+>>>>>>> 9a74659 App dynamics changed
 		
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",
