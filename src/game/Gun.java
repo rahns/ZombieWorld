@@ -17,8 +17,8 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 	protected AmmunitionCartridge ammo;
 	protected int aimLevel = 0;
 	
-	public Gun(String name, char displayChar, int melee_damage, String verb) {
-		super(name, displayChar, melee_damage, "whacks");
+	public Gun(String name, char displayChar, int meleeDamage, String verb) {
+		super(name, displayChar, meleeDamage, "whacks");
 	}
 
 	@Override
@@ -55,9 +55,14 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 	 */
 	public abstract int shootDamage();
 
-	public ArrayList<Action> getActions(Actor actor, GameMap map, Gun gun) {
-		return null;
-	}
+	/**
+	 * Gets a list of actions this gun can currently perform
+	 * @param actor the actor using the gun
+	 * @param map the map the gun is on
+	 * @return a list of actions
+	 */
+	public abstract ArrayList<Action> getActions(Actor actor, GameMap map);
+	
 	/**
 	 * Gets the ammmo amount and turns it into a pretty header for display.
 	 * @return string of the ammo status

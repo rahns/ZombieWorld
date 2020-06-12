@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.Item;
 public class AmmunitionCartridge extends Item {
 	
 	private int bulletCount;
-	private static int STARTING_COUNT = 5;
+	private static final int STARTING_COUNT = 5;
 	/**
 	 * Constructor for an ammunition cartidge
 	 */

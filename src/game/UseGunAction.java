@@ -13,7 +13,6 @@ import edu.monash.fit2099.engine.GameMap;
  */
 public class UseGunAction extends Action implements MenuAction{
 	
-	static int SHOOT_RADIUS = 3;
 	private Gun gun;
 
 
@@ -33,7 +32,6 @@ public class UseGunAction extends Action implements MenuAction{
 	
 	@Override
 	public String menuDescription(Actor actor) {
-		// TODO Auto-generated method stub
 		return "Use " +gun;
 	}
 
@@ -42,7 +40,7 @@ public class UseGunAction extends Action implements MenuAction{
 	public Action getAction(Actor actor,GameMap map, Display display) {
 		SubMenu sub = new SubMenu();
 		Action action;
-		for (Action a : gun.getActions(actor,map,gun)) {
+		for (Action a : gun.getActions(actor,map)) {
 			sub.addActionToMenu(a, actor, display, null);
 			sub.setFooter(gun.getHeader());
 		}

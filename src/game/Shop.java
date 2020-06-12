@@ -77,8 +77,12 @@ public class Shop extends Ground {
 		}
 	}
 	
+	/**
+	 * Getter for the shops products
+	 * @return a list of the shop's products
+	 */
 	public ArrayList<Product> getProducts() {
-		return products;
+		return new ArrayList<>(products);
 	}
 	
 	@Override

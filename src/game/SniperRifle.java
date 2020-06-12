@@ -11,33 +11,41 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.NumberRange;
 
+/**
+ * A class representing a sniper rifle
+ * @author ariehendrikse
+ *
+ */
 public class SniperRifle extends Gun {
 	private Actor target;	
 	
+	/**
+	 * SniperRifle constructor
+	 */
 	public SniperRifle() {
 		super("Sniper Rifle", 'R', 15, "snipes");
 		allowableActions.add(new UseGunAction(this));
 		this.ammo=new AmmunitionCartridge();
 	}
 	@Override
-	public ArrayList<Action> getActions(Actor actor,GameMap map, Gun gun) {
+	public ArrayList<Action> getActions(Actor actor,GameMap map) {
 	
-	ArrayList<Action> actions = new ArrayList<Action>();
-	
-	actions.add(new ChooseShootTargetAction(this));
-	actions.add(new ChooseAimAction(this));
-	
-	
-	// Check if the actor has ammo and then add a reload action if they do.
-	Iterator<Item> iter= actor.getInventory().iterator();
-	while (iter.hasNext()) {
-		Item item = iter.next();
-		if (item instanceof AmmunitionCartridge) {
-			actions.add(new ReloadAction((AmmunitionCartridge) item,this));
+		ArrayList<Action> actions = new ArrayList<Action>();
+		
+		actions.add(new ChooseShootTargetAction(this));
+		actions.add(new ChooseAimAction(this));
+		
+		
+		// Check if the actor has ammo and then add a reload action if they do.
+		Iterator<Item> iter= actor.getInventory().iterator();
+		while (iter.hasNext()) {
+			Item item = iter.next();
+			if (item instanceof AmmunitionCartridge) {
+				actions.add(new ReloadAction((AmmunitionCartridge) item,this));
+			}
 		}
-	}
-	actions.add(new DoNothingAction());
-	return actions;
+		actions.add(new DoNothingAction());
+		return actions;
 
 	}
 	
@@ -81,9 +89,6 @@ public class SniperRifle extends Gun {
 		}	
 
 		this.target=target;
-		
-		
-		
 	}
 	
 	/**
@@ -121,6 +126,11 @@ public class SniperRifle extends Gun {
 
 		return targets;
 	}
+	
+	/**
+	 * Gets a header to show above its actions in a menu. Shows the ammo count
+	 * @return a string to be shown as a header to its actions menu
+	 */
 	@Override
 	public String getHeader() {
 		String output="Ammo: ";

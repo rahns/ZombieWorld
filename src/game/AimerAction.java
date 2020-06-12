@@ -14,8 +14,8 @@ public class AimerAction extends Action {
 	private SniperRifle gun;
 	/**
 	 * 
-	 * @param target - 
-	 * @param gun
+	 * @param target - the target to aim at
+	 * @param gun - the gun which will aim
 	 */
 	public AimerAction(Actor target, SniperRifle gun) {
 		this.gun=gun;

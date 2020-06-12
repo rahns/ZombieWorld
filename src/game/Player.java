@@ -29,16 +29,27 @@ public class Player extends Human implements Wallet {
 	
 	/**
 	 * Gets the number of coins in the player's wallet
-	 * @return
+	 * @return the number of coins in the wallet
 	 */
+	@Override
 	public int getWealth() {
 		return wallet.size();
 	}
 	
+	/**
+	 * A method to add a coin to the wallet
+	 * @param coin a coin
+	 */
+	@Override
 	public void addCoinToWallet(Coin coin) {
 		wallet.add(coin);
 	}
 	
+	/**
+	 * Method to spend the player's coins
+	 * @param cost the number of coins to spend
+	 */
+	@Override
 	public void spendCoins(int cost) {
 		try {
 			if (cost > getWealth()) {

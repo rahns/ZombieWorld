@@ -20,7 +20,10 @@ public class Shotgun extends Gun implements HitProbability {
 
 	private int x;
 	private int y;
-		
+	
+	/**
+	 * Shotgun constructor
+	 */
 	public Shotgun() {
 		super("shotgun", 'S', 13, "blasts");
 		this.ammo= new AmmunitionCartridge();
@@ -31,16 +34,9 @@ public class Shotgun extends Gun implements HitProbability {
 	public int shootDamage() {
 		return 15;
 	}
-	public String getMenuHeader() {
-		String ammo_amount="";
-		for (int i = 0;i< this.getAmmo().getBulletCount();i++) {
-			ammo_amount+="=";
-		}
-		
-		return "Ammo: " +ammo_amount;
-	}
+	
 	@Override
-	public ArrayList<Action> getActions(Actor actor,GameMap map, Gun gun) {
+	public ArrayList<Action> getActions(Actor actor,GameMap map) {
 		
 		ArrayList<Action> actions = new ArrayList<Action>();
 		
@@ -192,6 +188,11 @@ public class Shotgun extends Gun implements HitProbability {
 		}
 		return targets;
 	}
+	
+	/**
+	 * Gets a header to show above its actions in a menu. Shows the ammo count
+	 * @return a string to be shown as a header to its actions menu
+	 */
 	@Override
 	public String getHeader() {
 		String output="Ammo: ";

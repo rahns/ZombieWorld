@@ -9,15 +9,14 @@ import edu.monash.fit2099.engine.GameMap;
  * @author ariehendrikse
  *
  */
-
 public class ChooseShootTargetAction extends Action implements MenuAction {
 
 	private SniperRifle gun;
+	
 	/**
 	 * Constructor
 	 * @param sniperRifle - the sniper to be shooting
 	 */
-
 	public ChooseShootTargetAction(SniperRifle sniperRifle) {
 		this.gun=sniperRifle;
 	}

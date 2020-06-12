@@ -4,6 +4,11 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
+/**
+ * An action for instantly killing a actor
+ * @author ariehendrikse
+ *
+ */
 public class EndLifeAction extends Action {
 
 

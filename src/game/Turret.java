@@ -13,6 +13,11 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.NumberRange;
 
+/**
+ * A class representing a turret
+ * @author Rahn Stavar
+ *
+ */
 public class Turret extends Item {
 	
 	private boolean isSetUp = false;
@@ -21,6 +26,11 @@ public class Turret extends Item {
 	private ArrayList<GameMap> maps;
 	private static final int DAMAGE = 10;
 
+	/**
+	 * Turret constructor
+	 * @param display the display to print the turrets shoot messages to
+	 * @param maps the game's maps, so that the turret can remove any characters it kills from the game
+	 */
 	public Turret(Display display, ArrayList<GameMap> maps) {
 		super("turret", 'x', true);
 		this.display = display;
@@ -54,6 +64,9 @@ public class Turret extends Item {
 		
 	}
 	
+	/**
+	 * A method to tell the turret to set up and start shooting
+	 */
 	public void setUp() {
 		isSetUp = true;
 		allowableActions.remove(setUpAction);
@@ -82,6 +95,10 @@ public class Turret extends Item {
 		return targetActor;
 	}
 	
+	/**
+	 * Private method that shoots the nearest target
+	 * @param targetActor
+	 */
 	private void shoot(Actor targetActor) {
 		// Shoot the target
 		if (targetActor != null) {

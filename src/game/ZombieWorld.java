@@ -5,6 +5,11 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.World;
 
+/**
+ * The world class for the zombie game
+ * @author ariehendrikse
+ *
+ */
 public class ZombieWorld extends World {
 	// Game state attributes;
 	private boolean containsPlayer;
@@ -12,6 +17,10 @@ public class ZombieWorld extends World {
 	private boolean containsZombie;
 	private boolean containsHuman;
 
+	/**
+	 * ZombieWorld constructor
+	 * @param display the display to printing messages
+	 */
 	public ZombieWorld(Display display) {
 		super(display);
 	}

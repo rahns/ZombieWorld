@@ -19,6 +19,9 @@ public class SubMenu extends Menu {
 	private HashMap<Character, Action> keyToActionMap = new HashMap<Character, Action>();
 	private String footer = "";
 	
+	/**
+	 * SubMenu Constructor
+	 */
 	public SubMenu() {
 	}
 

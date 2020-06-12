@@ -17,7 +17,7 @@ public class CollectCoinsAction extends Action {
 	
 	/**
 	 * CollectCoinsAction constructor
-	 * @param numberOfCoins the number of coins in the location that coins will be picked up from
+	 * @param coins the coins to pickup
 	 */
 	public CollectCoinsAction(ArrayList<Coin> coins) {
 		this.coins = coins;

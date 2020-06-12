@@ -19,18 +19,23 @@ public class ShootAction extends AttackAction {
 	private String direction;
 	private boolean isSingleTarget;
 	
-	
+	/**
+	 * ShootAction constructor
+	 * @param target - the target actor
+	 * @param gun - the gun object that will be shooting 
+	 * @author ariehendrikse
+	 *
+	 */
 	public ShootAction(Actor target,Gun gun) {
 		super(target);
 		isSingleTarget=true;
 		this.gun=gun;
 	}
 	/**
-	 * This is an action class that shoots either a target or group of
-	 * targets and then decreases the ammunition in the gun
+	 * ShootAction Constructor
 	 * @param targets - A collection of actors to shoot at.
 	 * @param gun - the gun object that will be shooting 
-	 * @param the direction that gun is shooting in (for {@code menuDescription})
+	 * @param direction - the direction that gun is shooting in (for {@code menuDescription})
 	 * @author ariehendrikse
 	 *
 	 */

@@ -5,8 +5,8 @@ import edu.monash.fit2099.engine.DropItemAction;
 import edu.monash.fit2099.engine.GameMap;
 /**
  * Sets up a turret. Tells it is being placed and to start shooting.
- * I other words, turns the turret on.
- * @author ariehendrikse
+ * In other words, turns the turret on.
+ * @author Rahn Stavar
  *
  */
 public class SetUpTurretAction extends DropItemAction {
