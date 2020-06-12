@@ -73,5 +73,14 @@ public class SubMenu extends Menu {
 		this.footer=(footer);
 		
 	}
+	
+	/**
+	 * Adds text to the menu
+	 * @param text the test to display
+	 * @param display the display the menu is printing on
+	 */
+	public void addText(String text, Display display) {
+		display.println(text);		
+	}
 
 }

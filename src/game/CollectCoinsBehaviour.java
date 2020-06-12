@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
@@ -20,14 +22,14 @@ public class CollectCoinsBehaviour implements Behaviour {
 	 */
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
-		int numberOfCoins = 0;
+		ArrayList<Coin> coins = new ArrayList<>();
 		for (Item item : map.locationOf(actor).getItems()) {
 			if (item instanceof Coin) {
-				numberOfCoins++;
+				coins.add((Coin) item);
 			}
 		}
-		if (numberOfCoins > 0) {
-			return new CollectCoinsAction(numberOfCoins);
+		if (coins.size() > 0) {
+			return new CollectCoinsAction(coins);
 		}
 		return null;
 	}

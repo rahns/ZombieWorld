@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Item;
 
 /**
  * An action for picking up coins from the ground (can do multiple at a time)
@@ -14,14 +13,14 @@ import edu.monash.fit2099.engine.Item;
  */
 public class CollectCoinsAction extends Action {
 	
-	private int numberOfCoins;
+	private ArrayList<Coin> coins = new ArrayList<>();
 	
 	/**
 	 * CollectCoinsAction constructor
 	 * @param numberOfCoins the number of coins in the location that coins will be picked up from
 	 */
-	public CollectCoinsAction(int numberOfCoins) {
-		this.numberOfCoins = numberOfCoins;
+	public CollectCoinsAction(ArrayList<Coin> coins) {
+		this.coins = coins;
 	}
 
 	/**
@@ -34,12 +33,9 @@ public class CollectCoinsAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 		try {
 			if (actor instanceof Wallet) {
-				ArrayList<Item> items = new ArrayList<>(map.locationOf(actor).getItems());
-				for (Item item : items) {
-					if (item instanceof Coin) {
-						((Wallet) actor).addCoinToWallet((Coin) item);
-						map.locationOf(actor).removeItem(item);
-					}
+				for (Coin coin : coins) {
+					((Wallet) actor).addCoinToWallet(coin);
+					map.locationOf(actor).removeItem(coin);
 				}
 			}
 			else {
@@ -60,7 +56,7 @@ public class CollectCoinsAction extends Action {
 	 */
 	@Override
 	public String menuDescription(Actor actor) {
-		String plural = numberOfCoins != 1 ? "s" : "";
-		return actor + " collects " + numberOfCoins + " coin" + plural;
+		String plural = coins.size() != 1 ? "s" : "";
+		return actor + " collects " + coins.size() + " coin" + plural;
 	}
 }

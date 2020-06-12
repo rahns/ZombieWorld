@@ -45,7 +45,7 @@ public class ShopAction extends Action implements MenuAction {
 	/**
 	 * Gets the sub menu of options at the shop
 	 * @param actor the actor using the shop
-	 * @param map the map that the shop is on
+	 * @param map the map that the shop is on (not needed, present to comply with interface)
 	 * @param display the display to show the sub menu on
 	 * @return the action chosen on the sub-menu
 	 */
