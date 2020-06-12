@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
@@ -32,16 +31,16 @@ public class SniperRifle extends Gun {
 	
 		ArrayList<Action> actions = new ArrayList<Action>();
 		
-		actions.add(new ChooseShootTargetAction(this));
-		actions.add(new ChooseAimAction(this));
-		
-		
+		if (ammo.getBulletCount() != 0) {
+			actions.add(new ChooseShootTargetAction(this));
+			actions.add(new ChooseAimAction(this));
+		}
+
 		// Check if the actor has ammo and then add a reload action if they do.
-		Iterator<Item> iter= actor.getInventory().iterator();
-		while (iter.hasNext()) {
-			Item item = iter.next();
+		for (Item item : actor.getInventory()) {
 			if (item instanceof AmmunitionCartridge) {
 				actions.add(new ReloadAction((AmmunitionCartridge) item,this));
+				break;
 			}
 		}
 		actions.add(new DoNothingAction());
@@ -51,10 +50,10 @@ public class SniperRifle extends Gun {
 	
 	@Override
 	public int getHitProbability() {
-		if (this.aimLevel==1) {
+		if (this.aimLevel==0) {
 			return 75;
 		}
-		if (this.aimLevel==2) {
+		if (this.aimLevel==1) {
 			return 90;
 		}
 		return 100;
@@ -79,9 +78,11 @@ public class SniperRifle extends Gun {
 	}
 	
 	@Override
-	public void aim(Actor target) {
+	public void aim(Actor target, boolean increaseLevel) {
 		if (target==this.target) {
-			this.aimLevel+=1;
+			if (increaseLevel) {
+				this.aimLevel+=1;
+			}
 		}
 		else
 		{
@@ -92,14 +93,7 @@ public class SniperRifle extends Gun {
 	}
 	
 	/**
-	 * increases the level of aim the gun
-	 */
-	public void increaseAimLevel() {
-		this.aimLevel+=1;
-	}
-	
-	/**
-	 * Gets all the tagerts in the map for the gun to aim at. Only if they arent the same
+	 * Gets all the targets in the map for the gun to aim at. Only if they arent the same
 	 * zombie capability
 	 * @param actor - the actor that is holding the gun
 	 * @param map - the map to scan for other actors
@@ -122,8 +116,6 @@ public class SniperRifle extends Gun {
 				}
 			}
 		}
-		System.out.println("HERE "+ targets);
-
 		return targets;
 	}
 	
@@ -136,6 +128,9 @@ public class SniperRifle extends Gun {
 		String output="Ammo: ";
 		for (int i =0;i<ammo.getBulletCount();i++) {
 			output+=">";
+		}
+		if (ammo.getBulletCount() == 0) {
+			output += "Empty";
 		}
 		return output;
 	}

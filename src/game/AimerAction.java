@@ -24,7 +24,7 @@ public class AimerAction extends Action {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		this.gun.aim(target);
+		this.gun.aim(target, true);
 		return actor+" aimed at " + target;
 	}
 

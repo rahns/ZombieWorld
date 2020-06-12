@@ -23,7 +23,7 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 
 	@Override
 	public int getHitProbability() {
-		return 100;
+		return 70;
 	}
 	/**
 	 * Reloads the gun with an {@code AmmunitionCartridge}
@@ -45,8 +45,10 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 	 * 
 	 * @param target
 	 */
-	public void aim(Actor target) {
-		this.aimLevel+=1;
+	public void aim(Actor target, boolean increaseLevel) {
+		if (increaseLevel) {
+			this.aimLevel+=1;
+		}
 	}
 	
 	/**

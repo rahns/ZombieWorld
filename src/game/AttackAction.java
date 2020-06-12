@@ -44,39 +44,65 @@ public class AttackAction extends Action {
 		Weapon weapon = actor.getWeapon();
 		
 		// refer to the weapon's hit probability for the likeliness of missing
-		try {
-			if (weapon instanceof HitProbability) {
-				if (rand.nextInt(100) > ((HitProbability) weapon).getHitProbability()) {
-					return actor + " misses " + target + ".";
-				}
-			}
-			// if not set for the weapon, used actor's default:
-			else if (actor instanceof HitProbability) {
-				if (rand.nextInt(100) > ((HitProbability) actor).getHitProbability()) {
-					return actor + " misses " + target + ".";
-				}
-			}
-			// Default hit probability if not set elsewhere:
-			else if (rand.nextBoolean()){
-				return actor + " misses " + target + ".";
-			}
-		} 
-		catch (NullPointerException e) {
-			e.printStackTrace();
+		if (misses(actor, weapon)) {
+			return actor + " misses " + target;
 		}
-		
-		String healResultString = "";
+
 		//Heal actor because it will be a successful attack
-		if (weapon instanceof Healing) {
-			actor.heal(((Healing) weapon).getHealAmount());
-			healResultString += System.lineSeparator() + actor.toString() + " gained " + ((Healing) weapon).getHealAmount() + " hit-points";
-		}
+		String healResultString = healAttacker(actor, weapon);
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage";
 		result += healResultString;
 
 		return hurt(damage, actor, map, result);
+	}
+
+	/**
+	 * A method to heal the actor if the weapon heals its user
+	 * @param actor the actor using a weapon
+	 * @param weapon the weapon used
+	 * @return a description of what happened
+	 */
+	protected String healAttacker(Actor actor, Weapon weapon) {
+		String healResultString = "";
+		if (weapon instanceof Healing) {
+			actor.heal(((Healing) weapon).getHealAmount());
+			healResultString = System.lineSeparator() + actor.toString() + " gained " + ((Healing) weapon).getHealAmount() + " hit-points";
+		}
+		return healResultString;
+	}
+
+	/**
+	 * Calculate if the attack misses
+	 * @param actor the attacking actor
+	 * @param weapon the attacking weapon
+	 * @return true if the attack misses, false otherwise
+	 */
+	protected boolean misses(Actor actor, Weapon weapon) {
+		try {
+			boolean missed = false;
+			if (weapon instanceof HitProbability) {
+				if (rand.nextInt(100) > ((HitProbability) weapon).getHitProbability()) {
+					missed = true;
+				}
+			}
+			// if not set for the weapon, used actor's default:
+			else if (actor instanceof HitProbability) {
+				if (rand.nextInt(100) > ((HitProbability) actor).getHitProbability()) {
+					missed = true;
+				}
+			}
+			// Default hit probability if not set elsewhere:
+			else if (rand.nextBoolean()){
+				missed = true;
+			}
+			return missed;
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	/**
@@ -102,21 +128,7 @@ public class AttackAction extends Action {
 			result = "";
 		}
 		if (!target.isConscious()) {
-			boolean shouldRise = false;
-			// Check if target was human and killed by a zombie:
-			if (actor != null && target.hasCapability(ZombieCapability.ALIVE) && actor.hasCapability(ZombieCapability.UNDEAD)) {
-				shouldRise = true;
-			}
-			Corpse corpse = new Corpse(target.toString(), shouldRise, map);
-			map.locationOf(target).addItem(corpse);
-			
-			Actions dropActions = new Actions();
-			for (Item item : target.getInventory())
-				dropActions.add(item.getDropAction());
-			for (Action drop : dropActions)		
-				drop.execute(target, map);
-			map.removeActor(target);	
-			
+			proccessDeath(actor, map, target);
 			if (result != "") {
 				result += System.lineSeparator();
 			}
@@ -124,5 +136,28 @@ public class AttackAction extends Action {
 			result += target + " is killed";
 		}
 		return result;
+	}
+
+	/**
+	 * Process the death of an actor
+	 * @param actor the attacking actor
+	 * @param map the map its on
+	 * @param target the target actor who is killed
+	 */
+	protected void proccessDeath(Actor actor, GameMap map, Actor target) {
+		boolean shouldRise = false;
+		// Check if target was human and killed by a zombie:
+		if (actor != null && target.hasCapability(ZombieCapability.ALIVE) && actor.hasCapability(ZombieCapability.UNDEAD)) {
+			shouldRise = true;
+		}
+		Corpse corpse = new Corpse(target.toString(), shouldRise, map);
+		map.locationOf(target).addItem(corpse);
+		
+		Actions dropActions = new Actions();
+		for (Item item : target.getInventory())
+			dropActions.add(item.getDropAction());
+		for (Action drop : dropActions)		
+			drop.execute(target, map);
+		map.removeActor(target);
 	}
 }

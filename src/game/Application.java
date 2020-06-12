@@ -92,6 +92,9 @@ public class Application {
 		mainMap.at(43, 17).addItem(new Turret(display, maps));
 		mainMap.at(43,16).addItem(new Shotgun());
 		mainMap.at(43,17).addItem(new SniperRifle());
+		for (int i = 0; i < 20; i++) {
+			mainMap.at(43, 15).addItem(new AmmunitionCartridge());
+		}
 		
 	    // Place some random humans
 		String[] humans = {"Little Rock", "Tank Dempsey", "Vicente", "Andrea",

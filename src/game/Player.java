@@ -70,7 +70,6 @@ public class Player extends Human implements Wallet {
 		display.println("Current player health: " + hitPoints + "/" + maxHitPoints);
 		String plural = getWealth() != 1 ? "s" : "";
 		display.println("Current player wealth: " + getWealth() + " coin" + plural);
-		display.println(System.lineSeparator());  // Insert blank line between player statistics and menu options
 		
 		// Add some behaviours/actions not considered in World:
 		actions.add(new HarvestBehaviour().getAction(this, map));

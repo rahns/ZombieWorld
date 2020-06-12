@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
@@ -40,24 +39,25 @@ public class Shotgun extends Gun implements HitProbability {
 		
 		ArrayList<Action> actions = new ArrayList<Action>();
 		
-		//All the locations
-		String[] directions= {"North","South","East","West","North-East","North-West","South-East","South-West"};
-		Location actor_loc=map.locationOf(actor);
-		this.x = actor_loc.x();
-		this.y = actor_loc.y();
-		// Adds all the shoot actions for shot gun in every direction.
-		if (!(this.getAmmo().isEmpty())) {
-			for (String direction : directions) {
-				actions.add(createActionForDirection(map, direction,actor));
+		if (ammo.getBulletCount() != 0) {
+			//All the locations
+			String[] directions= {"North","South","East","West","North-East","North-West","South-East","South-West"};
+			Location actor_loc=map.locationOf(actor);
+			this.x = actor_loc.x();
+			this.y = actor_loc.y();
+			// Adds all the shoot actions for shot gun in every direction.
+			if (!(this.getAmmo().isEmpty())) {
+				for (String direction : directions) {
+					actions.add(createActionForDirection(map, direction,actor));
+				}
 			}
 		}
-		
+
 		//Add reload action if there is a cartridge
-		Iterator<Item> iter= actor.getInventory().iterator();
-		while (iter.hasNext()) {
-			Item item = iter.next();
+		for (Item item : actor.getInventory()) {
 			if (item instanceof AmmunitionCartridge) {
 				actions.add(new ReloadAction((AmmunitionCartridge) item,this));
+				break;
 			}
 		}
 		actions.add(new DoNothingAction());
@@ -179,7 +179,6 @@ public class Shotgun extends Gun implements HitProbability {
 			if (map.isAnActorAt(loc)) {
 				Actor a=map.getActorAt(loc);
 				if (a!=actor) {
-					System.out.println(a+" here");
 					targets.add(a);
 				}
 				
@@ -198,6 +197,9 @@ public class Shotgun extends Gun implements HitProbability {
 		String output="Ammo: ";
 		for (int i =0;i<ammo.getBulletCount();i++) {
 			output+="=";
+		}
+		if (ammo.getBulletCount() == 0) {
+			output += "Empty";
 		}
 		return output;
 	}
