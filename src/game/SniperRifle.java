@@ -30,7 +30,7 @@ public class SniperRifle extends Gun {
 	actions.add(new ChooseAimAction(this));
 	
 	
-	
+	// Check if the actor has ammo and then add a reload action if they do.
 	Iterator<Item> iter= actor.getInventory().iterator();
 	while (iter.hasNext()) {
 		Item item = iter.next();
@@ -88,16 +88,28 @@ public class SniperRifle extends Gun {
 		
 	}
 	
-
+	/**
+	 * increases the level of aim the gun
+	 */
 	public void increaseAimLevel() {
 		this.aimLevel+=1;
 	}
+	/**
+	 * Resets the aim to 0
+	 */
 	public void resetAimLevel() {
 		this.aimLevel=0;
 	}
+	/**
+	 * Gets all the tagerts in the map for the gun to aim at. Only if they arent the same
+	 * zombie capability
+	 * @param actor - the actor that is holding the gun
+	 * @param map - the map to scan for other actors
+	 * @param gun - the gun that is aiming
+	 * @return array of actors that are possible to target
+	 */
 	public ArrayList<Actor> getTargets(Actor actor, GameMap map, SniperRifle gun) {
 		ArrayList<Actor> targets = new ArrayList<Actor>();
-		
 		NumberRange x =map.getXRange();
 		NumberRange y = map.getYRange();
 		for (int xcoord : x) {

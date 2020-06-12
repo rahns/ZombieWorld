@@ -3,15 +3,23 @@ package game;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
-
+/**
+ * An action that will aim at a target with a selected gun.
+ * @author ariehendrikse
+ *
+ */
 public class AimerAction extends Action {
 
 	private Actor target;
 	private SniperRifle gun;
-
-	public AimerAction(Actor a, SniperRifle gun) {
+	/**
+	 * 
+	 * @param target - 
+	 * @param gun
+	 */
+	public AimerAction(Actor target, SniperRifle gun) {
 		this.gun=gun;
-		this.target=a;
+		this.target=target;
 	}
 
 	@Override

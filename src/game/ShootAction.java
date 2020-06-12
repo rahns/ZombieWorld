@@ -25,7 +25,6 @@ public class ShootAction extends AttackAction {
 		targets.add(target);
 		isSingleTarget=true;
 		this.gun=gun;
-		// TODO Auto-generated constructor stub
 	}
 	/**
 	 * This is an action class that shoots either a target or group of
@@ -42,7 +41,7 @@ public class ShootAction extends AttackAction {
 		this.gun=gun;
 		this.direction=direction;
 		this.isSingleTarget=false;
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	@Override
