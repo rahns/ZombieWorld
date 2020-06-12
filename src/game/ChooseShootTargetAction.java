@@ -4,20 +4,20 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
-
 /**
  * Action that presents a sub menu to choose an actor to shoot at with a sniper.
  * @author ariehendrikse
  *
  */
+
 public class ChooseShootTargetAction extends Action implements MenuAction {
 
 	private SniperRifle gun;
-
 	/**
 	 * Constructor
 	 * @param sniperRifle - the sniper to be shooting
 	 */
+
 	public ChooseShootTargetAction(SniperRifle sniperRifle) {
 		this.gun=sniperRifle;
 	}
@@ -25,6 +25,8 @@ public class ChooseShootTargetAction extends Action implements MenuAction {
 	@Override
 	public Action getAction(Actor actor, GameMap map, Display display) {
 		SubMenu sub = new SubMenu();
+		// Goes through the list of available targets.
+
 		for (Actor a : gun.getTargets(actor,map,gun)) {
 			sub.addActionToMenu(new ShootAction(a,gun),actor,display,null);
 		}

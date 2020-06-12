@@ -12,13 +12,11 @@ import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.NumberRange;
 
 public class SniperRifle extends Gun {
-	private int aimLevel;
 	private Actor target;	
 	
 	public SniperRifle() {
 		super("Sniper Rifle", 'R', 15, "snipes");
 		allowableActions.add(new UseGunAction(this));
-		this.aimLevel=0;
 		this.ammo=new AmmunitionCartridge();
 	}
 	@Override
@@ -94,12 +92,7 @@ public class SniperRifle extends Gun {
 	public void increaseAimLevel() {
 		this.aimLevel+=1;
 	}
-	/**
-	 * Resets the aim to 0
-	 */
-	public void resetAimLevel() {
-		this.aimLevel=0;
-	}
+	
 	/**
 	 * Gets all the tagerts in the map for the gun to aim at. Only if they arent the same
 	 * zombie capability
@@ -124,6 +117,8 @@ public class SniperRifle extends Gun {
 				}
 			}
 		}
+		System.out.println("HERE "+ targets);
+
 		return targets;
 	}
 	@Override

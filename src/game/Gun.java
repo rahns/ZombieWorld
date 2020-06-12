@@ -15,6 +15,7 @@ import edu.monash.fit2099.engine.WeaponItem;
 public abstract class Gun extends WeaponItem implements HitProbability {
 	
 	protected AmmunitionCartridge ammo;
+	protected int aimLevel = 0;
 	
 	public Gun(String name, char displayChar, int melee_damage, String verb) {
 		super(name, displayChar, melee_damage, "whacks");
@@ -45,7 +46,7 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 	 * @param target
 	 */
 	public void aim(Actor target) {
-		
+		this.aimLevel+=1;
 	}
 	
 	/**
@@ -67,6 +68,12 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 			output+="-";
 		}
 		return output;
+	}
+	/**
+	 * Resets the aim to 0
+	 */
+	public void resetAimLevel() {
+		this.aimLevel =0;
 	}
 
 

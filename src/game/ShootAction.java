@@ -22,7 +22,6 @@ public class ShootAction extends AttackAction {
 	
 	public ShootAction(Actor target,Gun gun) {
 		super(target);
-		targets.add(target);
 		isSingleTarget=true;
 		this.gun=gun;
 	}
@@ -72,7 +71,7 @@ public class ShootAction extends AttackAction {
 				}
 				
 				
-				
+				//choose the target
 				if (!(missed)) {
 					gun.aim(t);
 					int damage = gun.shootDamage();
