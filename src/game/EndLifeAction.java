@@ -15,7 +15,7 @@ public class EndLifeAction extends Action {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		map.removeActor(actor);
-		return actor+ " left this world";
+		return actor+ " took the easy way out";
 	}
 
 	@Override

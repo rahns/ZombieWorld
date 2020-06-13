@@ -35,7 +35,7 @@ public class ZombieWorld extends World {
 	public String endGameMessage() {
 		updateGameState();
 		if (!(containsMambo || containsZombie)) {
-			return "Player wins";
+			return "Mambo Marie and all the zombies are dead! Player wins.";
 		}
 		else if (!(containsHuman)) {
 			return "All humans are dead! Game over.";

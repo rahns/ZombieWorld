@@ -89,10 +89,6 @@ public class Application {
 		// Place player on main map
 		Player player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
- //TODO Remove these items
-		mainMap.at(43, 17).addItem(new Turret(display));
-		mainMap.at(43,16).addItem(new Shotgun());
-		mainMap.at(43,17).addItem(new SniperRifle(new Turret(display)));
 
 		
 	    // Place some random humans
@@ -143,9 +139,6 @@ public class Application {
 		products.add(new Product(new Plank(), 6));
 		products.add(new Product(new Turret(display), 30));
 		townMap.at(12,3).setGround(new Shop("Wallmart", products, 70));
-//		for (int i = 0; i < 100; i++) {  // Uncomment these lines to give the player 100 coins, for testing
-//			player.addCoinToWallet(new Coin());
-//		}
 		
 		// Add zombies to the main map
 		mainMap.at(30, 20).addActor(new Zombie("Groan", mainMap));

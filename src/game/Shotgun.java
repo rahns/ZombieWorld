@@ -35,6 +35,11 @@ public class Shotgun extends Gun implements HitProbability {
 	}
 	
 	@Override
+	public int getHitProbability() {
+		return 75;
+	}
+	
+	@Override
 	public ArrayList<Action> getActions(Actor actor,GameMap map) {
 		
 		ArrayList<Action> actions = new ArrayList<Action>();
