@@ -128,8 +128,9 @@ public class Application {
 		townMap.at(20, 0).addItem(new Vehicle("train", '*', mainMap.at(43, 23), "the compound"));
 		
 		// Add guns to town map
-		mainMap.at(43, 17).addItem(new Turret(display, maps));
 		townMap.at(6, 3).addItem(new Shotgun());
+		Turret craftsIntoTurret = new Turret(display, maps);
+		townMap.at(8, 3).addItem(new SniperRifle(craftsIntoTurret));
 		
 		// Add shop (for bonus marks)
 		ArrayList<Product> products = new ArrayList<>();

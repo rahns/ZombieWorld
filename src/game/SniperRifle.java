@@ -12,6 +12,8 @@ import edu.monash.fit2099.engine.NumberRange;
 
 /**
  * A class representing a sniper rifle
+ * 
+ * As part of our bonus marks features, it can be crafted into a turret
  * @author ariehendrikse
  *
  */

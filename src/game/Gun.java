@@ -66,13 +66,16 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 	public abstract ArrayList<Action> getActions(Actor actor, GameMap map);
 	
 	/**
-	 * Gets the ammmo amount and turns it into a pretty header for display.
+	 * Gets the ammmo amount and turns it into a pretty header for display o menus.
 	 * @return string of the ammo status
 	 */
 	public String getHeader() {
 		String output="Ammo: ";
 		for (int i =0;i<ammo.getBulletCount();i++) {
 			output+="-";
+		}
+		if (ammo.getBulletCount() == 0) {
+			output += "Empty";
 		}
 		return output;
 	}
