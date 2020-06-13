@@ -1,0 +1,9 @@
+Ending the Game:
+
+For end game we have created a new World class called ZombieWorld, which extends the engine's World class. The ZombieWorld class overrides World's stillRunning() and endGameMessage() methods. We have also added a new private method which checks to see if there is still a zombie, mambo Marie, humans or the player in the game. 
+
+The stillRunning method uses this private method to check if it should return false, signalling the game is finished. The endGameMessage() method will also use this private method to determine which end game message should be returned.
+
+We inherited off of the World class as this is the class that originally managed ending the game, and in order to change this, the code in world would have to change, so we extended the world class so the engine package didn't have to be modified. Extending the world class also allowed us to continue using the majority of the World class's code, reducing code repetition.
+
+We had to change the application class to use the new zombieworld class, so that the methods we have overwriten are used.
