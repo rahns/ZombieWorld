@@ -26,7 +26,7 @@ public class SetUpTurretAction extends DropItemAction {
 		if (!map.locationOf(actor).getItems().contains(turret)) {  // If the turret isn't already on the ground, drop it
 			super.execute(actor, map);
 		}
-		turret.setUp();
+		turret.setUp(map);
 		return actor + " set up a turret";
 	}
 	

@@ -1,6 +1,5 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -11,7 +10,6 @@ import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
-import edu.monash.fit2099.engine.NumberRange;
 
 /**
  * A class representing a turret
@@ -23,7 +21,7 @@ public class Turret extends Item {
 	private boolean isSetUp = false;
 	private Display display;
 	private SetUpTurretAction setUpAction;
-	private ArrayList<GameMap> maps;
+	private GameMap currentMap;
 	private static final int DAMAGE = 10;
 
 	/**
@@ -31,11 +29,10 @@ public class Turret extends Item {
 	 * @param display the display to print the turrets shoot messages to
 	 * @param maps the game's maps, so that the turret can remove any characters it kills from the game
 	 */
-	public Turret(Display display, ArrayList<GameMap> maps) {
+	public Turret(Display display) {
 		super("turret", 'x', true);
 		this.display = display;
 		this.setUpAction = new SetUpTurretAction(this);
-		this.maps = maps;
 		allowableActions.add(this.setUpAction);
 	}
 	
@@ -67,10 +64,11 @@ public class Turret extends Item {
 	/**
 	 * A method to tell the turret to set up and start shooting
 	 */
-	public void setUp() {
+	public void setUp(GameMap map) {
 		isSetUp = true;
 		allowableActions.remove(setUpAction);
 		displayChar = 'X';
+		this.currentMap = map;
 	}
 	
 	private Actor findNearestTarget(Location currentLocation, Enum<?> targetTeam) {
@@ -102,20 +100,8 @@ public class Turret extends Item {
 	private void shoot(Actor targetActor) {
 		// Shoot the target
 		if (targetActor != null) {
-			GameMap currentMap = null;
-			for (GameMap map : maps) {
-				NumberRange xRange = map.getXRange();
-				NumberRange yRange = map.getYRange();
-				for (int x : xRange) {
-					for (int y : yRange) {
-						if (map.at(x, y).getItems().contains(this)) {
-							currentMap = map;
-						}
-					}
-				}
-			}
 			display.println("A turret shoots " + targetActor + " for " + DAMAGE + " damage");
-			display.println(new AttackAction(targetActor).executeWithoutWeapon(currentMap, DAMAGE));
+			display.println(new AttackAction(targetActor).executeAsItem(currentMap, DAMAGE));
 		}
 	}
 }

@@ -108,12 +108,12 @@ public class AttackAction extends Action {
 	/**
 	 * Allows hurting an actor without specifying an attacking actor or weapon.
 	 * Useful for items which can damage actors, such as the turret.
-	 * Hurts the actor but also handles the case when it dies, and drop everything.
+	 * Hurts the actor but also handles the case when it dies, and drops everything.
 	 * @param map the map the target is on
 	 * @param damage the amount of damage to do
 	 * @return a string describing the action
 	 */
-	public String executeWithoutWeapon(GameMap map, int damage) {
+	public String executeAsItem(GameMap map, int damage) {
 		return hurt(damage, null, map, null);	
 	}
 
