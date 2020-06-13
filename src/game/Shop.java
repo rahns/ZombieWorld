@@ -23,7 +23,7 @@ public class Shop extends Ground {
 	/**
 	 * Shop constructor
 	 * @param name the name of the shop
-	 * @param displayChar the display character of the shop
+	 * @param unlockAge the number of turns to take before unlocking this shop
 	 * @param products a list of the products this shop sells
 	 */
 	public Shop(String name, ArrayList<Product> products, int unlockAge) {

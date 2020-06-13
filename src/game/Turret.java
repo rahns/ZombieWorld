@@ -31,7 +31,6 @@ public class Turret extends Item {
 	/**
 	 * Turret constructor
 	 * @param display the display to print the turrets shoot messages to
-	 * @param maps the game's maps, so that the turret can remove any characters it kills from the game
 	 */
 	public Turret(Display display) {
 		super("turret", 'x', true);
@@ -67,6 +66,7 @@ public class Turret extends Item {
 	
 	/**
 	 * A method to tell the turret to set up and start shooting
+	 * @param map the map the turret is being set up on
 	 */
 	public void setUp(GameMap map) {
 		isSetUp = true;
@@ -78,8 +78,8 @@ public class Turret extends Item {
 	private Actor findNearestTarget(Location currentLocation, Enum<?> targetTeam) {
 		// Find a target
 		Actor targetActor = null;
-		Queue<Location> queue = new LinkedList<>();
-		HashSet<Location> visited = new HashSet<>();
+		Queue<Location> queue = new LinkedList<>();  // Keeps track of the next location to check
+		HashSet<Location> visited = new HashSet<>();  // Keeps track of the checked locations - Allows checking if a location is visited in O(1)
 		queue.add(currentLocation);
 		visited.add(currentLocation);
 		while (!queue.isEmpty()) {
@@ -102,7 +102,7 @@ public class Turret extends Item {
 	
 	/**
 	 * Private method that shoots the nearest target
-	 * @param targetActor
+	 * @param targetActor the actor to shoot
 	 */
 	private void shoot(Actor targetActor) {
 		// Shoot the target

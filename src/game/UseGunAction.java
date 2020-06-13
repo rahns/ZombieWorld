@@ -18,7 +18,7 @@ public class UseGunAction extends Action implements MenuAction{
 
 	/**
 	 * Constructor for the action
-	 * @param shotgun - the shotgun that is to be used for the action.
+	 * @param gun the gun that is to be used for the action.
 	 */
 	public UseGunAction(Gun gun) {
 		this.gun=gun;

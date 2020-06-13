@@ -16,8 +16,7 @@ public class ShopAction extends Action implements MenuAction {
 	
 	/**
 	 * ShopAction Constructor
-	 * @param products a list of the products available at the shop
-	 * @param shopName the name of the shop
+	 * @param shop the shop to buy from
 	 */
 	public ShopAction(Shop shop) {
 		this.shop = shop;

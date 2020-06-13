@@ -27,23 +27,23 @@ public abstract class Gun extends WeaponItem implements HitProbability {
 	}
 	/**
 	 * Reloads the gun with an {@code AmmunitionCartridge}
-	 * @param ammo - the ammunition
+	 * @param ammo - the ammunition to put in the gun
 	 */
 	public void reload(AmmunitionCartridge ammo) {
 		this.ammo=ammo;
 	}
 	
 	/**
-	 * Reloads the gun with an {@code AmmunitionCartridge}
-	 * @param ammo - the ammunition
+	 * A getter for the gun's {@code AmmunitionCartridge}
+	 * @return the ammo cartridge
 	 */
 	public AmmunitionCartridge getAmmo() {
 		return this.ammo;
 	}
 	/**
 	 * Aims at a target
-	 * 
-	 * @param target
+	 * @param increaseLevel a boolean stating whether to increase the aim level or not
+	 * @param target the actor to aim at
 	 */
 	public void aim(Actor target, boolean increaseLevel) {
 		if (increaseLevel) {

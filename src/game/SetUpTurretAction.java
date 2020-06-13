@@ -21,6 +21,11 @@ public class SetUpTurretAction extends DropItemAction {
 		this.turret = turret;
 	}
 	
+	/**
+	 * Set up the turret
+	 * @param actor the actor setting up the turret
+	 * @param map the map the action is happening on
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		if (!map.locationOf(actor).getItems().contains(turret)) {  // If the turret isn't already on the ground, drop it

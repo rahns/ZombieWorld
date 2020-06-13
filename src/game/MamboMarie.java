@@ -23,8 +23,8 @@ public class MamboMarie extends ZombieActor {
 
 	/**
 	 * Mambo Marie Constructor
-	 * @param mambosVoid
-	 * @param appearLoaction
+	 * @param mambosVoid the location MamboMarie should retreat to
+	 * @param appearLoaction the location MamboMarie should appear at
 	 */
 	public MamboMarie(Location mambosVoid, Location appearLoaction) {
 		super("Mambo Marie", 'M', 200, ZombieCapability.UNDEAD, 70);

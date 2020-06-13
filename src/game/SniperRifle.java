@@ -23,6 +23,7 @@ public class SniperRifle extends Gun implements CraftableItem{
 	
 	/**
 	 * SniperRifle constructor
+	 * @param craftsIntoItem the item this SnipeRifle can be crafted into
 	 */
 	public SniperRifle(Item craftsIntoItem) {
 		super("Sniper Rifle", 'R', 15, "snipes");

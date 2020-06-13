@@ -66,7 +66,7 @@ public class Shotgun extends Gun implements HitProbability {
 	}
 	/**
 	 * Gets the shotgun x coordinate based on the direction.
-	 * @param direction
+	 * @param direction the direction to shoot
 	 * @param x2 - the width of the shot.
 	 * @param y2 - the depth of the shot.
 	 * @return int - the x coordinate for the location
@@ -102,7 +102,7 @@ public class Shotgun extends Gun implements HitProbability {
 	}
 	/**
 	 * Gets the shotgun y coordinate based on the direction.
-	 * @param direction
+	 * @param direction the direction to shoot
 	 * @param x2 - the width of the shot.
 	 * @param y2 - the depth of the shot.
 	 * @return int - the y coordinate for the location
@@ -170,7 +170,7 @@ public class Shotgun extends Gun implements HitProbability {
 	 * Gets all the actors from a list of locations
 	 * @param locations - the locations to get the actors from
 	 * @param map - the map to scan for actors
-	 * @param actor - tthe current location of an actor
+	 * @param actor - the current location of an actor
 	 * @return array list - of different actors
 	 */
 	private ArrayList<Actor> getAllActors(ArrayList<Location> locations, GameMap map, Actor actor) {

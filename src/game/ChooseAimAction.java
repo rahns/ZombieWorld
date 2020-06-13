@@ -8,7 +8,6 @@ import edu.monash.fit2099.engine.GameMap;
 
 /**
  * MenuAction that chooses who to aim at and increments the aim level.
- * @param sniperRifle - the rifle used to aim at a target
  */
 public class ChooseAimAction extends Action implements MenuAction {
 	
