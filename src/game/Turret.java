@@ -1,7 +1,9 @@
 package game;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
@@ -22,7 +24,9 @@ public class Turret extends Item {
 	private Display display;
 	private SetUpTurretAction setUpAction;
 	private GameMap currentMap;
-	private static final int DAMAGE = 10;
+	private static final int DAMAGE = 5;
+	private static final int HIT_CHANCE = 60;
+	private Random rand = new Random();
 
 	/**
 	 * Turret constructor
@@ -75,7 +79,9 @@ public class Turret extends Item {
 		// Find a target
 		Actor targetActor = null;
 		Queue<Location> queue = new LinkedList<>();
+		HashSet<Location> visited = new HashSet<>();
 		queue.add(currentLocation);
+		visited.add(currentLocation);
 		while (!queue.isEmpty()) {
 			currentLocation = queue.poll();
 			if (currentLocation.getActor() != null && currentLocation.getActor().hasCapability(targetTeam)) {
@@ -84,8 +90,9 @@ public class Turret extends Item {
 			}
 			else {
 				for (Exit i : currentLocation.getExits()) {
-					if (! queue.contains(i.getDestination())) {
+					if (!visited.contains(i.getDestination())) {
 						queue.add(i.getDestination());
+						visited.add(i.getDestination());
 					}
 				}
 			}
@@ -100,8 +107,13 @@ public class Turret extends Item {
 	private void shoot(Actor targetActor) {
 		// Shoot the target
 		if (targetActor != null) {
-			display.println("A turret shoots " + targetActor + " for " + DAMAGE + " damage");
-			display.println(new AttackAction(targetActor).executeAsItem(currentMap, DAMAGE));
+			if (rand.nextInt(100) > HIT_CHANCE) {
+				display.println("A turret misses " + targetActor);
+			}
+			else {
+				display.println("A turret shoots " + targetActor + " for " + DAMAGE + " damage");
+				display.println(new AttackAction(targetActor).executeAsItem(currentMap, DAMAGE));
+			}
 		}
 	}
 }

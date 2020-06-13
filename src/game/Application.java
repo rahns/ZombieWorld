@@ -3,10 +3,12 @@ package game;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.FancyGroundFactory;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.World;
 
 /**
@@ -57,7 +59,7 @@ public class Application {
 		"....#.........#..........................",
 		"....#####_#####..########................",
 		"....#.........#..#.......................",
-		"....#.........####.......#...............",
+		"....#.........####.......................",
 		"....#....................#...............",
 		"....#....................#..........++++.",
 		"....######################........+++++..",
@@ -80,7 +82,6 @@ public class Application {
 		List<String> mambosVoidString = Arrays.asList(".");
 		GameMap mambosVoid = new GameMap(groundFactory, mambosVoidString);
 		world.addGameMap(mambosVoid);
-		maps.add(mambosVoid);
 		
 		// Create Mambo Marie
 		mambosVoid.addActor(new MamboMarie(mambosVoid.at(0, 0), mainMap.at(79, 13)), mambosVoid.at(0, 0));
@@ -89,9 +90,9 @@ public class Application {
 		Player player = new Player("Player", '@', PLAYER_HEALTH);
 		world.addPlayer(player, mainMap.at(43, 15));
  //TODO Remove these items
-		mainMap.at(43, 17).addItem(new Turret(display, maps));
+		mainMap.at(43, 17).addItem(new Turret(display));
 		mainMap.at(43,16).addItem(new Shotgun());
-		mainMap.at(43,17).addItem(new SniperRifle(new Turret(display, maps)));
+		mainMap.at(43,17).addItem(new SniperRifle(new Turret(display)));
 
 		
 	    // Place some random humans
@@ -174,6 +175,16 @@ public class Application {
 		townMap.at(25, 6).addActor(new Zombie("Zombie Harold Holt", townMap));
 		townMap.at(10, 5).addActor(new Zombie("Zombie Wallmart Employee", townMap));		
 
+		// Add ammo randomly around the maps
+		Random rand = new Random();
+		for (GameMap map: maps) {
+			for (int i = 0; i < 15; i++) {
+				Location randomLocation = map.at(rand.nextInt(map.getXRange().max()), rand.nextInt(map.getYRange().max()));
+				if (randomLocation.canActorEnter(player)) {
+					randomLocation.addItem(new AmmunitionCartridge());
+				}
+			}
+		}
 		
 		world.run();
 	}
