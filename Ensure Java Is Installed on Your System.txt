@@ -1,0 +1,5 @@
+Windows:
+Double-click the .bat file
+
+MacOS:
+Double click the .command file
