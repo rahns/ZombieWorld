@@ -1,0 +1,54 @@
+name: iOS build
+
+on:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios-build.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios-build.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Test core and build unsigned IPA
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Test game core
+        working-directory: ios/ZombieWorldCore
+        run: swift test --filter "ZombieWorldCoreTests.ZombieWorldCoreTests/test(Crop|Door|First|Quitting|Moving|Menu|ZombieKilled|HumanHunts)"
+
+      - name: Build app (unsigned)
+        run: |
+          xcodebuild \
+            -project ios/ZombieWorld.xcodeproj \
+            -scheme ZombieWorld \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/ZombieWorld.app Payload/
+          zip -qry ZombieWorld-unsigned.ipa Payload
+          ls -lh ZombieWorld-unsigned.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ZombieWorld-unsigned-ipa
+          path: ZombieWorld-unsigned.ipa
+          if-no-files-found: error
