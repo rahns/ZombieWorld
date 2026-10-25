@@ -38,9 +38,12 @@ public struct MapFrame: Sendable, Equatable {
     /// The topmost item on every square, or a space, laid out like `rows`.
     public let items: [String]
     public let actors: [ActorSnapshot]
+    /// Ids of actors killed since the previous frame. Actors can also leave a map without dying
+    /// (riding the train, Mambo Marie returning to her void).
+    public let deaths: [Int]
 
     public init(rows: [String], focusX: Int?, focusY: Int?, mapIndex: Int = 0,
-                ground: [String] = [], items: [String] = [], actors: [ActorSnapshot] = []) {
+                ground: [String] = [], items: [String] = [], actors: [ActorSnapshot] = [], deaths: [Int] = []) {
         self.rows = rows
         self.focusX = focusX
         self.focusY = focusY
@@ -48,6 +51,7 @@ public struct MapFrame: Sendable, Equatable {
         self.ground = ground
         self.items = items
         self.actors = actors
+        self.deaths = deaths
     }
 
     public var width: Int { rows.first?.count ?? 0 }
@@ -97,6 +101,11 @@ public struct Prompt: Sendable {
     public let footer: String?
     /// True for nested menus (guns, shop, targets), false for the main turn menu.
     public let isSubmenu: Bool
+
+    /// The same prompt with earlier messages in front of its log.
+    public func prepending(log earlier: [String]) -> Prompt {
+        Prompt(log: earlier + log, frame: frame, status: status, options: options, footer: footer, isSubmenu: isSubmenu)
+    }
 }
 
 /// The final state of the game.
@@ -104,6 +113,11 @@ public struct GameResult: Sendable {
     public let log: [String]
     public let frame: MapFrame?
     public let message: String
+
+    /// The same result with earlier messages in front of its log.
+    public func prepending(log earlier: [String]) -> GameResult {
+        GameResult(log: earlier + log, frame: frame, message: message)
+    }
 }
 
 /// A user interface for the game: a terminal, a SwiftUI view...
@@ -128,6 +142,19 @@ final class Display {
 
     init(frontend: GameFrontend) {
         self.frontend = frontend
+    }
+
+    private var deaths: [Int] = []
+
+    /// Records that an actor was killed, so frontends can tell dying from leaving the map.
+    func noteDeath(_ actor: Actor) {
+        deaths.append(id(of: actor))
+    }
+
+    /// The deaths since the last call.
+    func takeDeaths() -> [Int] {
+        defer { deaths.removeAll() }
+        return deaths
     }
 
     /// A stable id for an actor, for the whole game.

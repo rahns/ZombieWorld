@@ -121,7 +121,7 @@ final class Zombie: ZombieActor {
         for item in inventory {
             guard let weapon = item.asWeapon() else { continue }
             let arms = limbCount(Arm.self)
-            if arms == 0 || (arms == 1 && Bool.random()) {
+            if arms == 0 || (arms == 1 && Dice.bool()) {
                 removeItemFromInventory(item)
                 dropItem(item)
                 map.display?.println("\(name) dropped the \(item) it was holding")
@@ -135,12 +135,12 @@ final class Zombie: ZombieActor {
     /// 50%, 25% and 0% chance of punching with 2, 1 and 0 arms; otherwise bites.
     override func getIntrinsicWeapon() -> IntrinsicWeapon {
         let punchChance = Zombie.punchProbabilityPerArm * limbCount(Arm.self)
-        return Int.random(in: 0..<100) < punchChance ? Punch() : Bite()
+        return Dice.int(0..<100) < punchChance ? Punch() : Bite()
     }
 
     override func playTurn(_ actions: Actions, _ lastAction: Action, _ map: GameMap, _ display: Display) async throws -> Action {
-        if Int.random(in: 0..<100) > 90 {
-            display.println("\(name) says '\(Zombie.speech.randomElement()!)'")
+        if Dice.int(0..<100) > 90 {
+            display.println("\(name) says '\(Dice.element(of: Zombie.speech)!)'")
         }
         for behaviour in behaviours {
             if let action = behaviour.getAction(self, map) {
@@ -156,21 +156,21 @@ final class Zombie: ZombieActor {
 
     override func hurt(_ points: Int) {
         super.hurt(points)
-        if Int.random(in: 0..<100) < 25 {
+        if Dice.int(0..<100) < 25 {
             knockOffLimb()
         }
     }
 
     private func knockOffLimb() {
         guard !limbs.isEmpty else { return }
-        let selected = Int.random(in: 0..<limbs.count)
+        let selected = Dice.int(0..<limbs.count)
         map.display?.println("One of \(name)'s \(limbs[selected])s flung off.")
         dropItem(limbs[selected])
         limbs.remove(at: selected)
     }
 
     private func dropItem(_ item: Item) {
-        guard let exit = map.locationOf(self).exits.randomElement() else { return }
+        guard let exit = Dice.element(of: map.locationOf(self).exits) else { return }
         exit.destination.addItem(item)
     }
 
@@ -218,7 +218,7 @@ final class MamboMarie: ZombieActor {
 
     override func playTurn(_ actions: Actions, _ lastAction: Action, _ map: GameMap, _ display: Display) async throws -> Action {
         if mambosVoid.actor === self {
-            if Int.random(in: 0..<100) < 5 {
+            if Dice.int(0..<100) < 5 {
                 turnsSinceAppearing = 0
                 return MoveActorAction(appearLocation, "from her void to the compound")
             }

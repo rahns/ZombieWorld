@@ -7,7 +7,7 @@ struct AttackBehaviour: Behaviour {
     }
 
     func getAction(_ actor: Actor, _ map: GameMap) -> Action? {
-        for exit in map.locationOf(actor).exits.shuffled() {
+        for exit in Dice.shuffled(map.locationOf(actor).exits) {
             if let other = exit.destination.actor, other.hasCapability(attackableTeam) {
                 return AttackAction(other)
             }
@@ -62,7 +62,7 @@ final class FarmBehaviour: HarvestBehaviour {
 
     override func getAction(_ actor: Actor, _ map: GameMap) -> Action? {
         let here = map.locationOf(actor)
-        if Int.random(in: 0..<100) < FarmBehaviour.sowProbability {
+        if Dice.int(0..<100) < FarmBehaviour.sowProbability {
             for exit in here.exits where exit.destination.ground is Dirt {
                 return SowAction(exit.destination)
             }
@@ -106,7 +106,6 @@ final class HuntBehaviour: Behaviour {
     private let targetName: String
     private let isTarget: (AnyObject) -> Bool
     private let maxRange: Int
-    private var visitedLocations = Set<Location>()
 
     init<T>(_ type: T.Type, name: String? = nil, range: Int) {
         self.targetName = name ?? String(describing: type)
@@ -114,36 +113,30 @@ final class HuntBehaviour: Behaviour {
         self.maxRange = range
     }
 
+    /// Searches outwards one step at a time. Each search path only remembers its first step,
+    /// which is all we need to move. (Same results as the Java version's list of whole paths.)
     private func hunt(_ actor: Actor, _ here: Location) -> Action? {
-        visitedLocations.removeAll()
-        var layer: [[Location]] = [[here]]
+        let map = here.map
+        let width = map.xRange.count
+        var visited = [Bool](repeating: false, count: width * map.yRange.count)
+        var layer: [(location: Location, firstStep: Location?)] = [(here, nil)]
         for _ in 0..<maxRange {
-            layer = getNextLayer(actor, layer)
-            if let there = search(layer) {
-                return there.getMoveAction(actor, "towards a \(targetName)", nil)
-            }
-        }
-        return nil
-    }
-
-    private func getNextLayer(_ actor: Actor, _ layer: [[Location]]) -> [[Location]] {
-        var nextLayer: [[Location]] = []
-        for path in layer {
-            for exit in path[path.count - 1].exits {
-                let destination = exit.destination
-                if !destination.ground.canActorEnter(actor) || visitedLocations.contains(destination) {
-                    continue
+            var nextLayer: [(location: Location, firstStep: Location?)] = []
+            for (location, firstStep) in layer {
+                for exit in location.exits {
+                    let destination = exit.destination
+                    let index = destination.y * width + destination.x
+                    if visited[index] || !destination.ground.canActorEnter(actor) {
+                        continue
+                    }
+                    visited[index] = true
+                    nextLayer.append((destination, firstStep ?? destination))
                 }
-                visitedLocations.insert(destination)
-                nextLayer.append(path + [destination])
             }
-        }
-        return nextLayer
-    }
-
-    private func search(_ layer: [[Location]]) -> Location? {
-        for path in layer where containsTarget(path[path.count - 1]) {
-            return path[1]
+            layer = nextLayer
+            if let found = layer.first(where: { containsTarget($0.location) }), let step = found.firstStep {
+                return step.getMoveAction(actor, "towards a \(targetName)", nil)
+            }
         }
         return nil
     }
@@ -173,6 +166,6 @@ struct WanderBehaviour: Behaviour {
         let actions = map.locationOf(actor).exits.compactMap { exit -> Action? in
             exit.destination.canActorEnter(actor) ? exit.destination.getMoveAction(actor, "around", exit.hotKey) : nil
         }
-        return actions.randomElement()
+        return Dice.element(of: actions)
     }
 }

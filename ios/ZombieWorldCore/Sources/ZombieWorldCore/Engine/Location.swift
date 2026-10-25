@@ -6,6 +6,8 @@ final class Location: Printable, Hashable {
     private(set) var items: [Item] = []
     var ground: Ground!
     private(set) var exits: [Exit] = []
+    /// The actor standing here. Only `ActorLocations` changes this, so it always agrees with it.
+    var occupant: Actor?
 
     init(map: GameMap, x: Int, y: Int) {
         self.map = map

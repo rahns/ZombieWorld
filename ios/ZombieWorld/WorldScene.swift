@@ -241,12 +241,16 @@ final class WorldScene: SKScene {
             actors[actor.id] = actor
         }
 
+        let deaths = Set(frame.deaths)
         for (id, node) in actorNodes where !seen.contains(id) {
             actorNodes[id] = nil
             actors[id] = nil
-            if animated {
+            if animated && deaths.contains(id) {
                 showFloatingText("KO", color: Retro.danger, at: node.position)
                 node.die()
+            } else if animated {
+                // Left the map alive: Mambo Marie returning to her void, someone taking the train.
+                node.vanish()
             } else {
                 node.removeFromParent()
             }
@@ -561,6 +565,13 @@ private final class ActorNode: SKNode {
         alpha = 0
         setScale(0.4)
         run(.group([.fadeIn(withDuration: 0.25), .scale(to: 1, duration: 0.25)]))
+    }
+
+    func vanish() {
+        run(.sequence([
+            .group([.fadeOut(withDuration: 0.35), .scale(to: 1.4, duration: 0.35), .moveBy(x: 0, y: 4, duration: 0.35)]),
+            .removeFromParent(),
+        ]))
     }
 
     func die() {
