@@ -19,6 +19,19 @@ class Action {
 
     /// Allows Actions to take more than one turn. nil means the Action completes in one turn.
     var nextAction: Action? { nil }
+
+    /// What kind of action this is, for frontends.
+    var menuKind: ActionKind { .other }
+
+    /// The square this action acts on, if it has one.
+    func menuTarget(for actor: Actor, in map: GameMap) -> Location? { nil }
+
+    /// A menu entry for this action.
+    func menuOption(key: Character, actor: Actor, map: GameMap?) -> MenuOption {
+        let target = map.flatMap { menuTarget(for: actor, in: $0) }
+        return MenuOption(key: key, label: menuDescription(actor), kind: menuKind,
+                          target: target.map { TilePoint(map: $0.map.index, x: $0.x, y: $0.y) })
+    }
 }
 
 /// An ordered collection of Actions. Port of `edu.monash.fit2099.engine.Actions`.

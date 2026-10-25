@@ -1,12 +1,18 @@
 /// Does nothing, with a custom description.
 final class DoNothingCustomMessageAction: DoNothingAction {
     private let message: String
+    private let location: Location?
 
-    init(_ message: String) {
+    init(_ message: String, at location: Location? = nil) {
         self.message = message
+        self.location = location
     }
 
     override func menuDescription(_ actor: Actor) -> String { "\(actor) \(message)" }
+
+    override var menuKind: ActionKind { location == nil ? .wait : .other }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? { location }
 
     override var hotkey: String? { "-" }
 }
@@ -14,11 +20,17 @@ final class DoNothingCustomMessageAction: DoNothingAction {
 final class ToggleAction: Action {
     private let object: Toggleable
     private let currentState: Bool
+    private let location: Location?
 
-    init(_ object: Toggleable, _ currentState: Bool) {
+    init(_ object: Toggleable, _ currentState: Bool, at location: Location? = nil) {
         self.object = object
         self.currentState = currentState
+        self.location = location
     }
+
+    override var menuKind: ActionKind { .door }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? { location }
 
     override func execute(_ actor: Actor, _ map: GameMap) -> String? {
         object.toggle()
@@ -51,6 +63,8 @@ final class CraftAction: Action {
     }
 
     override func menuDescription(_ actor: Actor) -> String { "Craft \(item) into \(newItem)" }
+
+    override var menuKind: ActionKind { .craft }
 }
 
 final class EatAction: Action {
@@ -72,6 +86,8 @@ final class EatAction: Action {
     }
 
     override func menuDescription(_ actor: Actor) -> String { "\(actor) eats food" }
+
+    override var menuKind: ActionKind { .eat }
 }
 
 final class SowAction: Action {
@@ -119,6 +135,10 @@ class HarvestAction: Action {
     }
 
     override func menuDescription(_ actor: Actor) -> String { "Harvest Crop" }
+
+    override var menuKind: ActionKind { .harvest }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? { target }
 }
 
 /// Humans (and the player) put the harvested food straight into their inventory.
@@ -158,6 +178,12 @@ final class CollectCoinsAction: Action {
     override func menuDescription(_ actor: Actor) -> String {
         "\(actor) collects \(coins.count) coin\(coins.count != 1 ? "s" : "")"
     }
+
+    override var menuKind: ActionKind { .collect }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? {
+        map.actorLocations.locationOf(actor)
+    }
 }
 
 final class BuyAction: Action {
@@ -177,15 +203,23 @@ final class BuyAction: Action {
     override func menuDescription(_ actor: Actor) -> String {
         "\(actor) buys a \(product.item) for \(product.cost) coin\(product.cost != 1 ? "s" : "")"
     }
+
+    override var menuKind: ActionKind { .buy }
 }
 
 /// Opens a shop's product menu.
 final class ShopAction: Action, MenuAction {
     private let shop: Shop
+    private let location: Location?
 
-    init(_ shop: Shop) {
+    init(_ shop: Shop, at location: Location? = nil) {
         self.shop = shop
+        self.location = location
     }
+
+    override var menuKind: ActionKind { .shop }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? { location }
 
     override func execute(_ actor: Actor, _ map: GameMap) -> String? { nil }
 
@@ -193,7 +227,7 @@ final class ShopAction: Action, MenuAction {
 
     func getAction(_ actor: Actor, _ map: GameMap, _ display: Display) async throws -> Action {
         guard let wallet = actor as? Wallet else { return DoNothingAction() }
-        let sub = SubMenu()
+        let sub = SubMenu(map: map)
         var unaffordable: [String] = []
         for product in shop.getProducts() {
             if wallet.wealth < product.cost {

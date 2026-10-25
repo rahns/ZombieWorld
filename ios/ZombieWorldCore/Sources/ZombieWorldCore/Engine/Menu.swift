@@ -1,6 +1,6 @@
 /// The main turn menu. Port of `edu.monash.fit2099.engine.Menu`.
 class Menu {
-    func showMenu(_ actor: Actor, _ actions: Actions, _ display: Display) async throws -> Action {
+    func showMenu(_ actor: Actor, _ actions: Actions, _ display: Display, map: GameMap? = nil) async throws -> Action {
         var freeChars = Array("abcdefghijklmnopqrstuvwxyz")
         var keyToAction: [Character: Action] = [:]
         var options: [MenuOption] = []
@@ -19,7 +19,7 @@ class Menu {
             // A later action with the same key wins, as in the Java HashMap; hide the unreachable one.
             options.removeAll { $0.key == c }
             keyToAction[c] = action
-            options.append(MenuOption(key: c, label: action.menuDescription(actor)))
+            options.append(action.menuOption(key: c, actor: actor, map: map))
         }
 
         while true {
@@ -35,6 +35,11 @@ final class SubMenu {
     private var keyToAction: [Character: Action] = [:]
     private var options: [MenuOption] = []
     private var footer = ""
+    private let map: GameMap?
+
+    init(map: GameMap? = nil) {
+        self.map = map
+    }
 
     private func constructFreeCharsList() {
         freeChars = Array("abcdefghijklmnopqrstuvwxyz123456789")
@@ -57,7 +62,7 @@ final class SubMenu {
         freeChars?.removeAll { $0 == c }
         options.removeAll { $0.key == c }
         keyToAction[c] = action
-        options.append(MenuOption(key: c, label: action.menuDescription(actor)))
+        options.append(action.menuOption(key: c, actor: actor, map: map))
     }
 
     func setFooter(_ footer: String) {

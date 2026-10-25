@@ -15,14 +15,24 @@ The app needs iOS 17 or later.
 
 ## How to play
 
-- **D-pad**: moves in the eight directions. The centre button waits for one turn.
-- **Action list** (next to the pad): attack, pick up, drop, eat, craft, use guns, open doors, shop
-  and so on. Each action still shows its original menu key.
-- **Map**: tap it to switch between the close-up view and the whole map. The legend
-  (••• menu → *Map legend*) explains every symbol.
+- **Tap a square** to act on it: walk there one step at a time, attack the zombie standing there,
+  open a door, enter the shop, or pick up what's under you. Squares you can act on are marked:
+  red brackets for enemies, gold for everything else.
+- **Hold a square** to see what's there (who it is and their health, items, terrain).
+- **Pad**: steps in the eight directions. The middle button waits for a turn.
+- **Actions** (next to the pad): everything else you can do, such as eat, craft, use guns, drop
+  items, ride the train, collect coins.
+- **Message box**: shows what just happened. Tap it for the full log.
+- **Pinch** the map to zoom. The ☰ menu has the whole-map view, the log, *How to play* (with a
+  sprite legend), *New game* and *Quit game*.
 - **Keyboard**: on an iPad or simulator with a hardware keyboard you can type the original menu
   keys (`8` = north, `5` = wait, `a`…`z` for the other actions).
-- The ••• menu also has *New game* and *Quit game*.
+
+## Getting the app onto an iPhone without a Mac
+
+Every push that changes `ios/` runs the **iOS build** GitHub Actions workflow on a free macOS
+runner. It produces an unsigned `ZombieWorld-unsigned.ipa`, which you can download from the run's
+*Artifacts* section and sign with your own certificate.
 
 ## Project layout
 
@@ -32,15 +42,23 @@ ios/
 ├── ZombieWorld/                  SwiftUI app (UI only)
 │   ├── ZombieWorldApp.swift      @main entry point
 │   ├── GameSession.swift         Runs the engine and bridges its prompts to SwiftUI
-│   ├── GameView.swift            Status bar, map, message log, d-pad, actions, game over
-│   ├── MapView.swift             Coloured, scrolling text map
-│   └── Theme.swift               Colours and map legend
+│   ├── GameView.swift            HUD, message box, pad, actions, menus, sheets, tap handling
+│   ├── WorldScene.swift          SpriteKit map: tiles, animated actors, effects, camera, touches
+│   ├── Sprites.swift             Which sprite to draw for each map character
+│   ├── Retro.swift               Pixel font, palette, text boxes, icons, legend
+│   ├── Fonts/                    Press Start 2P pixel font
+│   └── Assets.xcassets/Sprites   16×16 sprites (see CREDITS.md)
 └── ZombieWorldCore/              Swift package with the game itself (no UI code)
     ├── Sources/ZombieWorldCore/Engine/   Port of edu.monash.fit2099.engine
     ├── Sources/ZombieWorldCore/Game/     Port of the game package
     ├── Sources/zombieworld-cli/          Terminal version, like the Java original
     └── Tests/ZombieWorldCoreTests/       Unit tests and automated random playthroughs
+tools/make_sprites.py             Rebuilds the sprites from Kenney's packs
+CREDITS.md                        Sprite and font credits and licences
 ```
+
+The sprites are from Kenney's free CC0 packs, plus a few drawn in the same style.
+See `CREDITS.md`.
 
 The engine has no UI code. The Java engine blocked on `Scanner` input. Here the engine is
 `async`: when it needs a decision it sends a `Prompt` (new log lines, a map snapshot, player

@@ -24,7 +24,8 @@ final class GameSession: ObservableObject {
 
     private static let maxLogEntries = 400
     private var nextLogID = 0
-    private var generation = 0
+    /// Increases with every new game.
+    private(set) var generation = 0
     private var continuation: CheckedContinuation<Character, Error>?
     private var task: Task<Void, Never>?
 

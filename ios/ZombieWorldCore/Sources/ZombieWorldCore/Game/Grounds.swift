@@ -29,7 +29,7 @@ final class Door: Ground, Toggleable {
     init() { super.init("_") }
 
     override func allowableActions(_ actor: Actor, _ location: Location, _ direction: String) -> Actions {
-        Actions(ToggleAction(self, isOpen))
+        Actions(ToggleAction(self, isOpen, at: location))
     }
 
     func toggle() {
@@ -92,11 +92,11 @@ final class Shop: Ground, CustomStringConvertible {
         super.tick(location)
         if age < unlockAge {
             shopActions.clear()
-            shopActions.add(DoNothingCustomMessageAction("stares at the closed \(name) store. This shop will unlock in \(unlockAge - age) turn(s)"))
+            shopActions.add(DoNothingCustomMessageAction("stares at the closed \(name) store. This shop will unlock in \(unlockAge - age) turn(s)", at: location))
             age += 1
         } else if age == unlockAge {
             shopActions.clear()
-            shopActions.add(ShopAction(self))
+            shopActions.add(ShopAction(self, at: location))
             displayChar = "]"
             age += 1
         }

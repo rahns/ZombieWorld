@@ -6,6 +6,8 @@ final class GameMap {
     var actorLocations: ActorLocations!
     /// Set by the World when the map is added; lets game objects print messages.
     weak var display: Display?
+    /// Position in the World's list of maps.
+    var index = 0
     let groundFactory: GroundFactory
 
     init(_ groundFactory: GroundFactory, _ groundChar: Character, width: Int, height: Int) {
@@ -58,8 +60,28 @@ final class GameMap {
 
     /// Sends a snapshot of this map to the display.
     func draw(_ display: Display, focus: Location?) {
-        let rows = heights.map { y in String(widths.map { x in at(x, y).displayChar }) }
-        display.show(MapFrame(rows: rows, focusX: focus?.x, focusY: focus?.y))
+        var rows: [String] = []
+        var ground: [String] = []
+        var items: [String] = []
+        var actors: [ActorSnapshot] = []
+        for y in heights {
+            var row = "", groundRow = "", itemRow = ""
+            for x in widths {
+                let location = at(x, y)
+                row.append(location.displayChar)
+                groundRow.append(location.ground.displayChar)
+                itemRow.append(location.items.last?.displayChar ?? " ")
+                if let actor = location.actor {
+                    actors.append(ActorSnapshot(id: display.id(of: actor), symbol: actor.displayChar, name: actor.name,
+                                                x: x, y: y, hitPoints: actor.hitPoints, maxHitPoints: actor.maxHitPoints))
+                }
+            }
+            rows.append(row)
+            ground.append(groundRow)
+            items.append(itemRow)
+        }
+        display.show(MapFrame(rows: rows, focusX: focus?.x, focusY: focus?.y, mapIndex: index,
+                              ground: ground, items: items, actors: actors))
     }
 
     func at(_ x: Int, _ y: Int) -> Location { map[x][y] }

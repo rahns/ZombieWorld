@@ -4,6 +4,10 @@ import SwiftUI
 struct ZombieWorldApp: App {
     @StateObject private var session = GameSession()
 
+    init() {
+        Retro.registerFont()
+    }
+
     var body: some Scene {
         WindowGroup {
             GameView()

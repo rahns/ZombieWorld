@@ -9,6 +9,8 @@ class DoNothingAction: Action {
     }
 
     override var hotkey: String? { "5" }
+
+    override var menuKind: ActionKind { .wait }
 }
 
 /// Drops an item from the actor's inventory onto the ground.
@@ -28,6 +30,8 @@ class DropItemAction: Action {
     override func menuDescription(_ actor: Actor) -> String {
         "\(actor) drops the \(item)"
     }
+
+    override var menuKind: ActionKind { .drop }
 }
 
 /// Picks an item up off the ground.
@@ -46,6 +50,12 @@ class PickUpItemAction: Action {
 
     override func menuDescription(_ actor: Actor) -> String {
         "\(actor) picks up the \(item)"
+    }
+
+    override var menuKind: ActionKind { .pickUp }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? {
+        map.actorLocations.locationOf(actor)
     }
 }
 
@@ -76,4 +86,11 @@ class MoveActorAction: Action {
     }
 
     override var hotkey: String? { hotKey }
+
+    /// Directional moves have hotkeys; other moves (the train) are journeys.
+    override var menuKind: ActionKind { hotKey == nil ? .travel : .move }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? {
+        hotKey == nil ? map.actorLocations.locationOf(actor) : moveToLocation
+    }
 }

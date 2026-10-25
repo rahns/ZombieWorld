@@ -52,6 +52,12 @@ class AttackAction: Action {
         "\(actor) attacks \(target.map(String.init(describing:)) ?? "nobody") \(healthStatus(of: target))"
     }
 
+    override var menuKind: ActionKind { .attack }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? {
+        target.flatMap { map.actorLocations.locationOf($0) }
+    }
+
     func healthStatus(of actor: Actor?) -> String {
         (actor as? ZombieActor)?.healthStatus ?? ""
     }
@@ -135,6 +141,8 @@ final class ShootAction: AttackAction {
         }
         return "\(actor) shoots at \(target.map(String.init(describing:)) ?? "nobody") \(healthStatus(of: target))"
     }
+
+    override var menuKind: ActionKind { .shoot }
 }
 
 /// Opens the menu for a gun.
@@ -149,8 +157,10 @@ final class UseGunAction: Action, MenuAction {
 
     override func menuDescription(_ actor: Actor) -> String { "Use \(gun)" }
 
+    override var menuKind: ActionKind { .gun }
+
     func getAction(_ actor: Actor, _ map: GameMap, _ display: Display) async throws -> Action {
-        let sub = SubMenu()
+        let sub = SubMenu(map: map)
         for a in gun.getActions(actor, map) {
             sub.addActionToMenu(a, actor)
         }
@@ -171,7 +181,7 @@ final class ChooseShootTargetAction: Action, MenuAction {
     }
 
     func getAction(_ actor: Actor, _ map: GameMap, _ display: Display) async throws -> Action {
-        let sub = SubMenu()
+        let sub = SubMenu(map: map)
         for a in gun.getTargets(actor, map) {
             sub.addActionToMenu(ShootAction(a, gun), actor)
         }
@@ -181,6 +191,8 @@ final class ChooseShootTargetAction: Action, MenuAction {
     override func execute(_ actor: Actor, _ map: GameMap) -> String? { nil }
 
     override func menuDescription(_ actor: Actor) -> String { "Shoot" }
+
+    override var menuKind: ActionKind { .shoot }
 }
 
 final class ChooseAimAction: Action, MenuAction {
@@ -191,7 +203,7 @@ final class ChooseAimAction: Action, MenuAction {
     }
 
     func getAction(_ actor: Actor, _ map: GameMap, _ display: Display) async throws -> Action {
-        let sub = SubMenu()
+        let sub = SubMenu(map: map)
         for a in gun.getTargets(actor, map) {
             sub.addActionToMenu(AimerAction(a, gun), actor)
         }
@@ -201,6 +213,8 @@ final class ChooseAimAction: Action, MenuAction {
     override func execute(_ actor: Actor, _ map: GameMap) -> String? { nil }
 
     override func menuDescription(_ actor: Actor) -> String { "Aim" }
+
+    override var menuKind: ActionKind { .aim }
 }
 
 final class AimerAction: Action {
@@ -218,6 +232,12 @@ final class AimerAction: Action {
     }
 
     override func menuDescription(_ actor: Actor) -> String { "\(actor) aims at \(target)" }
+
+    override var menuKind: ActionKind { .aim }
+
+    override func menuTarget(for actor: Actor, in map: GameMap) -> Location? {
+        map.actorLocations.locationOf(target)
+    }
 }
 
 final class ReloadAction: Action {
@@ -236,6 +256,8 @@ final class ReloadAction: Action {
     }
 
     override func menuDescription(_ actor: Actor) -> String { "Reload with \(ammo.bulletCount) bullets" }
+
+    override var menuKind: ActionKind { .reload }
 }
 
 final class SetUpTurretAction: DropItemAction {
@@ -255,6 +277,8 @@ final class SetUpTurretAction: DropItemAction {
     }
 
     override func menuDescription(_ actor: Actor) -> String { "\(actor) sets up the turret here" }
+
+    override var menuKind: ActionKind { .setUp }
 }
 
 /// Mambo Marie's chant, which summons new zombies at random places on the map.
@@ -298,6 +322,8 @@ final class EndLifeAction: Action {
     }
 
     override func menuDescription(_ actor: Actor) -> String { "Quit game" }
+
+    override var menuKind: ActionKind { .quit }
 
     override var hotkey: String? { "+" }
 }

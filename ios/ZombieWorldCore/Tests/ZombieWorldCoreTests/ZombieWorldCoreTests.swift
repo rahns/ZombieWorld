@@ -151,3 +151,52 @@ final class ZombieWorldCoreTests: XCTestCase {
         XCTAssertEqual((action as? MoveActorAction)?.moveToLocation, map.at(1, 0))
     }
 }
+
+final class FrontendDataTests: XCTestCase {
+    func testFrameHasLayersAndActors() async throws {
+        let frontend = ScriptedFrontend(["8"])
+        do { try await ZombieWorldGame.run(frontend: frontend) } catch is CancellationError {}
+        let first = try XCTUnwrap(frontend.prompts.first?.frame)
+        XCTAssertEqual(first.mapIndex, 0)
+        XCTAssertEqual(first.ground.count, 25)
+        XCTAssertEqual(first.items.count, 25)
+        XCTAssertEqual(Array(first.ground[22])[43], "_")
+        XCTAssertEqual(Array(first.items[23])[43], "*")
+        let player = try XCTUnwrap(first.actors.first { $0.symbol == "@" })
+        XCTAssertEqual(player.x, 43)
+        XCTAssertEqual(player.y, 15)
+        XCTAssertEqual(Set(first.actors.map(\.id)).count, first.actors.count, "actor ids are unique")
+
+        let second = try XCTUnwrap(frontend.prompts[1].frame)
+        let playerAfter = try XCTUnwrap(second.actors.first { $0.symbol == "@" })
+        XCTAssertEqual(playerAfter.id, player.id, "ids are stable between frames")
+        XCTAssertEqual(playerAfter.y, 14)
+    }
+
+    func testMoveOptionsTargetTheirSquare() async throws {
+        let frontend = ScriptedFrontend([])
+        do { try await ZombieWorldGame.run(frontend: frontend) } catch is CancellationError {}
+        let options = try XCTUnwrap(frontend.prompts.first?.options)
+        let north = try XCTUnwrap(options.first { $0.key == "8" })
+        XCTAssertEqual(north.kind, .move)
+        XCTAssertEqual(north.target, TilePoint(map: 0, x: 43, y: 14))
+        XCTAssertEqual(options.first { $0.key == "5" }?.kind, .wait)
+        XCTAssertEqual(options.first { $0.key == "+" }?.kind, .quit)
+    }
+
+    func testAttackOptionTargetsTheEnemy() {
+        let frontend = ScriptedFrontend([])
+        let display = Display(frontend: frontend)
+        let world = World(display)
+        let map = GameMap(FancyGroundFactory({ Dirt() }), ["...", "..."])
+        world.addGameMap(map)
+        let player = Player("P", "@", 100)
+        world.addPlayer(player, map.at(0, 0))
+        let zombie = Zombie("Z", map)
+        map.at(1, 1).addActor(zombie)
+        let actions = zombie.getAllowableActions(player, "South-East", map)
+        let option = actions[0].menuOption(key: "a", actor: player, map: map)
+        XCTAssertEqual(option.kind, .attack)
+        XCTAssertEqual(option.target, TilePoint(map: 0, x: 1, y: 1))
+    }
+}

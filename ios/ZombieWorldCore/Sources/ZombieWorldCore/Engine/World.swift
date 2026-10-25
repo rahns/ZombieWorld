@@ -11,6 +11,7 @@ class World {
     }
 
     func addGameMap(_ gameMap: GameMap) {
+        gameMap.index = gameMaps.count
         gameMaps.append(gameMap)
         gameMap.actorLocations = actorLocations
         gameMap.display = display

@@ -24,7 +24,7 @@ jobs:
 
       - name: Test game core
         working-directory: ios/ZombieWorldCore
-        run: swift test --filter "ZombieWorldCoreTests.ZombieWorldCoreTests/test(Crop|Door|First|Quitting|Moving|Menu|ZombieKilled|HumanHunts)"
+        run: swift test --skip testRandomGamesRunWithoutCrashing
 
       - name: Build app (unsigned)
         run: |

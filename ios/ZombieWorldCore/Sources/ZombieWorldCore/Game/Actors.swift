@@ -91,7 +91,7 @@ final class Player: Human, Wallet {
 
         if let next = lastAction.nextAction { return next }
 
-        let action = try await mainMenu.showMenu(self, actions, display)
+        let action = try await mainMenu.showMenu(self, actions, display, map: map)
         if let menuAction = action as? MenuAction {
             return try await menuAction.getAction(self, map, display)
         }

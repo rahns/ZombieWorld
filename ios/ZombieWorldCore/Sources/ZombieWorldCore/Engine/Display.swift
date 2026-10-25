@@ -1,15 +1,53 @@
+/// A square on a particular map.
+public struct TilePoint: Sendable, Hashable {
+    /// Which map: 0 is the compound, 1 is the town.
+    public let map: Int
+    public let x: Int
+    public let y: Int
+
+    public init(map: Int, x: Int, y: Int) {
+        self.map = map
+        self.x = x
+        self.y = y
+    }
+}
+
+/// An actor as drawn on the map.
+public struct ActorSnapshot: Sendable, Equatable, Identifiable {
+    /// Stable for the whole game, so frontends can animate actors between frames.
+    public let id: Int
+    public let symbol: Character
+    public let name: String
+    public let x: Int
+    public let y: Int
+    public let hitPoints: Int
+    public let maxHitPoints: Int
+}
+
 /// A snapshot of the map the player is on.
 public struct MapFrame: Sendable, Equatable {
-    /// One string per map row, top to bottom; one character per square.
+    /// One string per map row, top to bottom; one character per square (the topmost thing there).
     public let rows: [String]
     /// The player's position, if they are on this map.
     public let focusX: Int?
     public let focusY: Int?
+    /// Which map this is: 0 is the compound, 1 is the town.
+    public let mapIndex: Int
+    /// The ground character of every square, laid out like `rows`.
+    public let ground: [String]
+    /// The topmost item on every square, or a space, laid out like `rows`.
+    public let items: [String]
+    public let actors: [ActorSnapshot]
 
-    public init(rows: [String], focusX: Int?, focusY: Int?) {
+    public init(rows: [String], focusX: Int?, focusY: Int?, mapIndex: Int = 0,
+                ground: [String] = [], items: [String] = [], actors: [ActorSnapshot] = []) {
         self.rows = rows
         self.focusX = focusX
         self.focusY = focusY
+        self.mapIndex = mapIndex
+        self.ground = ground
+        self.items = items
+        self.actors = actors
     }
 
     public var width: Int { rows.first?.count ?? 0 }
@@ -24,10 +62,26 @@ public struct PlayerStatus: Sendable, Equatable {
     public let coins: Int
 }
 
+/// What kind of thing a menu option does, so frontends can pick icons and handle taps.
+public enum ActionKind: String, Sendable {
+    case move, travel, attack, shoot, aim, pickUp, drop, eat, craft, harvest, collect
+    case door, shop, buy, gun, reload, setUp, wait, quit, other
+}
+
 /// One choice in a menu: press `key` to pick it.
 public struct MenuOption: Sendable, Hashable, Identifiable {
     public let key: Character
     public let label: String
+    public let kind: ActionKind
+    /// The square this option acts on, if any (where you move to, who you attack...).
+    public let target: TilePoint?
+
+    public init(key: Character, label: String, kind: ActionKind = .other, target: TilePoint? = nil) {
+        self.key = key
+        self.label = label
+        self.kind = kind
+        self.target = target
+    }
 
     public var id: Character { key }
 }
@@ -69,9 +123,19 @@ final class Display {
     private var pending: [String] = []
     private(set) var frame: MapFrame?
     var status: PlayerStatus?
+    /// Keeps every actor that has been drawn alive, so object identities (and ids) are never reused.
+    private var actorIDs: [ObjectIdentifier: (actor: Actor, id: Int)] = [:]
 
     init(frontend: GameFrontend) {
         self.frontend = frontend
+    }
+
+    /// A stable id for an actor, for the whole game.
+    func id(of actor: Actor) -> Int {
+        if let entry = actorIDs[ObjectIdentifier(actor)] { return entry.id }
+        let id = actorIDs.count + 1
+        actorIDs[ObjectIdentifier(actor)] = (actor, id)
+        return id
     }
 
     func println(_ text: String) {
