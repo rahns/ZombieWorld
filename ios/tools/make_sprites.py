@@ -165,7 +165,7 @@ PICKS = [
     ("ground_door_closed", "town", 89),
     ("ground_door_open", "town", 78),
     ("ground_shop_open", "town", 86),
-    ("deco_tree_sapling", "town", 17),
+    ("deco_tree_sapling", "town", 5),
     ("deco_tree_young", "town", 28),
     ("deco_tree_big", "town", 16),
     ("deco_crop_sprout", "town", 17),

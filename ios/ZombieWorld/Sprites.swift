@@ -39,8 +39,8 @@ enum Sprites {
         h = h &* 0x5BD1_E995
         h ^= h >> 15
         switch h % 100 {
-        case 0..<6: return "ground_grass_flowers"
-        case 6..<20: return "ground_grass_tufts"
+        case 0..<3: return "ground_grass_flowers"
+        case 3..<13: return "ground_grass_tufts"
         default: return "ground_grass"
         }
     }
