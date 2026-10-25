@@ -1,4 +1,5 @@
 import SwiftUI
+import ZombieWorldCore
 
 /// Colours and descriptions for the characters drawn on the map.
 enum Theme {

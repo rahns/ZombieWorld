@@ -268,28 +268,39 @@ private struct OptionList: View {
                         .padding(.top, 8)
                 }
                 ForEach(options) { option in
-                    Button {
-                        session.choose(option.key)
-                    } label: {
-                        HStack(alignment: .firstTextBaseline, spacing: 8) {
-                            Text(String(option.key))
-                                .font(.caption.monospaced().weight(.bold))
-                                .foregroundStyle(Theme.background)
-                                .frame(width: 20, height: 20)
-                                .background(Theme.accent, in: RoundedRectangle(cornerRadius: 5))
-                            Text(option.shortLabel)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.leading)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 8)
-                        .background(Color.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 8))
-                    }
-                    .buttonStyle(.plain)
+                    OptionRow(option: option) { session.choose(option.key) }
                 }
             }
         }
+    }
+}
+
+private struct OptionRow: View {
+    let option: MenuOption
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                keyBadge
+                Text(option.shortLabel)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background(Color.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 8))
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var keyBadge: some View {
+        Text(String(option.key))
+            .font(.caption.monospaced().weight(.bold))
+            .foregroundStyle(Theme.background)
+            .frame(width: 20, height: 20)
+            .background(Theme.accent, in: RoundedRectangle(cornerRadius: 5))
     }
 }
 
