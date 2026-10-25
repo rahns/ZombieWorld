@@ -81,7 +81,7 @@ final class GameMap {
             items.append(itemRow)
         }
         display.show(MapFrame(rows: rows, focusX: focus?.x, focusY: focus?.y, mapIndex: index,
-                              ground: ground, items: items, actors: actors))
+                              ground: ground, items: items, actors: actors, deaths: display.takeDeaths()))
     }
 
     func at(_ x: Int, _ y: Int) -> Location { map[x][y] }

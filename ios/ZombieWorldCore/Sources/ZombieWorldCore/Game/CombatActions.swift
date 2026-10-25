@@ -34,12 +34,12 @@ class AttackAction: Action {
     /// Weapon accuracy wins over actor accuracy; otherwise it's a coin flip.
     func misses(_ actor: Actor, _ weapon: Weapon) -> Bool {
         if let weapon = weapon as? HitProbability {
-            return Int.random(in: 0..<100) > weapon.hitProbability
+            return Dice.int(0..<100) > weapon.hitProbability
         }
         if let actor = actor as? HitProbability {
-            return Int.random(in: 0..<100) > actor.hitProbability
+            return Dice.int(0..<100) > actor.hitProbability
         }
-        return Bool.random()
+        return Dice.bool()
     }
 
     /// Damage dealt by something that isn't an actor (a turret).
@@ -79,6 +79,7 @@ class AttackAction: Action {
         let shouldRise = actor != nil
             && target.hasCapability(ZombieCapability.alive)
             && actor!.hasCapability(ZombieCapability.undead)
+        map.display?.noteDeath(target)
         let corpse = Corpse(target.name, shouldRise: shouldRise, map: map)
         map.locationOf(target).addItem(corpse)
 
@@ -295,8 +296,8 @@ final class ChantSpawnAction: Action {
         var count = 0
         for _ in 0..<numberToSpawn {
             for _ in 0..<ChantSpawnAction.maxSpawnTries {
-                let x = Int.random(in: 0..<max(1, map.xRange.max))
-                let y = Int.random(in: 0..<max(1, map.yRange.max))
+                let x = Dice.int(0..<max(1, map.xRange.max))
+                let y = Dice.int(0..<max(1, map.yRange.max))
                 let newZombie = Zombie("A Mambo Minion", map)
                 if map.at(x, y).canActorEnter(newZombie) {
                     map.addActor(newZombie, map.at(x, y))

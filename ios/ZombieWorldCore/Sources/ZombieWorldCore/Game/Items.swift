@@ -108,7 +108,7 @@ struct Product {
 final class Corpse: PortableItem {
     private let shouldRise: Bool
     private let map: GameMap
-    private var riseIn = Int.random(in: 5...10)
+    private var riseIn = Dice.int(5...10)
     private let oldName: String
 
     init(_ name: String, shouldRise: Bool, map: GameMap) {
@@ -157,7 +157,7 @@ final class Corpse: PortableItem {
 
     private func addAtValidAdjacentLocation(_ centreLocation: Location, _ newZombie: Actor) -> Bool {
         let validExits = centreLocation.exits.filter { $0.destination.canActorEnter(newZombie) }
-        guard let exit = validExits.randomElement() else { return false }
+        guard let exit = Dice.element(of: validExits) else { return false }
         exit.destination.addActor(newZombie)
         return true
     }
@@ -221,7 +221,7 @@ final class Turret: Item {
 
     private func shoot(_ targetActor: Actor?) {
         guard let targetActor, let currentMap, let display = currentMap.display else { return }
-        if Int.random(in: 0..<100) > Turret.hitChance {
+        if Dice.int(0..<100) > Turret.hitChance {
             display.println("A turret misses \(targetActor)")
         } else {
             display.println("A turret shoots \(targetActor) for \(Turret.damage) damage")

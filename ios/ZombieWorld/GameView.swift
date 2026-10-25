@@ -32,6 +32,8 @@ struct GameView: View {
         .overlay {
             if let result = session.result {
                 GameOverCard(result: result) { session.newGame() }
+            } else if session.isRestoring {
+                RestoringCard()
             }
         }
         .sheet(isPresented: $showLegend) { LegendSheet() }
@@ -69,6 +71,12 @@ struct GameView: View {
             if let frame { holder.scene.apply(frame, game: session.generation) }
         }
         .onChange(of: session.options) { _, _ in updateMarkers() }
+        .onChange(of: session.notice) { _, notice in
+            if let notice {
+                showToast(notice)
+                session.clearNotice()
+            }
+        }
     }
 
     // MARK: - Map area
@@ -578,6 +586,22 @@ private struct GameOverCard: View {
             .retroBox(padding: 18)
             .padding(28)
         }
+    }
+}
+
+/// Shown while a saved game is replayed after launch.
+private struct RestoringCard: View {
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.55).ignoresSafeArea()
+            VStack(spacing: 16) {
+                SpriteImage(name: "actor_zombie_0", size: 48)
+                Text("LOADING YOUR GAME").font(.pixel(10))
+                ProgressView().tint(Retro.ink)
+            }
+            .retroBox(padding: 20)
+        }
+        .transition(.opacity)
     }
 }
 

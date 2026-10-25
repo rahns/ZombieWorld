@@ -17,7 +17,7 @@ struct ZombieWorldApp: App {
                 .environmentObject(music)
                 .preferredColorScheme(.dark)
                 .onAppear {
-                    if !session.hasStarted { session.newGame() }
+                    if !session.hasStarted { session.start() }
                     music.start()
                 }
                 .onChange(of: scenePhase) { _, phase in

@@ -1,7 +1,6 @@
 /// Bidirectional mapping between Actors and Locations across all maps.
 /// Port of `edu.monash.fit2099.engine.ActorLocations`.
 final class ActorLocations: Sequence {
-    private var locationToActor: [Location: Actor] = [:]
     private var actorToLocation: [ObjectIdentifier: Location] = [:]
     /// Insertion order, so turn order is stable between rounds.
     private var order: [Actor] = []
@@ -11,32 +10,30 @@ final class ActorLocations: Sequence {
 
     func add(_ actor: Actor, _ location: Location) {
         precondition(actorToLocation[ObjectIdentifier(actor)] == nil, "\(actor) is already in the world")
-        precondition(locationToActor[location] == nil, "There is already an actor at (\(location.x), \(location.y))")
+        precondition(location.occupant == nil, "There is already an actor at (\(location.x), \(location.y))")
         actorToLocation[ObjectIdentifier(actor)] = location
-        locationToActor[location] = actor
+        location.occupant = actor
         order.append(actor)
     }
 
     func remove(_ actor: Actor) {
         guard let location = actorToLocation.removeValue(forKey: ObjectIdentifier(actor)) else { return }
-        locationToActor.removeValue(forKey: location)
+        location.occupant = nil
         order.removeFirstIdentical(actor)
     }
 
     func move(_ actor: Actor, _ newLocation: Location) {
         precondition(!isAnActorAt(newLocation), "Can't move to another actor")
-        if let oldLocation = actorToLocation[ObjectIdentifier(actor)] {
-            locationToActor.removeValue(forKey: oldLocation)
-        }
+        actorToLocation[ObjectIdentifier(actor)]?.occupant = nil
         actorToLocation[ObjectIdentifier(actor)] = newLocation
-        locationToActor[newLocation] = actor
+        newLocation.occupant = actor
     }
 
     func contains(_ actor: Actor) -> Bool { actorToLocation[ObjectIdentifier(actor)] != nil }
 
-    func isAnActorAt(_ location: Location) -> Bool { locationToActor[location] != nil }
+    func isAnActorAt(_ location: Location) -> Bool { location.occupant != nil }
 
-    func getActorAt(_ location: Location) -> Actor? { locationToActor[location] }
+    func getActorAt(_ location: Location) -> Actor? { location.occupant }
 
     func locationOf(_ actor: Actor) -> Location? { actorToLocation[ObjectIdentifier(actor)] }
 

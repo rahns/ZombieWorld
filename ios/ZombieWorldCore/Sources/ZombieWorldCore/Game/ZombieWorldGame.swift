@@ -45,11 +45,17 @@ public enum ZombieWorldGame {
         ".........................................",
     ]
 
+    /// Bump whenever a change to the game would make old saves replay differently.
+    public static let saveFormatVersion = 1
+
     /// Builds a new game and plays it until it ends, asking `frontend` for every player decision.
+    /// The same seed and the same choices always play out the same way.
     /// Throws if the frontend throws (e.g. the player starts a new game).
-    public static func run(frontend: GameFrontend) async throws {
-        let world = makeWorld(Display(frontend: frontend))
-        try await world.run()
+    public static func run(frontend: GameFrontend, seed: UInt64 = UInt64.random(in: .min ... .max)) async throws {
+        try await Dice.$source.withValue(SeededRandom(seed: seed)) {
+            let world = makeWorld(Display(frontend: frontend))
+            try await world.run()
+        }
     }
 
     static func makeWorld(_ display: Display) -> World {
@@ -74,7 +80,7 @@ public enum ZombieWorldGame {
 
         func randomFreeLocationInCompound() -> Location {
             while true {
-                let location = mainMap.at(Int.random(in: 30..<50), Int.random(in: 5..<12))
+                let location = mainMap.at(Dice.int(30..<50), Dice.int(5..<12))
                 if !location.containsAnActor() { return location }
             }
         }
@@ -125,7 +131,7 @@ public enum ZombieWorldGame {
         // Scatter ammunition around both maps
         for map in maps {
             for _ in 0..<15 {
-                let location = map.at(Int.random(in: 0..<map.xRange.max), Int.random(in: 0..<map.yRange.max))
+                let location = map.at(Dice.int(0..<map.xRange.max), Dice.int(0..<map.yRange.max))
                 if location.canActorEnter(player) {
                     location.addItem(AmmunitionCartridge())
                 }

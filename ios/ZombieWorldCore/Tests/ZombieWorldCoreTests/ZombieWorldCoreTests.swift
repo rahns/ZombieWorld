@@ -200,3 +200,94 @@ final class FrontendDataTests: XCTestCase {
         XCTAssertEqual(option.target, TilePoint(map: 0, x: 1, y: 1))
     }
 }
+
+/// Plays random choices and records them, stopping (by throwing) after `limit` prompts.
+final class RecordingFrontend: GameFrontend, @unchecked Sendable {
+    private let limit: Int
+    private(set) var choices: [Character] = []
+    private(set) var prompts: [Prompt] = []
+
+    init(limit: Int) {
+        self.limit = limit
+    }
+
+    func choose(_ prompt: Prompt) async throws -> Character {
+        prompts.append(prompt)
+        if prompts.count > limit { throw CancellationError() }
+        let key = (prompt.options.filter { $0.key != "+" }.randomElement() ?? prompt.options[0]).key
+        choices.append(key)
+        return key
+    }
+
+    func gameEnded(_ result: GameResult) async {}
+}
+
+final class SaveAndRestoreTests: XCTestCase {
+    func testSameSeedAndChoicesReplayExactly() async throws {
+        for seed: UInt64 in [1, 42, 9_876_543_210] {
+            let original = RecordingFrontend(limit: 150)
+            do { try await ZombieWorldGame.run(frontend: original, seed: seed) } catch is CancellationError {}
+
+            let live = ScriptedFrontend([])
+            let caughtUp = Counter()
+            let replay = ReplayingFrontend(choices: original.choices, live: live) { turns in await caughtUp.set(turns) }
+            do { try await ZombieWorldGame.run(frontend: replay, seed: seed) } catch is CancellationError {}
+
+            guard let restored = live.prompts.first else {
+                // The original game ended before running out of choices; nothing more to compare.
+                continue
+            }
+            let expected = try XCTUnwrap(original.prompts.last)
+            XCTAssertEqual(restored.frame, expected.frame, "seed \(seed)")
+            XCTAssertEqual(restored.status, expected.status, "seed \(seed)")
+            XCTAssertEqual(restored.options, expected.options, "seed \(seed)")
+            let turns = await caughtUp.value
+            XCTAssertEqual(turns, original.prompts.dropLast().filter { !$0.isSubmenu }.count)
+        }
+    }
+
+    func testDifferentSeedsGiveDifferentGames() async throws {
+        let a = ScriptedFrontend([]), b = ScriptedFrontend([])
+        do { try await ZombieWorldGame.run(frontend: a, seed: 1) } catch is CancellationError {}
+        do { try await ZombieWorldGame.run(frontend: b, seed: 2) } catch is CancellationError {}
+        XCTAssertNotEqual(a.prompts.first?.frame, b.prompts.first?.frame)
+    }
+
+    func testReplayingImpossibleChoicesIsDetected() async {
+        let replay = ReplayingFrontend(choices: ["8", "!", "!"], live: ScriptedFrontend([])) { _ in }
+        do {
+            try await ZombieWorldGame.run(frontend: replay, seed: 7)
+            XCTFail("expected the replay to diverge")
+        } catch {
+            XCTAssertTrue(error is ReplayDivergedError, "\(error)")
+        }
+    }
+
+    func testKilledActorsAreReportedAsDeaths() {
+        let display = Display(frontend: ScriptedFrontend([]))
+        let world = World(display)
+        let map = GameMap(FancyGroundFactory({ Dirt() }), ["...", "..."])
+        world.addGameMap(map)
+        let player = Player("P", "@", 100)
+        world.addPlayer(player, map.at(0, 0))
+        let zombie = Zombie("Z", map)
+        let leaver = Zombie("Leaver", map)
+        map.at(1, 1).addActor(zombie)
+        map.at(2, 1).addActor(leaver)
+        map.draw(display, focus: nil)
+        let zombieID = display.id(of: zombie)
+
+        _ = AttackAction(zombie).executeAsItem(map, 1000)
+        map.removeActor(leaver)  // leaves without dying
+        map.draw(display, focus: nil)
+        XCTAssertEqual(display.frame?.deaths, [zombieID])
+
+        map.draw(display, focus: nil)
+        XCTAssertEqual(display.frame?.deaths, [], "deaths are only reported once")
+    }
+}
+
+actor Counter {
+    private(set) var value = 0
+    func set(_ newValue: Int) { value = newValue }
+}

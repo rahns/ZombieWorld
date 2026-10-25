@@ -29,6 +29,8 @@ The app needs iOS 17 or later.
 - The ☰ menu has *Whole map*, *Centre on player*, the log, *How to play* (with a sprite legend),
   music on/off, *New game* and *Quit game*.
 - **Music** follows the ring/silent switch and mixes with other apps' audio.
+- **Your game is saved automatically** after every move, and comes back exactly as you left it,
+  even after a force quit. *New game* in the ☰ menu starts over.
 - **Keyboard**: on an iPad or simulator with a hardware keyboard you can type the original menu
   keys (`8` = north, `5` = wait, `a`…`z` for the other actions).
 
@@ -46,6 +48,7 @@ ios/
 ├── ZombieWorld/                  SwiftUI app (UI only)
 │   ├── ZombieWorldApp.swift      @main entry point
 │   ├── GameSession.swift         Runs the engine and bridges its prompts to SwiftUI
+│   ├── SaveStore.swift           Saves the seed and moves after every turn
 │   ├── GameView.swift            HUD, message box, pad, actions, menus, sheets, tap handling
 │   ├── WorldScene.swift          SpriteKit map: tiles, animated actors, effects, camera, touches
 │   ├── Sprites.swift             Which sprite to draw for each map character
@@ -72,6 +75,12 @@ The engine has no UI code. The Java engine blocked on `Scanner` input. Here the 
 `async`: when it needs a decision it sends a `Prompt` (new log lines, a map snapshot, player
 status and menu options) to a `GameFrontend` and waits for the chosen key. The SwiftUI app and
 the terminal version are two implementations of that protocol.
+
+Saving works by replay. Every random event comes from a seeded generator (`Dice`), so a
+game is fully determined by its seed and the keys the player pressed. The app stores just
+those (`SaveStore`) after every move. On launch, `ReplayingFrontend` plays the recorded keys
+through the engine off-screen, then hands over to the UI. If a change to the game rules would
+make old saves replay differently, bump `ZombieWorldGame.saveFormatVersion`.
 
 You can build and test the core with SwiftPM on macOS or Linux:
 
