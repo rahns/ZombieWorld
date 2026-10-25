@@ -2,7 +2,7 @@
 """Builds the game's sprites into ZombieWorld/Assets.xcassets/Sprites.
 
 Most sprites come from Kenney's "Tiny Town" and "Tiny Dungeon" packs (CC0, www.kenney.nl).
-A few things those packs don't have (zombie limbs, guns, turret, ammo) are drawn below in the
+A few things those packs don't have (the zombies, their limbs, guns, turret, ammo, train) are drawn below in the
 same 16x16 style and palette.
 
 Usage:
@@ -25,15 +25,54 @@ PALETTE = {
     "D": (0x52, 0x60, 0x7C),  # dark metal
     "W": (0xBD, 0x6C, 0x4A),  # wood
     "w": (0xEA, 0xA5, 0x6C),  # light wood
-    "G": (0x43, 0xE1, 0xB3),  # zombie green
-    "g": (0x69, 0xFF, 0xD4),  # light zombie green
-    "d": (0x25, 0x95, 0x6A),  # dark zombie green
+    "G": (0x7E, 0xBF, 0x63),  # zombie skin
+    "g": (0xB4, 0xE0, 0x8C),  # light zombie skin
+    "d": (0x4E, 0x8A, 0x4A),  # dark zombie skin
+    "k": (0x26, 0x2B, 0x44),  # eye sockets, dark hair
+    "T": (0xE8, 0xE8, 0xD0),  # teeth
+    "B": (0x5A, 0x3A, 0x2E),  # dark brown hair
+    "b": (0x86, 0x5A, 0x42),  # brown hair
     "R": (0xE8, 0x45, 0x37),  # red
     "r": (0x76, 0x3B, 0x36),  # dark red
     "Y": (0xF7, 0xC5, 0x4A),  # brass
 }
 
 DRAWN = {
+    # Zombies shamble side-on with their arms out; the game flips them to face where they walk.
+    "actor_zombie_0": """
+................
+...OOOOOOO......
+..OBbOBbBBO.....
+..ObGgGGGBO.....
+.OGGGGGGGGGO....
+.OGkkGGkkGdO....
+.OGkRGGkRGdO....
+.OdGGGGGGGdO....
+..OGOTOTOGOO....
+.OOdOOOOOOgGOO..
+ODMDDOgGGGGGGgO.
+ODDRDDOGdGGGGGO.
+ODMDDOgGGGGdOGGO
+ODDDDDOOOOOOOOO.
+.OrrOOrrO.......
+.OOOO.OOO.......""",
+    "actor_zombie_1": """
+................
+...OOOOOOO......
+..OkkOkOkkO.....
+..OkGgGGGkO.....
+.OGGGGGGGGGO....
+.OGkkGGkkGdO....
+.OGkRGGkRGdO....
+.OdGGGGGGGdO....
+..OGOTOTOGOO....
+.OOrOOOOOOgGOO..
+ORrRrOgGGGGGGgO.
+OrrrrrOGdGGGGGO.
+ORrRrOgGGGGdOGGO
+OrrrRrOOOOOOOOO.
+.ODDOODDO.......
+.OOOO.OOO.......""",
     "item_arm": """
 ................
 ................
@@ -185,7 +224,6 @@ PICKS = [
     ("actor_human_5", "dungeon", 112),
     ("actor_human_6", "dungeon", 98),
     ("actor_farmer", "dungeon", 86),
-    ("actor_zombie_0", "dungeon", 108),
     ("actor_mambo", "dungeon", 84),
 ]
 
@@ -215,23 +253,6 @@ def recolour(img, mapping):
             if a and (r, g, b) in mapping:
                 px[x, y] = mapping[(r, g, b)] + (a,)
     return out
-
-
-def zombify(img):
-    """Gives a human sprite green, sickly skin."""
-    out = img.copy()
-    px = out.load()
-    for y in range(out.height):
-        for x in range(out.width):
-            r, g, b, a = px[x, y]
-            if a == 0:
-                continue
-            # skin tones are warm and light: turn them green
-            if r > 180 and g > 120 and b < 150 and r > b + 50:
-                px[x, y] = (0x8F, 0xD9, 0x7A, a)
-            elif r > 140 and g > 80 and b < 110 and r > b + 60:
-                px[x, y] = (0x5E, 0xA8, 0x5A, a)
-    return ImageEnhance.Color(out).enhance(0.75)
 
 
 def save(name, img):
@@ -271,8 +292,7 @@ def main():
     shop.alpha_composite(tile(packs, "town", 81))
     save("ground_shop_closed", shop)
 
-    # A zombified human for variety, and the packed turret (greyed out).
-    save("actor_zombie_1", zombify(tile(packs, "dungeon", 85)))
+    # The packed turret is the set-up one, greyed out.
     turret = draw(DRAWN["item_turret"])
     save("item_turret_packed", ImageEnhance.Brightness(ImageEnhance.Color(turret).enhance(0.2)).enhance(0.8))
 
