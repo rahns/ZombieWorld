@@ -23,8 +23,11 @@ The app needs iOS 17 or later.
 - **Actions** (next to the pad): everything else you can do, such as eat, craft, use guns, drop
   items, ride the train, collect coins.
 - **Message box**: shows what just happened. Tap it for the full log.
-- **Pinch** the map to zoom. The ☰ menu has the whole-map view, the log, *How to play* (with a
-  sprite legend), music on/off, *New game* and *Quit game*.
+- **Drag** the map to look around and **pinch** to zoom, from the whole map down to a close-up.
+  The camera stops following you while you look around. Tap **ME** to jump back to your
+  character.
+- The ☰ menu has *Whole map*, *Centre on player*, the log, *How to play* (with a sprite legend),
+  music on/off, *New game* and *Quit game*.
 - **Music** follows the ring/silent switch and mixes with other apps' audio.
 - **Keyboard**: on an iPad or simulator with a hardware keyboard you can type the original menu
   keys (`8` = north, `5` = wait, `a`…`z` for the other actions).

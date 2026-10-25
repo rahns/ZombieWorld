@@ -12,7 +12,7 @@ struct GameView: View {
     @EnvironmentObject private var session: GameSession
     @EnvironmentObject private var music: MusicPlayer
     @StateObject private var holder = SceneHolder()
-    @State private var showWholeMap = false
+    @State private var isFollowingPlayer = true
     @State private var showLegend = false
     @State private var showLog = false
     @State private var confirmQuit = false
@@ -69,7 +69,6 @@ struct GameView: View {
             if let frame { holder.scene.apply(frame, game: session.generation) }
         }
         .onChange(of: session.options) { _, _ in updateMarkers() }
-        .onChange(of: showWholeMap) { _, whole in holder.scene.showsWholeMap = whole }
     }
 
     // MARK: - Map area
@@ -95,6 +94,13 @@ struct GameView: View {
                         .transition(.scale.combined(with: .opacity))
                         .allowsHitTesting(false)
                 }
+                if !isFollowingPlayer {
+                    HStack {
+                        Spacer()
+                        recenterButton
+                    }
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
+                }
                 let lines = headlines
                 if !lines.isEmpty {
                     MessageBox(lines: lines)
@@ -106,12 +112,33 @@ struct GameView: View {
         }
     }
 
+    /// Brings the camera back to the player after scrolling or zooming around the map.
+    private var recenterButton: some View {
+        Button {
+            holder.scene.recenterOnPlayer()
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "location.fill")
+                    .font(.system(size: 13, weight: .heavy))
+                Text("ME").font(.pixel(8))
+            }
+            .retroBox(padding: 10)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Centre on player")
+    }
+
     private var menuButton: some View {
         Menu {
             Button {
-                showWholeMap.toggle()
+                holder.scene.showWholeMap()
             } label: {
-                Label(showWholeMap ? "Zoom in" : "Whole map", systemImage: showWholeMap ? "plus.magnifyingglass" : "map")
+                Label("Whole map", systemImage: "map")
+            }
+            Button {
+                holder.scene.recenterOnPlayer()
+            } label: {
+                Label("Centre on player", systemImage: "location.fill")
             }
             Button {
                 showLog = true
@@ -173,6 +200,9 @@ struct GameView: View {
     private func configureScene() {
         holder.scene.onTap = { x, y in handleTap(x, y) }
         holder.scene.onLongPress = { x, y in inspect(x, y) }
+        holder.scene.onFollowingChange = { following in
+            withAnimation(.spring(duration: 0.3)) { isFollowingPlayer = following }
+        }
         if let frame = session.frame {
             holder.scene.apply(frame, game: session.generation)
         }
@@ -605,7 +635,7 @@ private struct LegendSheet: View {
                     Text("Tap a square to walk towards it, or to attack, open a door or use what's there. Hold a square to see what it is.")
                     Text("Use the pad to move one step, or the middle button to wait. Everything else you can do is in the Actions list.")
                     Text("Zombies drop coins. The Wallmart shop in town opens after 70 turns. Ride the train to get there.")
-                    Text("Pinch the map to zoom.")
+                    Text("Drag the map to look around and pinch to zoom, from the whole map down to a close-up. Tap ME to jump back to your character.")
                 }
                 legendSection("Characters", Retro.characters)
                 legendSection("Items", Retro.items)

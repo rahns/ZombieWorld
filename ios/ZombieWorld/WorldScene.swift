@@ -11,8 +11,14 @@ final class WorldScene: SKScene {
     /// Called with the map square that was pressed and held.
     var onLongPress: ((Int, Int) -> Void)?
 
-    var showsWholeMap = false {
-        didSet { updateCamera(animated: true) }
+    /// Called when the camera starts or stops following the player.
+    var onFollowingChange: ((Bool) -> Void)?
+
+    /// True while the camera follows the player; dragging or pinching the map lets it roam free.
+    private(set) var isFollowingPlayer = true {
+        didSet {
+            if oldValue != isFollowingPlayer { onFollowingChange?(isFollowingPlayer) }
+        }
     }
 
     private let worldNode = SKNode()
@@ -36,10 +42,16 @@ final class WorldScene: SKScene {
     private var actorNodes: [Int: ActorNode] = [:]
     private var actors: [Int: ActorSnapshot] = [:]
     private var focus = CGPoint.zero
+    /// Where the camera looks when it isn't following the player.
+    private var freeCenter = CGPoint.zero
     private var zoom: CGFloat = 2.25
     private var pinchStartZoom: CGFloat = 2.25
+    private static let maxZoom: CGFloat = 5
     private var touchStart: CGPoint?
     private var longPressFired = false
+    private var panLast: CGPoint?
+    private var panLastTime: TimeInterval = 0
+    private var panVelocity = CGVector.zero
 
     override init(size: CGSize) {
         super.init(size: size)
@@ -80,6 +92,7 @@ final class WorldScene: SKScene {
         let isNewMap = game != self.game || frame.mapIndex != mapIndex || frame.width != mapWidth || frame.height != mapHeight
         self.game = game
         if isNewMap {
+            isFollowingPlayer = true
             rebuildMap(frame)
         } else {
             updateGround(frame)
@@ -287,22 +300,46 @@ final class WorldScene: SKScene {
 
     // MARK: - Camera
 
-    private func updateCamera(animated: Bool) {
-        guard mapWidth > 0, size.width > 0, size.height > 0 else { return }
-        let mapSize = CGSize(width: CGFloat(mapWidth) * Self.tileSize, height: CGFloat(mapHeight) * Self.tileSize)
-        let scale: CGFloat
-        var target: CGPoint
-        if showsWholeMap {
-            scale = 1 / min(size.width / mapSize.width, size.height / mapSize.height)
-            target = CGPoint(x: mapSize.width / 2, y: -mapSize.height / 2)
-        } else {
-            scale = 1 / zoom
-            target = focus
-        }
-        // Keep the camera inside the map where the map is bigger than the screen.
+    /// Points the camera back at the player and follows them again.
+    func recenterOnPlayer() {
+        isFollowingPlayer = true
+        updateCamera(animated: true)
+    }
+
+    /// Zooms out to show the whole map.
+    func showWholeMap() {
+        zoom = minZoom
+        freeCenter = CGPoint(x: mapPixelSize.width / 2, y: -mapPixelSize.height / 2)
+        isFollowingPlayer = false
+        updateCamera(animated: true)
+    }
+
+    private var mapPixelSize: CGSize {
+        CGSize(width: CGFloat(mapWidth) * Self.tileSize, height: CGFloat(mapHeight) * Self.tileSize)
+    }
+
+    /// The zoom at which the whole map fits on screen.
+    private var minZoom: CGFloat {
+        guard mapWidth > 0, mapHeight > 0, size.width > 0, size.height > 0 else { return 1 }
+        return min(size.width / mapPixelSize.width, size.height / mapPixelSize.height, Self.maxZoom)
+    }
+
+    /// Keeps the view inside the map, or centred on it where the map is smaller than the screen.
+    private func clamped(_ point: CGPoint, scale: CGFloat) -> CGPoint {
+        let mapSize = mapPixelSize
         let halfWidth = size.width * scale / 2, halfHeight = size.height * scale / 2
+        var target = point
         target.x = mapSize.width <= halfWidth * 2 ? mapSize.width / 2 : min(max(target.x, halfWidth), mapSize.width - halfWidth)
         target.y = mapSize.height <= halfHeight * 2 ? -mapSize.height / 2 : max(min(target.y, -halfHeight), -mapSize.height + halfHeight)
+        return target
+    }
+
+    private func updateCamera(animated: Bool) {
+        guard mapWidth > 0, size.width > 0, size.height > 0 else { return }
+        zoom = min(max(zoom, minZoom), Self.maxZoom)
+        let scale = 1 / zoom
+        let target = clamped(isFollowingPlayer ? focus : freeCenter, scale: scale)
+        if !isFollowingPlayer { freeCenter = target }
 
         cameraNode.removeAction(forKey: "camera")
         if animated {
@@ -318,17 +355,36 @@ final class WorldScene: SKScene {
     }
 
     @objc private func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
+        guard let view else { return }
         switch recognizer.state {
         case .began:
-            pinchStartZoom = showsWholeMap ? 1 / cameraNode.xScale : zoom
+            stopCameraMotion()
+            pinchStartZoom = zoom
             cancelTouch()
         case .changed:
-            zoom = min(max(pinchStartZoom * recognizer.scale, 1), 5)
-            if showsWholeMap { showsWholeMap = false }
-            updateCamera(animated: false)
+            // Zoom around the point between the fingers.
+            let location = recognizer.location(in: view)
+            let before = convertPoint(fromView: location)
+            zoom = min(max(pinchStartZoom * recognizer.scale, minZoom), Self.maxZoom)
+            cameraNode.setScale(1 / zoom)
+            if isFollowingPlayer {
+                updateCamera(animated: false)
+            } else {
+                let after = convertPoint(fromView: location)
+                freeCenter = CGPoint(x: cameraNode.position.x + before.x - after.x, y: cameraNode.position.y + before.y - after.y)
+                updateCamera(animated: false)
+            }
         default:
             break
         }
+    }
+
+    /// Stops any camera animation where it is, so a new gesture continues from what's on screen.
+    private func stopCameraMotion() {
+        guard cameraNode.action(forKey: "camera") != nil else { return }
+        cameraNode.removeAction(forKey: "camera")
+        if !isFollowingPlayer { freeCenter = cameraNode.position }
+        zoom = 1 / cameraNode.xScale
     }
 
     // MARK: - Touches
@@ -342,7 +398,9 @@ final class WorldScene: SKScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard touches.count == 1, let touch = touches.first, let view else { return }
+        stopCameraMotion()
         touchStart = touch.location(in: view)
+        panLast = nil
         longPressFired = false
         let square = tile(at: touch)
         run(.sequence([.wait(forDuration: 0.45), .run { [weak self] in
@@ -353,19 +411,63 @@ final class WorldScene: SKScene {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first, let view, let start = touchStart else { return }
+        guard let touch = touches.first, let view else { return }
         let point = touch.location(in: view)
-        if hypot(point.x - start.x, point.y - start.y) > 12 { cancelTouch() }
+
+        if panLast == nil {
+            // A tap until the finger moves far enough; then the map starts to scroll.
+            guard let start = touchStart, !longPressFired, hypot(point.x - start.x, point.y - start.y) > 10 else { return }
+            cancelTouch()
+            freeCenter = cameraNode.position
+            isFollowingPlayer = false
+            panLast = point
+            panLastTime = touch.timestamp
+            panVelocity = .zero
+            return
+        }
+
+        guard let last = panLast else { return }
+        let scale = cameraNode.xScale
+        let dx = -(point.x - last.x) * scale, dy = (point.y - last.y) * scale
+        freeCenter = CGPoint(x: freeCenter.x + dx, y: freeCenter.y + dy)
+        updateCamera(animated: false)
+
+        let elapsed = touch.timestamp - panLastTime
+        if elapsed > 0 {
+            panVelocity = CGVector(dx: dx / elapsed, dy: dy / elapsed)
+        }
+        panLast = point
+        panLastTime = touch.timestamp
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if panLast != nil {
+            panLast = nil
+            // Keep gliding if the finger was still moving when it lifted.
+            if let touch = touches.first, touch.timestamp - panLastTime < 0.08 {
+                glide()
+            }
+            return
+        }
         defer { cancelTouch() }
         guard touchStart != nil, !longPressFired, let touch = touches.first, let square = tile(at: touch) else { return }
         onTap?(square.x, square.y)
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        panLast = nil
         cancelTouch()
+    }
+
+    private func glide() {
+        guard hypot(panVelocity.dx, panVelocity.dy) > 40 else { return }
+        let target = clamped(CGPoint(x: freeCenter.x + panVelocity.dx * 0.25, y: freeCenter.y + panVelocity.dy * 0.25),
+                             scale: 1 / zoom)
+        freeCenter = target
+        let move = SKAction.move(to: target, duration: 0.6)
+        move.timingMode = .easeOut
+        cameraNode.removeAction(forKey: "camera")
+        cameraNode.run(move, withKey: "camera")
     }
 
     private func cancelTouch() {
