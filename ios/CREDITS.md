@@ -13,6 +13,11 @@ http://creativecommons.org/publicdomain/zero/1.0/
 The zombie limbs, guns, turret, ammunition and train were drawn for this project in the same
 style. `tools/make_sprites.py` rebuilds every sprite from the two packs.
 
+## App icon and music
+
+The app icon (`tools/make_icon.py`) and the background music (`tools/make_music.py`, a chiptune
+loop in A minor) were made for this project. Both scripts regenerate their output.
+
 ## Font
 
 Press Start 2P, by Cody "CodeMan38" Boisclair. It is released under the SIL Open Font

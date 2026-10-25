@@ -10,6 +10,7 @@ final class SceneHolder: ObservableObject {
 
 struct GameView: View {
     @EnvironmentObject private var session: GameSession
+    @EnvironmentObject private var music: MusicPlayer
     @StateObject private var holder = SceneHolder()
     @State private var showWholeMap = false
     @State private var showLegend = false
@@ -121,6 +122,12 @@ struct GameView: View {
                 showLegend = true
             } label: {
                 Label("How to play", systemImage: "questionmark.circle")
+            }
+            Button {
+                music.isEnabled.toggle()
+            } label: {
+                Label(music.isEnabled ? "Music off" : "Music on",
+                      systemImage: music.isEnabled ? "speaker.slash" : "speaker.wave.2")
             }
             Divider()
             Button {
@@ -604,7 +611,7 @@ private struct LegendSheet: View {
                 legendSection("Items", Retro.items)
                 legendSection("Places", Retro.grounds)
                 Section("Credits") {
-                    Text("Sprites by Kenney (kenney.nl), CC0. Font: Press Start 2P, SIL Open Font License.")
+                    Text("Sprites by Kenney (kenney.nl), CC0. Font: Press Start 2P, SIL Open Font License. Music composed for this game.")
                         .font(.footnote)
                 }
             }

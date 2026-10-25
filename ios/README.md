@@ -24,7 +24,8 @@ The app needs iOS 17 or later.
   items, ride the train, collect coins.
 - **Message box**: shows what just happened. Tap it for the full log.
 - **Pinch** the map to zoom. The ☰ menu has the whole-map view, the log, *How to play* (with a
-  sprite legend), *New game* and *Quit game*.
+  sprite legend), music on/off, *New game* and *Quit game*.
+- **Music** follows the ring/silent switch and mixes with other apps' audio.
 - **Keyboard**: on an iPad or simulator with a hardware keyboard you can type the original menu
   keys (`8` = north, `5` = wait, `a`…`z` for the other actions).
 
@@ -46,6 +47,8 @@ ios/
 │   ├── WorldScene.swift          SpriteKit map: tiles, animated actors, effects, camera, touches
 │   ├── Sprites.swift             Which sprite to draw for each map character
 │   ├── Retro.swift               Pixel font, palette, text boxes, icons, legend
+│   ├── MusicPlayer.swift         Background music (toggle in the ☰ menu)
+│   ├── Audio/theme.wav           Background music loop
 │   ├── Fonts/                    Press Start 2P pixel font
 │   └── Assets.xcassets/Sprites   16×16 sprites (see CREDITS.md)
 └── ZombieWorldCore/              Swift package with the game itself (no UI code)
@@ -54,6 +57,8 @@ ios/
     ├── Sources/zombieworld-cli/          Terminal version, like the Java original
     └── Tests/ZombieWorldCoreTests/       Unit tests and automated random playthroughs
 tools/make_sprites.py             Rebuilds the sprites from Kenney's packs
+tools/make_icon.py                Draws the app icon
+tools/make_music.py               Synthesises the background music loop
 CREDITS.md                        Sprite and font credits and licences
 ```
 
